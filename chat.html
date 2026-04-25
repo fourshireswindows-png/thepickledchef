@@ -444,9 +444,14 @@ function buildSystemPrompt() {
 
 function renderStarters() {
   var grid = document.getElementById('starters-grid');
-  grid.innerHTML = STARTERS.map(function(s) {
-    return '<button class="starter-btn" onclick="sendMessage(\'' + s.replace(/'/g, "&#39;") + '\')">' + s + '</button>';
-  }).join('');
+  grid.innerHTML = '';
+  STARTERS.forEach(function(s) {
+    var btn = document.createElement('button');
+    btn.className = 'starter-btn';
+    btn.textContent = s;
+    btn.addEventListener('click', function() { sendMessage(s); });
+    grid.appendChild(btn);
+  });
 }
 
 function sendMessage(textArg) {
