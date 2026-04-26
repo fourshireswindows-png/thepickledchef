@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Go Premium — The Pickled Chef</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#f7f9fc;--bg2:#fff;--border:#dde8f5;--amber:#c8873a;--amber2:#a06828;--sky:#4a9edd;--sky2:#2980b9;--navy:#1a2340;--sky-light:#e8f2fb;--text:#2a3040;--muted:#6b7a8d;--dark:#9aa3b0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;font-weight:300;color:var(--text);}
+nav{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(247,249,252,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.logo{display:flex;align-items:center;gap:7px;text-decoration:none;}
+.logo-mark{color:var(--amber);font-size:13px;}
+.logo-text{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);}
+.nav-btn{background:transparent;border:1px solid var(--border);border-radius:8px;padding:5px 12px;color:var(--muted);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:none;}
+
+.hero{padding:60px 24px 40px;text-align:center;background:linear-gradient(160deg,#f7f9fc,#eef4fb);}
+.eyebrow{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sky);margin-bottom:12px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,52px);font-weight:400;color:var(--navy);margin-bottom:12px;line-height:1.1;}
+.hero-title em{font-style:italic;color:var(--amber);}
+.hero-sub{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto 32px;line-height:1.7;}
+.trial-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(200,135,58,0.1);border:1px solid rgba(200,135,58,0.3);border-radius:20px;padding:8px 18px;font-size:13px;color:var(--amber);margin-bottom:32px;font-weight:500;}
+
+.pricing-wrap{max-width:640px;margin:0 auto;padding:40px 24px;}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.plan{background:white;border:1.5px solid var(--border);border-radius:16px;padding:28px 24px;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
+.plan-premium{border-color:var(--sky);background:linear-gradient(160deg,white,var(--sky-light));box-shadow:0 8px 24px rgba(74,158,221,0.12);position:relative;}
+.popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--sky),var(--sky2));border-radius:20px;padding:4px 14px;font-size:10px;color:white;font-weight:500;white-space:nowrap;}
+.plan-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.plan-label-premium{color:var(--sky);}
+.plan-price{font-family:'Playfair Display',serif;font-size:36px;color:var(--navy);margin-bottom:4px;}
+.plan-period{font-size:13px;color:var(--muted);}
+.plan-features{list-style:none;margin:20px 0 24px;display:flex;flex-direction:column;gap:8px;}
+.plan-feature{font-size:12px;color:var(--text);display:flex;align-items:flex-start;gap:7px;line-height:1.5;}
+.check{color:var(--sky);flex-shrink:0;font-weight:500;}
+.cross{color:var(--dark);flex-shrink:0;}
+.btn-upgrade{width:100%;background:linear-gradient(135deg,var(--sky),var(--sky2));border:none;border-radius:11px;padding:13px;color:white;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;box-shadow:0 4px 14px rgba(74,158,221,0.25);transition:transform 0.2s;}
+.btn-upgrade:hover{transform:translateY(-1px);}
+.btn-upgrade:disabled{opacity:0.5;cursor:default;transform:none;}
+.btn-current{width:100%;background:transparent;border:1.5px solid var(--border);border-radius:11px;padding:12px;color:var(--muted);font-size:14px;font-family:'DM Sans',sans-serif;cursor:default;}
+
+.chefs-section{padding:40px 24px;max-width:640px;margin:0 auto;}
+.chefs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:20px;}
+.chef-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:16px 12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
+.chef-flag{font-size:28px;margin-bottom:8px;}
+.chef-name{font-family:'Playfair Display',serif;font-size:13px;color:var(--navy);margin-bottom:3px;}
+.chef-spec{font-size:10px;color:var(--sky);}
+
+.guarantee{background:white;border:1.5px solid var(--border);border-radius:16px;padding:24px;max-width:640px;margin:0 auto 40px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
+.guarantee p{font-size:13px;color:var(--muted);line-height:1.7;}
+
+.loading{opacity:0.6;pointer-events:none;}
+
+@media(max-width:480px){
+  .pricing-grid{grid-template-columns:1fr;}
+  .plan-price{font-size:30px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="chat.html" class="logo">
+    <span class="logo-mark">✦</span>
+    <span class="logo-text">The Pickled Chef</span>
+  </a>
+  <a href="chat.html" class="nav-btn">← Back to kitchen</a>
+</nav>
+
+<div class="hero">
+  <p class="eyebrow">Upgrade your kitchen</p>
+  <h1 class="hero-title">Unlock your full<br><em>kitchen team.</em></h1>
+  <p class="hero-sub">Start your 7-day free trial today. Access all ten AI chefs, unlimited recipes and every premium feature.</p>
+  <div class="trial-badge">✦ 7-day free trial — cancel anytime</div>
+</div>
+
+<div class="pricing-wrap">
+  <div class="pricing-grid">
+    <div class="plan">
+      <p class="plan-label">Free forever</p>
+      <p class="plan-price">£0</p>
+      <p class="plan-period">No card required</p>
+      <ul class="plan-features">
+        <li class="plan-feature"><span class="check">✓</span>Chat with Charlie</li>
+        <li class="plan-feature"><span class="check">✓</span>Unlimited recipes on demand</li>
+        <li class="plan-feature"><span class="check">✓</span>Voice guidance</li>
+        <li class="plan-feature"><span class="check">✓</span>Save 3 favourites</li>
+        <li class="plan-feature"><span class="cross">✗</span>Premium chefs</li>
+        <li class="plan-feature"><span class="cross">✗</span>Authentic accents</li>
+        <li class="plan-feature"><span class="cross">✗</span>Unlimited favourites</li>
+        <li class="plan-feature"><span class="cross">✗</span>Smart meal planner</li>
+      </ul>
+      <button class="btn-current">Current plan</button>
+    </div>
+    <div class="plan plan-premium">
+      <div class="popular-badge">MOST POPULAR</div>
+      <p class="plan-label plan-label-premium">Premium</p>
+      <p class="plan-price">£4.99</p>
+      <p class="plan-period">/month after trial</p>
+      <ul class="plan-features">
+        <li class="plan-feature"><span class="check">✓</span>Everything in Free</li>
+        <li class="plan-feature"><span class="check">✓</span>All 10 AI chefs</li>
+        <li class="plan-feature"><span class="check">✓</span>Authentic accents</li>
+        <li class="plan-feature"><span class="check">✓</span>Rosie — everyday companion</li>
+        <li class="plan-feature"><span class="check">✓</span>Unlimited favourites</li>
+        <li class="plan-feature"><span class="check">✓</span>Smart meal planner</li>
+        <li class="plan-feature"><span class="check">✓</span>All future chefs included</li>
+        <li class="plan-feature"><span class="check">✓</span>Your kitchen across every device</li>
+      </ul>
+      <button class="btn-upgrade" id="upgrade-btn" onclick="handleUpgrade()">Start free trial →</button>
+    </div>
+  </div>
+</div>
+
+<div class="chefs-section">
+  <p style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sky);margin-bottom:8px">Your premium kitchen team</p>
+  <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);font-weight:400">Unlock the world's kitchens.</h2>
+  <div class="chefs-grid">
+    <div class="chef-card"><div class="chef-flag">🇮🇹</div><div class="chef-name">Chef Marco</div><div class="chef-spec">Italian</div></div>
+    <div class="chef-card"><div class="chef-flag">🇫🇷</div><div class="chef-name">Chef Jules</div><div class="chef-spec">French & pastry</div></div>
+    <div class="chef-card"><div class="chef-flag">🇲🇽</div><div class="chef-name">Chef Rosa</div><div class="chef-spec">Mexican</div></div>
+    <div class="chef-card"><div class="chef-flag">🇺🇸</div><div class="chef-name">Chef Bobby</div><div class="chef-spec">American & BBQ</div></div>
+    <div class="chef-card"><div class="chef-flag">🇨🇳</div><div class="chef-name">Chef Mei</div><div class="chef-spec">Chinese</div></div>
+    <div class="chef-card"><div class="chef-flag">🇯🇵</div><div class="chef-name">Chef Kenji</div><div class="chef-spec">Japanese</div></div>
+    <div class="chef-card"><div class="chef-flag">🇮🇳</div><div class="chef-name">Chef Priya</div><div class="chef-spec">Indian</div></div>
+    <div class="chef-card"><div class="chef-flag">🇹🇭</div><div class="chef-name">Chef Nari</div><div class="chef-spec">Thai</div></div>
+  </div>
+</div>
+
+<div style="padding:0 24px 40px;max-width:640px;margin:0 auto;">
+  <div class="guarantee">
+    <p style="font-size:20px;margin-bottom:8px;">🛡️</p>
+    <p style="font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);margin-bottom:8px;">No risk. Cancel anytime.</p>
+    <p>Your 7-day free trial gives you full access to everything. If you cancel before the trial ends you won't be charged a penny. No ads. No data selling. Ever.</p>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL = 'https://eoznfympnigexjkcnkck.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_t3UbxPmTr7GRAtfTawNatQ_Y_30u-Re';
+var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+var currentUser = null;
+
+supabase.auth.getSession().then(function(result) {
+  if (!result.data.session) {
+    window.location.href = 'auth.html';
+    return;
+  }
+  currentUser = result.data.session.user;
+});
+
+function handleUpgrade() {
+  if (!currentUser) { window.location.href = 'auth.html'; return; }
+  var btn = document.getElementById('upgrade-btn');
+  btn.disabled = true;
+  btn.textContent = 'Loading…';
+
+  fetch('/api/checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      userId: currentUser.id,
+      email: currentUser.email
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert('Something went wrong. Please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Start free trial →';
+    }
+  })
+  .catch(function() {
+    alert('Something went wrong. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Start free trial →';
+  });
+}
+</script>
+</body>
+</html>
