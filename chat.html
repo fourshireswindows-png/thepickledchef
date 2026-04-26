@@ -194,7 +194,7 @@ nav{height:58px;display:flex;align-items:center;justify-content:space-between;pa
   <div class="chat-footer">
     <div class="input-wrap" id="input-wrap">
       <textarea id="chat-input" class="chat-textarea" rows="1"
-        placeholder="Ask Charlie anything about cooking…"
+        placeholder="Ask Charlie anything about cooking…" title="Type your cooking question here"
         onkeydown="handleKey(event)"
         oninput="autoResize(this)"></textarea>
       <button class="mic-btn" id="mic-btn" onclick="toggleListen()">
@@ -219,8 +219,8 @@ nav{height:58px;display:flex;align-items:center;justify-content:space-between;pa
 <script>
 // ── Config ────────────────────────────────────────────────────────────────────
 var ANTHROPIC_KEY = '';
-var SUPABASE_URL = 'https://eoznfympnigexjkcnkck.supabase.co';
-var SUPABASE_KEY = 'sb_publishable_t3UbxPmTr7GRAtfTawNatQ_Y_30u-Re';
+var SUPABASE_URL = 'https://ctlwnlxifaibyezrvlau.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
 var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 var currentUser = null;
 var ELEVEN_KEY = '9446e78c73e387717ad7c1f4b6689179ca20f7ba915af9f3c1515c85393a5b78';
@@ -559,6 +559,10 @@ function renderStarters() {
 function sendMessage(textArg) {
   var t = (textArg || document.getElementById('chat-input').value).trim();
   if (!t || loading) return;
+  // Warn if user accidentally pastes code
+  if (t.startsWith('supabase.') || t.startsWith('var ') || t.startsWith('function ') || t.includes('console.log')) {
+    if (!confirm('That looks like code rather than a cooking question. Did you mean to paste this into the browser console instead?')) return;
+  }
   stopSpeaking();
   document.getElementById('chat-welcome').style.display = 'none';
   document.getElementById('chat-thread').style.display = 'flex';
