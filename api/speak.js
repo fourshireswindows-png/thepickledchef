@@ -23,7 +23,12 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const error = await response.text();
-      return res.status(response.status).json({ error });
+      return res.status(response.status).json({ 
+        error, 
+        status: response.status,
+        keyPresent: !!process.env.ELEVENLABS_API_KEY,
+        keyLength: process.env.ELEVENLABS_API_KEY ? process.env.ELEVENLABS_API_KEY.length : 0
+      });
     }
 
     const audioBuffer = await response.arrayBuffer();
