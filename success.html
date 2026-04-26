@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Welcome to Premium — The Pickled Chef</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#f7f9fc;--border:#dde8f5;--amber:#c8873a;--sky:#4a9edd;--sky2:#2980b9;--navy:#1a2340;--sky-light:#e8f2fb;--text:#2a3040;--muted:#6b7a8d;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;font-weight:300;color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;}
+.logo{display:flex;align-items:center;gap:7px;margin-bottom:40px;}
+.logo-mark{color:var(--amber);font-size:16px;}
+.logo-text{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);}
+.card{background:white;border:1.5px solid var(--border);border-radius:24px;padding:48px 40px;max-width:480px;width:100%;box-shadow:0 8px 32px rgba(74,158,221,0.1);}
+.success-icon{font-size:56px;margin-bottom:20px;}
+.card-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;color:var(--navy);margin-bottom:12px;}
+.card-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:32px;}
+.features{display:flex;flex-direction:column;gap:10px;margin-bottom:36px;text-align:left;}
+.feature{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text);}
+.feature-icon{width:24px;height:24px;border-radius:50%;background:var(--sky-light);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.btn{background:linear-gradient(135deg,var(--sky),var(--sky2));border:none;border-radius:12px;padding:15px 32px;color:white;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 4px 14px rgba(74,158,221,0.25);}
+.trial-note{font-size:12px;color:var(--muted);margin-top:16px;}
+</style>
+</head>
+<body>
+<div class="logo">
+  <span class="logo-mark">✦</span>
+  <span class="logo-text">The Pickled Chef</span>
+</div>
+<div class="card">
+  <div class="success-icon">🎉</div>
+  <h1 class="card-title">Welcome to Premium!</h1>
+  <p class="card-sub">Your 7-day free trial has started. You now have full access to The Pickled Chef — all chefs, all features, no limits.</p>
+  <div class="features">
+    <div class="feature"><div class="feature-icon">🇮🇹</div>Chef Marco — Italian cuisine</div>
+    <div class="feature"><div class="feature-icon">🇫🇷</div>Chef Jules — French & pastry</div>
+    <div class="feature"><div class="feature-icon">🇲🇽</div>Chef Rosa — Mexican cuisine</div>
+    <div class="feature"><div class="feature-icon">🇺🇸</div>Chef Bobby — American & BBQ</div>
+    <div class="feature"><div class="feature-icon">♾️</div>Unlimited favourite recipes</div>
+    <div class="feature"><div class="feature-icon">📅</div>Smart weekly meal planner</div>
+    <div class="feature"><div class="feature-icon">🌍</div>Your kitchen across every device</div>
+  </div>
+  <a href="chat.html" class="btn">Start cooking →</a>
+  <p class="trial-note">Your free trial ends in 7 days. Cancel anytime before then.</p>
+</div>
+
+<script>
+var SUPABASE_URL = 'https://eoznfympnigexjkcnkck.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_t3UbxPmTr7GRAtfTawNatQ_Y_30u-Re';
+var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Update user to premium in Supabase
+supabase.auth.getSession().then(function(result) {
+  if (result.data.session) {
+    var userId = result.data.session.user.id;
+    supabase.from('profiles').upsert({ id: userId, is_premium: true });
+  }
+});
+</script>
+</body>
+</html>
