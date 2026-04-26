@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>The Pickled Chef — Chat with Charlie</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --bg:#f7f9fc;--bg2:#ffffff;--border:#dde8f5;
@@ -162,7 +163,8 @@ nav{height:58px;display:flex;align-items:center;justify-content:space-between;pa
     </a>
     <div class="nav-right">
       <button class="nav-btn" id="voice-btn" onclick="toggleVoice()">🔊</button>
-      <div class="profile-pill" onclick="editProfile()">
+      <button class="nav-btn" onclick="handleSignOut()" style="color:#e74c3c;border-color:#fad4d0;">Sign out</button>
+        <div class="profile-pill" onclick="editProfile()" title="Edit profile">
         <div class="profile-av" id="profile-av">?</div>
         <span style="font-size:12px;color:var(--muted);font-weight:300" id="profile-name-label">You</span>
       </div>
@@ -217,6 +219,10 @@ nav{height:58px;display:flex;align-items:center;justify-content:space-between;pa
 <script>
 // ── Config ────────────────────────────────────────────────────────────────────
 var ANTHROPIC_KEY = '';
+var SUPABASE_URL = 'https://eoznfympnigexjkcnkck.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_t3UbxPmTr7GRAtfTawNatQ_Y_30u-Re';
+var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+var currentUser = null;
 var ELEVEN_KEY = '9446e78c73e387717ad7c1f4b6689179ca20f7ba915af9f3c1515c85393a5b78';
 var CHARLIE_VOICE = 'xXukyS7T3bWbuemsGCfl';
 
@@ -294,15 +300,80 @@ var setupData = { name:'', skillLevel:'', allergies:[], dietary:[], dietGoal:[],
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 window.onload = function() {
-  var saved = localStorage.getItem('pc_profile');
-  if (saved) {
-    profile = JSON.parse(saved);
-    showChat();
-  } else {
-    renderSetup();
-    showScreen('setup');
-  }
+  supabase.auth.getSession().then(function(result) {
+    if (!result.data.session) {
+      // Not logged in — redirect to auth
+      window.location.href = 'auth.html';
+      return;
+    }
+    currentUser = result.data.session.user;
+    // Try loading profile from Supabase first
+    loadProfileFromDB(currentUser.id).then(function(dbProfile) {
+      if (dbProfile) {
+        profile = dbProfile;
+        localStorage.setItem('pc_profile', JSON.stringify(profile));
+        showChat();
+      } else {
+        // Check localStorage fallback
+        var saved = localStorage.getItem('pc_profile');
+        if (saved) {
+          profile = JSON.parse(saved);
+          // Save to DB since we have a logged in user now
+          saveProfileToDB(currentUser.id, profile);
+          showChat();
+        } else {
+          // Pre-fill name from auth if available
+          var meta = currentUser.user_metadata;
+          if (meta && meta.name) setupData.name = meta.name;
+          else if (meta && meta.full_name) setupData.name = meta.full_name;
+          renderSetup();
+          showScreen('setup');
+        }
+      }
+    });
+  });
 };
+
+function loadProfileFromDB(userId) {
+  return supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', userId)
+    .single()
+    .then(function(result) {
+      if (result.error || !result.data) return null;
+      var d = result.data;
+      return {
+        name: d.name || '',
+        skillLevel: d.skill_level || '',
+        allergies: d.allergies ? JSON.parse(d.allergies) : [],
+        dietary: d.dietary ? JSON.parse(d.dietary) : [],
+        dietGoal: d.diet_goal ? JSON.parse(d.diet_goal) : [],
+        cuisines: d.cuisines ? JSON.parse(d.cuisines) : [],
+        kitchen: d.kitchen || ''
+      };
+    });
+}
+
+function saveProfileToDB(userId, p) {
+  return supabase.from('profiles').upsert({
+    id: userId,
+    name: p.name,
+    skill_level: p.skillLevel,
+    allergies: JSON.stringify(p.allergies || []),
+    dietary: JSON.stringify(p.dietary || []),
+    diet_goal: JSON.stringify(p.dietGoal || []),
+    cuisines: JSON.stringify(p.cuisines || []),
+    kitchen: p.kitchen
+  });
+}
+
+function signOut() {
+  supabase.auth.signOut().then(function() {
+    localStorage.removeItem('pc_profile');
+    window.location.href = 'auth.html';
+  });
+}
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
@@ -417,6 +488,8 @@ function nextStep() {
     localStorage.setItem('pc_profile', JSON.stringify(setupData));
     profile = setupData;
     messages = [];
+    // Save to Supabase if logged in
+    if (currentUser) saveProfileToDB(currentUser.id, profile);
     showChat();
   }
 }
@@ -430,6 +503,10 @@ function editProfile() {
   setupData = JSON.parse(JSON.stringify(profile));
   renderSetup();
   showScreen('setup');
+}
+
+function handleSignOut() {
+  if (confirm('Sign out of The Pickled Chef?')) signOut();
 }
 
 // ── Chat ──────────────────────────────────────────────────────────────────────
