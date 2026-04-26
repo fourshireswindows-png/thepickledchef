@@ -434,7 +434,7 @@ function submitPost() {
     content: content
   }).select().then(function(result) {
     if (result.error) {
-      alert('Something went wrong. Please try again.');
+      alert('Error: ' + result.error.message + ' (Code: ' + result.error.code + ')');
       btn.disabled = false; btn.textContent = 'Post it';
       return;
     }
