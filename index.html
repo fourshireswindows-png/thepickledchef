@@ -3,447 +3,495 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="The Pickled Chef — Your AI kitchen team. Chat with AI chefs, get guided recipes, meal planning and real-time cooking help."/>
-<title>The Pickled Chef — Chat. Cook. Create.</title>
+<title>Fillet & Bone — A Culinary Masterclass | Online Cooking School</title>
+<meta name="description" content="Fillet & Bone is a premium online culinary school. Learn from world-class AI chefs including Italian, French, Mexican and more. Structured courses, real-time guidance, certificates of completion."/>
+<meta name="keywords" content="online cooking school, culinary masterclass, cooking courses online, AI cooking, learn to cook online, Italian cooking course, French cooking course"/>
+<meta property="og:title" content="Fillet & Bone — A Culinary Masterclass"/>
+<meta property="og:description" content="A premium online culinary school powered by AI. Learn from world-class chefs through structured interactive courses."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.filletandbone.com"/>
+<link rel="canonical" href="https://www.filletandbone.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#f7f9fc;
-  --bg2:#ffffff;
-  --bg3:#eef4fb;
-  --border:#dde8f5;
-  --amber:#c8873a;
-  --amber2:#a06828;
+  --bg:#0d1b2a;
+  --bg2:#1a2e42;
+  --bg3:#0a1520;
+  --border:#2a3f55;
+  --gold:#c9a84c;
+  --gold2:#a8873a;
   --sky:#4a9edd;
-  --sky2:#2980b9;
-  --navy:#1a2340;
-  --sky-light:#e8f2fb;
-  --text:#2a3040;
-  --muted:#6b7a8d;
-  --dark:#9aa3b0;
+  --navy:#0d1b2a;
+  --cream:#f0ece4;
+  --text:#d4cfc7;
+  --muted:#8a9bb0;
+  --dark:#4a5a6a;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;}
 
+/* Grain */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.6;}
+
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(247,249,252,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);box-shadow:0 1px 12px rgba(74,158,221,0.06);}
-.logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
-.logo-mark{color:var(--amber);font-size:14px;}
-.logo-text{font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);font-weight:500;}
-.nav-links{display:flex;align-items:center;gap:28px;}
-.nav-links a{color:var(--muted);font-size:13px;text-decoration:none;transition:color 0.2s;}
-.nav-links a:hover{color:var(--sky);}
-.nav-right{display:flex;align-items:center;gap:10px;}
-.nav-cta{background:linear-gradient(135deg,var(--sky),var(--sky2));border:none;border-radius:8px;padding:9px 20px;color:white;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(74,158,221,0.3);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(13,27,42,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.logo{display:flex;flex-direction:column;gap:1px;text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);letter-spacing:0.05em;}
+.logo-tag{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.8;}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{color:var(--muted);font-size:12px;text-decoration:none;letter-spacing:0.05em;transition:color 0.2s;}
+.nav-links a:hover{color:var(--cream);}
+.nav-cta{background:transparent;border:1px solid var(--gold);border-radius:4px;padding:8px 20px;color:var(--gold);font-size:12px;font-family:'DM Sans',sans-serif;letter-spacing:0.08em;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{background:var(--gold);color:var(--bg);}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 24px 60px;text-align:center;position:relative;overflow:hidden;background:linear-gradient(160deg,#f7f9fc 0%,#eef4fb 50%,#f7f9fc 100%);}
-.hero-blob1{position:absolute;top:-80px;right:-80px;width:500px;height:500px;background:radial-gradient(ellipse,rgba(74,158,221,0.1) 0%,transparent 70%);pointer-events:none;}
-.hero-blob2{position:absolute;bottom:-60px;left:-60px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(200,135,58,0.07) 0%,transparent 70%);pointer-events:none;}
-.hero-inner{max-width:740px;position:relative;z-index:1;}
-.eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sky);border:1px solid rgba(74,158,221,0.3);border-radius:20px;padding:6px 16px;margin-bottom:28px;background:var(--sky-light);}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(44px,8vw,82px);font-weight:400;line-height:1.05;color:var(--navy);margin-bottom:20px;}
-.hero-title em{font-style:italic;color:var(--amber);}
-.hero-sub{font-size:clamp(15px,2.5vw,19px);line-height:1.7;color:var(--muted);max-width:540px;margin:0 auto 40px;}
-.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.btn-primary{background:linear-gradient(135deg,var(--sky),var(--sky2));border:none;border-radius:12px;padding:16px 32px;color:white;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;transition:transform 0.2s,box-shadow 0.2s;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(74,158,221,0.3);}
-.btn-amber{background:linear-gradient(135deg,var(--amber),var(--amber2));border:none;border-radius:12px;padding:16px 32px;color:white;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;transition:transform 0.2s,box-shadow 0.2s;}
-.btn-amber:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,135,58,0.3);}
-.btn-secondary{background:white;border:1.5px solid var(--border);border-radius:12px;padding:15px 28px;color:var(--muted);font-size:15px;font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:none;display:inline-block;transition:border-color 0.2s,color 0.2s;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
-.btn-secondary:hover{border-color:var(--sky);color:var(--sky);}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 40px 80px;text-align:center;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(201,168,76,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(74,158,221,0.04) 0%,transparent 50%);pointer-events:none;}
+.hero-inner{max-width:820px;position:relative;z-index:1;}
+.hero-rule{width:40px;height:1px;background:var(--gold);margin:0 auto 28px;opacity:0.6;}
+.hero-eyebrow{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;opacity:0.9;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,88px);font-weight:400;line-height:1.05;color:var(--cream);margin-bottom:8px;letter-spacing:-0.01em;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-subtitle{font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,22px);color:var(--muted);margin-bottom:32px;font-style:italic;letter-spacing:0.02em;}
+.hero-sub{font-size:16px;line-height:1.8;color:var(--muted);max-width:560px;margin:0 auto 48px;font-weight:300;}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:3px;padding:16px 36px;color:var(--bg);font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;letter-spacing:0.08em;text-transform:uppercase;transition:transform 0.2s,box-shadow 0.2s;}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.25);}
+.btn-outline{background:transparent;border:1px solid var(--border);border-radius:3px;padding:15px 32px;color:var(--muted);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:none;display:inline-block;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.2s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.hero-stats{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;margin-top:64px;padding-top:48px;border-top:1px solid var(--border);}
+.hero-stat{text-align:center;}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:32px;color:var(--gold);}
+.hero-stat-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--dark);margin-top:4px;}
 
-/* STATS */
-.stats-bar{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;padding:28px 24px;background:white;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.stat{text-align:center;}
-.stat-num{font-family:'Playfair Display',serif;font-size:30px;color:var(--sky);}
-.stat-label{font-size:11px;color:var(--dark);letter-spacing:0.06em;text-transform:uppercase;margin-top:3px;}
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:16px;padding:0 40px;margin:0 auto;max-width:1100px;}
+.divider-line{flex:1;height:1px;background:var(--border);}
+.divider-mark{color:var(--gold);font-size:12px;opacity:0.5;}
 
 /* SECTIONS */
-.section{padding:88px 24px;}
-.section-alt{background:var(--sky-light);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.section-white{background:white;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.section-navy{background:var(--navy);border-top:1px solid var(--border);}
-.section-inner{max-width:1080px;margin:0 auto;}
-.section-eyebrow{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sky);margin-bottom:12px;}
-.section-eyebrow-amber{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,46px);font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:14px;}
-.section-title-light{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,46px);font-weight:400;color:#f0e6d3;line-height:1.15;margin-bottom:14px;}
-.section-sub{font-size:15px;color:var(--muted);line-height:1.7;max-width:520px;}
-.section-sub-light{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:520px;}
+.section{padding:100px 40px;position:relative;z-index:1;}
+.section-alt{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.section-dark{background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;opacity:0.8;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:400;color:var(--cream);line-height:1.1;margin-bottom:16px;}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-sub{font-size:15px;color:var(--muted);line-height:1.8;max-width:520px;}
 
-/* CHEFS */
-.chefs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:48px;}
-.chef-card{background:white;border:1.5px solid var(--border);border-radius:16px;padding:24px 18px;text-align:center;transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
-.chef-card:hover{border-color:var(--sky);transform:translateY(-4px);box-shadow:0 8px 24px rgba(74,158,221,0.12);}
-.chef-card.available{cursor:pointer;}
-.chef-flag{font-size:34px;margin-bottom:12px;display:block;}
-.chef-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);margin-bottom:4px;}
-.chef-specialty{font-size:10px;color:var(--sky);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
-.chef-desc{font-size:12px;color:var(--muted);line-height:1.6;}
-.badge{display:inline-block;font-size:9px;border-radius:4px;padding:2px 8px;margin-top:10px;font-weight:500;letter-spacing:0.05em;}
-.badge-free{background:rgba(200,135,58,0.12);color:var(--amber);}
-.badge-premium{background:var(--sky-light);color:var(--sky);}
-.badge-soon{background:#f0f0f0;color:var(--dark);}
+/* FACULTY */
+.faculty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;margin-top:60px;border:1px solid var(--border);}
+.faculty-card{background:var(--bg);padding:32px 24px;text-align:center;transition:background 0.3s;cursor:pointer;position:relative;}
+.faculty-card:hover{background:var(--bg2);}
+.faculty-card.available:hover .faculty-cta{opacity:1;}
+.faculty-flag{font-size:36px;margin-bottom:16px;display:block;}
+.faculty-name{font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:4px;}
+.faculty-specialty{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;opacity:0.8;}
+.faculty-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+.faculty-badge{display:inline-block;font-size:9px;border-radius:2px;padding:3px 8px;margin-top:12px;letter-spacing:0.06em;text-transform:uppercase;}
+.badge-free{background:rgba(201,168,76,0.1);color:var(--gold);border:1px solid rgba(201,168,76,0.3);}
+.badge-kitchen{background:rgba(74,158,221,0.1);color:var(--sky);border:1px solid rgba(74,158,221,0.2);}
+.badge-academy{background:rgba(201,168,76,0.08);color:var(--gold);border:1px solid rgba(201,168,76,0.2);}
+.badge-soon{background:rgba(255,255,255,0.03);color:var(--dark);border:1px solid var(--border);}
+.faculty-cta{position:absolute;bottom:16px;right:16px;font-size:10px;color:var(--gold);opacity:0;transition:opacity 0.2s;letter-spacing:0.05em;}
 
-/* FEATURES */
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:48px;}
-.feature-card{background:white;border:1.5px solid var(--border);border-radius:14px;padding:28px;transition:border-color 0.3s,box-shadow 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
-.feature-card:hover{border-color:var(--sky);box-shadow:0 4px 16px rgba(74,158,221,0.1);}
-.feature-icon{font-size:26px;margin-bottom:14px;}
-.feature-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:8px;}
-.feature-desc{font-size:13px;color:var(--muted);line-height:1.7;}
-
-/* RECIPES */
-.recipes-filter{display:flex;gap:7px;flex-wrap:wrap;margin-top:32px;margin-bottom:24px;}
-.filter-btn{background:white;border:1.5px solid var(--border);border-radius:20px;padding:7px 16px;color:var(--muted);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s;}
-.filter-btn:hover,.filter-btn.active{border-color:var(--sky);color:var(--sky);background:var(--sky-light);}
-.recipes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
-.recipe-card{background:white;border:1.5px solid var(--border);border-radius:13px;padding:20px;transition:border-color 0.3s,transform 0.2s,box-shadow 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
-.recipe-card:hover{border-color:var(--sky);transform:translateY(-2px);box-shadow:0 6px 18px rgba(74,158,221,0.1);}
-.recipe-card.hidden{display:none;}
-.recipe-emoji{font-size:28px;margin-bottom:10px;}
-.recipe-name{font-family:'Playfair Display',serif;font-size:14px;color:var(--navy);margin-bottom:7px;}
-.recipe-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
-.recipe-tag{font-size:9px;color:var(--sky);background:var(--sky-light);border-radius:4px;padding:2px 7px;}
-.recipe-tag-amber{font-size:9px;color:var(--amber);background:rgba(200,135,58,0.1);border-radius:4px;padding:2px 7px;}
-.recipe-desc{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
-.recipe-chef{font-size:11px;color:var(--dark);border-top:1px solid var(--border);padding-top:8px;}
-
-/* MEAL PLANNER */
-.planner-box{background:white;border:1.5px solid var(--border);border-radius:18px;padding:32px;margin-top:48px;box-shadow:0 4px 20px rgba(74,158,221,0.06);}
-.planner-days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:24px;}
-.planner-day{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:12px 6px;text-align:center;}
-.planner-day.today{border-color:var(--sky);background:var(--sky-light);}
-.day-name{font-size:9px;color:var(--dark);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
-.today .day-name{color:var(--sky);}
-.day-emoji{font-size:16px;margin-bottom:4px;}
-.day-meal{font-size:10px;color:var(--muted);line-height:1.4;}
+/* COURSES */
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:56px;}
+.course-card{background:var(--bg);border:1px solid var(--border);border-radius:2px;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
+.course-card:hover{border-color:var(--gold);transform:translateY(-4px);}
+.course-header{padding:28px 24px 20px;border-bottom:1px solid var(--border);}
+.course-flag{font-size:28px;margin-bottom:12px;}
+.course-chef{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;opacity:0.8;}
+.course-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);margin-bottom:8px;line-height:1.2;}
+.course-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+.course-lessons{padding:20px 24px;}
+.lesson-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted);}
+.lesson-item:last-child{border-bottom:none;}
+.lesson-num{width:20px;height:20px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--dark);flex-shrink:0;}
+.course-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.course-tier{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);}
+.course-btn{background:transparent;border:1px solid var(--gold);border-radius:2px;padding:7px 16px;color:var(--gold);font-size:11px;font-family:'DM Sans',sans-serif;letter-spacing:0.06em;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.course-btn:hover{background:var(--gold);color:var(--bg);}
 
 /* HOW IT WORKS */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin-top:56px;position:relative;}
-.steps::before{content:'';position:absolute;top:27px;left:10%;right:10%;height:1px;background:var(--border);}
-.step{text-align:center;padding:0 20px;position:relative;z-index:1;}
-.step-num{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--sky),var(--sky2));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;color:white;margin:0 auto 20px;box-shadow:0 4px 16px rgba(74,158,221,0.25);}
-.step-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--navy);margin-bottom:8px;}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;margin-top:60px;position:relative;}
+.steps::before{content:'';position:absolute;top:20px;left:10%;right:10%;height:1px;background:var(--border);}
+.step{text-align:center;padding:0 24px;position:relative;z-index:1;}
+.step-num{width:40px;height:40px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);margin:0 auto 20px;background:var(--bg);}
+.step-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:8px;}
 .step-desc{font-size:13px;color:var(--muted);line-height:1.6;}
 
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin-top:60px;border:1px solid var(--border);max-width:900px;margin-left:auto;margin-right:auto;}
+.price-card{background:var(--bg);padding:40px 32px;}
+.price-card.featured{background:var(--bg2);}
+.price-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;opacity:0.8;}
+.price-amount{font-family:'Playfair Display',serif;font-size:48px;color:var(--cream);margin-bottom:4px;line-height:1;}
+.price-period{font-size:13px;color:var(--muted);margin-bottom:28px;}
+.price-features{list-style:none;margin-bottom:32px;display:flex;flex-direction:column;gap:10px;}
+.price-feature{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.price-check{color:var(--gold);flex-shrink:0;font-size:11px;}
+.price-cross{color:var(--dark);flex-shrink:0;}
+.price-btn{display:block;text-align:center;border:1px solid var(--gold);border-radius:2px;padding:13px;color:var(--gold);font-size:12px;font-family:'DM Sans',sans-serif;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.price-btn:hover,.price-btn.primary{background:var(--gold);color:var(--bg);}
+.price-btn.current{border-color:var(--border);color:var(--dark);cursor:default;}
+.price-btn.current:hover{background:transparent;color:var(--dark);}
+
 /* QUOTE */
-.quote-wrap{max-width:660px;margin:0 auto;text-align:center;}
-.quote-mark{font-family:'Playfair Display',serif;font-size:80px;color:var(--sky);line-height:0.5;margin-bottom:24px;opacity:0.3;}
-.quote-text{font-family:'Playfair Display',serif;font-size:clamp(18px,3vw,26px);color:var(--navy);line-height:1.5;font-style:italic;margin-bottom:20px;}
-.quote-author{font-size:13px;color:var(--dark);}
+.quote-section{text-align:center;}
+.quote-mark{font-family:'Playfair Display',serif;font-size:80px;color:var(--gold);line-height:0.5;margin-bottom:28px;opacity:0.2;}
+.quote-text{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,30px);color:var(--cream);line-height:1.5;font-style:italic;max-width:680px;margin:0 auto 20px;}
+.quote-author{font-size:12px;color:var(--dark);letter-spacing:0.08em;}
 
 /* SIGNUP */
-.signup-inner{max-width:560px;margin:0 auto;text-align:center;}
+.signup-wrap{max-width:560px;margin:0 auto;text-align:center;}
 .signup-form{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap;}
-.signup-input{flex:1;min-width:200px;background:white;border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:300;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
-.signup-input:focus{outline:none;border-color:var(--sky);}
+.signup-input{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:14px 18px;color:var(--cream);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:300;transition:border-color 0.2s;}
+.signup-input:focus{outline:none;border-color:var(--gold);}
 .signup-input::placeholder{color:var(--dark);}
-.signup-btn{background:linear-gradient(135deg,var(--amber),var(--amber2));border:none;border-radius:10px;padding:14px 24px;color:white;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;white-space:nowrap;box-shadow:0 3px 12px rgba(200,135,58,0.25);transition:transform 0.2s;}
+.signup-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:2px;padding:14px 24px;color:var(--bg);font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;transition:transform 0.2s;}
 .signup-btn:hover{transform:translateY(-1px);}
-.signup-note{font-size:12px;color:var(--dark);margin-top:12px;}
-.signup-success{display:none;padding:14px;background:rgba(74,158,221,0.08);border:1.5px solid rgba(74,158,221,0.3);border-radius:10px;color:var(--sky);font-size:13px;margin-top:16px;}
+.signup-note{font-size:11px;color:var(--dark);margin-top:12px;letter-spacing:0.04em;}
+.signup-success{display:none;padding:14px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:2px;color:var(--gold);font-size:13px;margin-top:16px;}
 
 /* FOOTER */
-footer{padding:40px 28px;border-top:1px solid var(--border);background:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
-.footer-logo{display:flex;align-items:center;gap:8px;}
-.footer-links{display:flex;gap:24px;}
-.footer-links a{color:var(--muted);font-size:13px;text-decoration:none;transition:color 0.2s;}
-.footer-links a:hover{color:var(--sky);}
-.footer-copy{font-size:12px;color:var(--dark);}
+footer{padding:48px 40px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-logo{display:flex;flex-direction:column;gap:2px;}
+.footer-logo-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);}
+.footer-logo-tag{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);opacity:0.6;}
+.footer-links{display:flex;gap:28px;flex-wrap:wrap;}
+.footer-links a{color:var(--dark);font-size:12px;text-decoration:none;letter-spacing:0.04em;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:11px;color:var(--dark);letter-spacing:0.04em;}
 
-/* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-.fade-up{animation:fadeUp 0.6s ease both;}
-.d1{animation-delay:0.1s;}.d2{animation-delay:0.2s;}.d3{animation-delay:0.3s;}.d4{animation-delay:0.4s;}
+.fade-up{animation:fadeUp 0.7s ease both;}
+.d1{animation-delay:0.1s;}.d2{animation-delay:0.2s;}.d3{animation-delay:0.3s;}
 
-@media(max-width:640px){
-  nav{padding:0 16px;}
+@media(max-width:768px){
+  nav{padding:0 20px;}
   .nav-links{display:none;}
-  .section{padding:60px 16px;}
-  .planner-days{grid-template-columns:repeat(4,1fr);}
-  .planner-day:nth-child(n+5){display:none;}
+  .section{padding:70px 20px;}
+  .hero{padding:100px 20px 60px;}
   .steps::before{display:none;}
-  footer{flex-direction:column;}
-  .hero-actions{flex-direction:column;align-items:center;}
+  .faculty-grid{grid-template-columns:repeat(2,1fr);}
+  footer{flex-direction:column;padding:32px 20px;}
+  .hero-stats{gap:28px;}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="/" class="logo">
-    <span class="logo-mark">✦</span>
-    <span class="logo-text">The Pickled Chef</span>
+    <span class="logo-name">Fillet & Bone</span>
+    <span class="logo-tag">A Culinary Masterclass</span>
   </a>
   <div class="nav-links">
-    <a href="#chefs">Our Team</a>
+    <a href="#faculty">Our Faculty</a>
+    <a href="#courses">Courses</a>
     <a href="noticeboard.html">Noticeboard</a>
-    <a href="#features">Features</a>
-    <a href="#recipes">Recipes</a>
-    <a href="#signup">Early Access</a>
+    <a href="#pricing">Pricing</a>
   </div>
-  <div class="nav-right">
-    <a href="auth.html" class="nav-cta">Start Cooking Free →</a>
-  </div>
+  <a href="auth.html" class="nav-cta">Enrol Now</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-blob1"></div>
-  <div class="hero-blob2"></div>
+  <div class="hero-bg"></div>
   <div class="hero-inner">
-    <div class="eyebrow fade-up">✦ Chat. Cook. Create. · No ads. Ever.</div>
-    <h1 class="hero-title fade-up d1">Your AI kitchen team.<br><em>Always ready.</em></h1>
-    <p class="hero-sub fade-up d2">AI chefs with real personalities and real accents. Recipes on demand, meal planning, ingredient substitutions and step-by-step cooking guidance. Any dish. Any time.</p>
-    <div class="hero-actions fade-up d3">
-      <a href="auth.html" class="btn-amber">Cook with Charlie — Free</a>
-      <a href="#chefs" class="btn-secondary">Meet the team ↓</a>
+    <div class="hero-rule fade-up"></div>
+    <p class="hero-eyebrow fade-up">A Culinary Masterclass</p>
+    <h1 class="hero-title fade-up d1">Learn to cook<br><em>extraordinarily well.</em></h1>
+    <p class="hero-subtitle fade-up d2">Fillet & Bone</p>
+    <p class="hero-sub fade-up d3">A premium online culinary school with a world-class international faculty. Structured courses, real-time AI guidance and certificates of completion — all from your kitchen.</p>
+    <div class="hero-actions fade-up">
+      <a href="auth.html" class="btn-gold">Begin your masterclass</a>
+      <a href="#courses" class="btn-outline">Explore courses</a>
+    </div>
+    <div class="hero-stats fade-up">
+      <div class="hero-stat"><div class="hero-stat-num">10</div><div class="hero-stat-label">Master Chefs</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">40+</div><div class="hero-stat-label">Structured Lessons</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Cuisines</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">24/7</div><div class="hero-stat-label">Chef Access</div></div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat"><div class="stat-num">10</div><div class="stat-label">AI Chefs</div></div>
-  <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Recipe Ideas</div></div>
-  <div class="stat"><div class="stat-num">7</div><div class="stat-label">Day Meal Plans</div></div>
-  <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Always Available</div></div>
-</div>
+<div class="divider"><div class="divider-line"></div><span class="divider-mark">✦</span><div class="divider-line"></div></div>
 
-<!-- CHEFS -->
-<section class="section section-white" id="chefs">
+<!-- FACULTY -->
+<section class="section" id="faculty">
   <div class="section-inner">
-    <p class="section-eyebrow">Your kitchen team</p>
-    <h2 class="section-title">Ten chefs. Ten personalities.<br>One kitchen.</h2>
-    <p class="section-sub">Each chef brings their own expertise, accent and way of teaching. Start free with Charlie, unlock the world with Premium.</p>
-    <div class="chefs-grid">
-      <div class="chef-card available" onclick="window.location.href='auth.html'">
-        <span class="chef-flag">🇬🇧</span>
-        <div class="chef-name">Charlie</div>
-        <div class="chef-specialty">Everyday cooking</div>
-        <div class="chef-desc">Warm, patient and encouraging. Your go-to for any recipe, any time. Feels like a mate in the kitchen.</div>
-        <span class="badge badge-free">FREE</span>
+    <p class="section-label">Our international faculty</p>
+    <h2 class="section-title">Ten chefs.<br><em>Ten traditions.</em></h2>
+    <p class="section-sub">Each member of our faculty brings deep expertise, genuine passion and a lifetime of culinary knowledge to your kitchen.</p>
+    <div class="faculty-grid">
+      <div class="faculty-card available" onclick="window.location.href='chat.html'">
+        <span class="faculty-flag">🇬🇧</span>
+        <div class="faculty-name">Charlie</div>
+        <div class="faculty-specialty">Everyday Cooking</div>
+        <div class="faculty-desc">Warm, patient and encouraging. Your go-to guide for any recipe, any time.</div>
+        <span class="faculty-badge badge-free">Free</span>
+        <span class="faculty-cta">Cook now →</span>
       </div>
-      <div class="chef-card available" onclick="window.location.href='auth.html'">
-        <span class="chef-flag">🇬🇧</span>
-        <div class="chef-name">Rosie</div>
-        <div class="chef-specialty">Everyday cooking</div>
-        <div class="chef-desc">Confident, straight-talking and full of brilliant tips. Like a friend who actually knows what she's doing.</div>
-        <span class="badge badge-free">FREE</span>
+      <div class="faculty-card available" onclick="window.location.href='chat.html'">
+        <span class="faculty-flag">🇬🇧</span>
+        <div class="faculty-name">Rosie</div>
+        <div class="faculty-specialty">Everyday Cooking</div>
+        <div class="faculty-desc">Confident, straight-talking and full of brilliant tips. A friend who knows what she's doing.</div>
+        <span class="faculty-badge badge-free">Free</span>
       </div>
-      <div class="chef-card">
-        <span class="chef-flag">🇮🇹</span>
-        <div class="chef-name">Chef Marco</div>
-        <div class="chef-specialty">Italian cuisine</div>
-        <div class="chef-desc">Passionate, theatrical and deeply opinionated. Do not mention cream in carbonara.</div>
-        <span class="badge badge-premium">PREMIUM</span>
+      <div class="faculty-card" onclick="window.location.href='auth.html'">
+        <span class="faculty-flag">🇮🇹</span>
+        <div class="faculty-name">Chef Lorenzo</div>
+        <div class="faculty-specialty">Italian Cuisine</div>
+        <div class="faculty-desc">Passionate, refined and deeply knowledgeable about authentic Italian technique.</div>
+        <span class="faculty-badge badge-kitchen">Kitchen</span>
       </div>
-      <div class="chef-card">
-        <span class="chef-flag">🇫🇷</span>
-        <div class="chef-name">Chef Jules</div>
-        <div class="chef-specialty">French & pastry</div>
-        <div class="chef-desc">Refined, precise and quietly intense. Trained in Paris. Impossibly high standards.</div>
-        <span class="badge badge-premium">PREMIUM</span>
+      <div class="faculty-card" onclick="window.location.href='auth.html'">
+        <span class="faculty-flag">🇫🇷</span>
+        <div class="faculty-name">Chef Henri</div>
+        <div class="faculty-specialty">French & Pastry</div>
+        <div class="faculty-desc">Refined, precise and quietly intense. Trained in Paris. Impossibly high standards.</div>
+        <span class="faculty-badge badge-kitchen">Kitchen</span>
       </div>
-      <div class="chef-card">
-        <span class="chef-flag">🇲🇽</span>
-        <div class="chef-name">Chef Rosa</div>
-        <div class="chef-specialty">Mexican cuisine</div>
-        <div class="chef-desc">Warm, vibrant and passionate about authentic Mexican food. Very opinionated about Tex-Mex.</div>
-        <span class="badge badge-premium">PREMIUM</span>
+      <div class="faculty-card" onclick="window.location.href='auth.html'">
+        <span class="faculty-flag">🇲🇽</span>
+        <div class="faculty-name">Chef Carmen</div>
+        <div class="faculty-specialty">Mexican Cuisine</div>
+        <div class="faculty-desc">Warm, vibrant and passionate about authentic Mexican food and technique.</div>
+        <span class="faculty-badge badge-kitchen">Kitchen</span>
       </div>
-      <div class="chef-card">
-        <span class="chef-flag">🇺🇸</span>
-        <div class="chef-name">Chef Bobby</div>
-        <div class="chef-specialty">American & BBQ</div>
-        <div class="chef-desc">Big personality, big flavours. BBQ, soul food and Southern cooking done properly.</div>
-        <span class="badge badge-premium">PREMIUM</span>
+      <div class="faculty-card" onclick="window.location.href='auth.html'">
+        <span class="faculty-flag">🇺🇸</span>
+        <div class="faculty-name">Chef Franklin</div>
+        <div class="faculty-specialty">American & BBQ</div>
+        <div class="faculty-desc">Big personality, generous spirit. BBQ, soul food and Southern cooking done properly.</div>
+        <span class="faculty-badge badge-kitchen">Kitchen</span>
       </div>
-      <div class="chef-card">
-        <span class="chef-flag">🇨🇳</span>
-        <div class="chef-name">Chef Mei</div>
-        <div class="chef-specialty">Chinese cuisine</div>
-        <div class="chef-desc">Calm, precise and deeply knowledgeable. Balance and technique above everything.</div>
-        <span class="badge badge-soon">COMING SOON</span>
+      <div class="faculty-card">
+        <span class="faculty-flag">🇨🇳</span>
+        <div class="faculty-name">Chef Mei</div>
+        <div class="faculty-specialty">Chinese Cuisine</div>
+        <div class="faculty-desc">Calm, precise and deeply knowledgeable. Balance and technique above everything.</div>
+        <span class="faculty-badge badge-soon">Coming Soon</span>
       </div>
-      <div class="chef-card">
-        <span class="chef-flag">🇯🇵</span>
-        <div class="chef-name">Chef Kenji</div>
-        <div class="chef-specialty">Japanese cuisine</div>
-        <div class="chef-desc">Methodical, precise and deeply respectful of ingredients. Ramen, sushi, izakaya food.</div>
-        <span class="badge badge-soon">COMING SOON</span>
+      <div class="faculty-card">
+        <span class="faculty-flag">🇯🇵</span>
+        <div class="faculty-name">Chef Kenji</div>
+        <div class="faculty-specialty">Japanese Cuisine</div>
+        <div class="faculty-desc">Methodical, precise and deeply respectful of ingredients and tradition.</div>
+        <span class="faculty-badge badge-soon">Coming Soon</span>
       </div>
-      <div class="chef-card">
-        <span class="chef-flag">🇮🇳</span>
-        <div class="chef-name">Chef Priya</div>
-        <div class="chef-specialty">Indian & Middle Eastern</div>
-        <div class="chef-desc">Warm, spice-forward and story-driven. Every dish has a history worth knowing.</div>
-        <span class="badge badge-soon">COMING SOON</span>
+      <div class="faculty-card">
+        <span class="faculty-flag">🇮🇳</span>
+        <div class="faculty-name">Chef Priya</div>
+        <div class="faculty-specialty">Indian & Middle Eastern</div>
+        <div class="faculty-desc">Warm, spice-forward and story-driven. Every dish has a history worth knowing.</div>
+        <span class="faculty-badge badge-soon">Coming Soon</span>
       </div>
-      <div class="chef-card">
-        <span class="chef-flag">🇹🇭</span>
-        <div class="chef-name">Chef Nari</div>
-        <div class="chef-specialty">Thai & Southeast Asian</div>
-        <div class="chef-desc">Bright, aromatic and bold with chillies and herbs. The art of balance in every dish.</div>
-        <span class="badge badge-soon">COMING SOON</span>
+      <div class="faculty-card">
+        <span class="faculty-flag">🇹🇭</span>
+        <div class="faculty-name">Chef Nari</div>
+        <div class="faculty-specialty">Thai & Southeast Asian</div>
+        <div class="faculty-desc">Bright, aromatic and bold. The art of balance in every dish.</div>
+        <span class="faculty-badge badge-soon">Coming Soon</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section class="section section-alt" id="features">
-  <div class="section-inner">
-    <p class="section-eyebrow">Everything you need</p>
-    <h2 class="section-title">More than a recipe app.</h2>
-    <p class="section-sub">The Pickled Chef is a full cooking companion — recipes, real-time guidance, meal planning and a chef who actually knows you.</p>
-    <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon">💬</div><div class="feature-title">Ask anything</div><div class="feature-desc">No searching, no filtering. Just ask. "What can I make with leftover chicken?" and your chef answers instantly.</div></div>
-      <div class="feature-card"><div class="feature-icon">🎙️</div><div class="feature-title">Voice-guided cooking</div><div class="feature-desc">Hands covered in flour? Talk to your chef hands-free and hear their guidance spoken back in their own accent.</div></div>
-      <div class="feature-card"><div class="feature-icon">🧠</div><div class="feature-title">Remembers you</div><div class="feature-desc">Your chef knows your skill level, dietary requirements and kitchen setup from day one. No repeating yourself.</div></div>
-      <div class="feature-card"><div class="feature-icon">🥦</div><div class="feature-title">Fridge mode</div><div class="feature-desc">Tell your chef what's in your fridge and they'll build a recipe around exactly what you have.</div></div>
-      <div class="feature-card"><div class="feature-icon">📅</div><div class="feature-title">Meal planning</div><div class="feature-desc">Get a personalised 7-day meal plan built around your preferences, dietary needs and how much time you have.</div></div>
-      <div class="feature-card"><div class="feature-icon">🔄</div><div class="feature-title">Smart substitutions</div><div class="feature-desc">Missing an ingredient? Your chef suggests the best substitute and tells you exactly how to adapt.</div></div>
-      <div class="feature-card"><div class="feature-icon">📈</div><div class="feature-title">Learn as you cook</div><div class="feature-desc">Your chef explains the why behind every step. Not just what to do — but why it makes the dish better.</div></div>
-      <div class="feature-card"><div class="feature-icon">⏱️</div><div class="feature-title">Live timers</div><div class="feature-desc">Your chef sets timers as you cook and tells you exactly when to check, stir, flip or rest.</div></div>
-      <div class="feature-card"><div class="feature-icon">🌍</div><div class="feature-title">Authentic accents</div><div class="feature-desc">Chef Marco speaks Italian. Chef Jules speaks French. Chef Rosa speaks Spanish. The accent is part of the magic.</div></div>
-      <div class="feature-card"><div class="feature-icon">🚫</div><div class="feature-title">No ads. Ever.</div><div class="feature-desc">No adverts, no data selling, no interruptions. Your kitchen is yours. We make money through subscriptions only — not by selling your attention.</div></div>
-    </div>
-  </div>
-</section>
+<div class="divider"><div class="divider-line"></div><span class="divider-mark">✦</span><div class="divider-line"></div></div>
 
-<!-- RECIPES -->
-<section class="section section-white" id="recipes">
+<!-- COURSES -->
+<section class="section section-alt" id="courses">
   <div class="section-inner">
-    <p class="section-eyebrow">Ask your chef for anything</p>
-    <h2 class="section-title">What you can ask for.</h2>
-    <p class="section-sub">These are just ideas to get you started. There is no limit — your chef can make any recipe on demand.</p>
-    <div class="recipes-filter">
-      <button class="filter-btn active" onclick="filterRecipes('all',this)">All</button>
-      <button class="filter-btn" onclick="filterRecipes('charlie',this)">🇬🇧 Charlie</button>
-      <button class="filter-btn" onclick="filterRecipes('marco',this)">🇮🇹 Chef Marco</button>
-      <button class="filter-btn" onclick="filterRecipes('jules',this)">🇫🇷 Chef Jules</button>
-      <button class="filter-btn" onclick="filterRecipes('mei',this)">🇨🇳 Chef Mei</button>
-      <button class="filter-btn" onclick="filterRecipes('priya',this)">🇮🇳 Chef Priya</button>
-      <button class="filter-btn" onclick="filterRecipes('beginner',this)">Beginner</button>
-      <button class="filter-btn" onclick="filterRecipes('quick',this)">Under 30 mins</button>
-    </div>
-    <div class="recipes-grid" id="recipes-grid"></div>
-  </div>
-</section>
-
-<!-- MEAL PLANNER -->
-<section class="section section-alt" id="planner">
-  <div class="section-inner">
-    <p class="section-eyebrow">Weekly meal planning</p>
-    <h2 class="section-title">Your week, planned.</h2>
-    <p class="section-sub">Tell your chef your preferences and how much time you have each day. Get a full week of meals instantly.</p>
-    <div class="planner-box">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
-        <div>
-          <p style="font-size:12px;color:var(--muted);margin-bottom:3px;">Example plan — generated by Charlie</p>
-          <p style="font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);">This week's meals</p>
+    <p class="section-label">The curriculum</p>
+    <h2 class="section-title">Structured courses.<br><em>Real progression.</em></h2>
+    <p class="section-sub">Each course is a series of guided interactive lessons with your chef. They remember your progress, adapt to your pace and build on what you've learned.</p>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-flag">🇬🇧</div>
+          <div class="course-chef">Charlie</div>
+          <div class="course-name">Kitchen Foundations</div>
+          <div class="course-desc">Master the fundamentals every home cook needs. From knife skills to perfect seasoning.</div>
         </div>
-        <a href="auth.html" class="btn-primary" style="font-size:13px;padding:10px 20px;">Get my meal plan</a>
+        <div class="course-lessons">
+          <div class="lesson-item"><div class="lesson-num">1</div>Kitchen setup & knife skills</div>
+          <div class="lesson-item"><div class="lesson-num">2</div>Eggs five ways</div>
+          <div class="lesson-item"><div class="lesson-num">3</div>Perfect pasta</div>
+          <div class="lesson-item"><div class="lesson-num">4</div>Roasting & braising</div>
+          <div class="lesson-item"><div class="lesson-num">5</div>Sauces & seasoning</div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier">Free — first lesson</span>
+          <a href="auth.html" class="course-btn">Enrol</a>
+        </div>
       </div>
-      <div class="planner-days">
-        <div class="planner-day"><div class="day-name">Mon</div><div class="day-emoji">🍝</div><div class="day-meal">Carbonara</div></div>
-        <div class="planner-day today"><div class="day-name" style="color:var(--sky)">Tue ✦</div><div class="day-emoji">🥗</div><div class="day-meal">Niçoise Salad</div></div>
-        <div class="planner-day"><div class="day-name">Wed</div><div class="day-emoji">🍛</div><div class="day-meal">Chicken Curry</div></div>
-        <div class="planner-day"><div class="day-name">Thu</div><div class="day-emoji">🥩</div><div class="day-meal">Seared Steak</div></div>
-        <div class="planner-day"><div class="day-name">Fri</div><div class="day-emoji">🍜</div><div class="day-meal">Ramen</div></div>
-        <div class="planner-day"><div class="day-name">Sat</div><div class="day-emoji">🫕</div><div class="day-meal">Slow Roast Lamb</div></div>
-        <div class="planner-day"><div class="day-name">Sun</div><div class="day-emoji">🥞</div><div class="day-meal">Brunch Special</div></div>
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-flag">🇮🇹</div>
+          <div class="course-chef">Chef Lorenzo</div>
+          <div class="course-name">Italian Masterclass</div>
+          <div class="course-desc">Authentic Italian technique from a chef who has spent a lifetime perfecting it.</div>
+        </div>
+        <div class="course-lessons">
+          <div class="lesson-item"><div class="lesson-num">1</div>Fresh pasta from scratch</div>
+          <div class="lesson-item"><div class="lesson-num">2</div>The perfect risotto</div>
+          <div class="lesson-item"><div class="lesson-num">3</div>Authentic Neapolitan pizza</div>
+          <div class="lesson-item"><div class="lesson-num">4</div>Italian braised meats</div>
+          <div class="lesson-item"><div class="lesson-num">5</div>Classic Italian desserts</div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier">Academy</span>
+          <a href="auth.html" class="course-btn">Enrol</a>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-flag">🇫🇷</div>
+          <div class="course-chef">Chef Henri</div>
+          <div class="course-name">French Technique</div>
+          <div class="course-desc">Classical French cooking from a chef trained in the great tradition of Parisian cuisine.</div>
+        </div>
+        <div class="course-lessons">
+          <div class="lesson-item"><div class="lesson-num">1</div>The French mother sauces</div>
+          <div class="lesson-item"><div class="lesson-num">2</div>Pastry fundamentals</div>
+          <div class="lesson-item"><div class="lesson-num">3</div>Braising & slow cooking</div>
+          <div class="lesson-item"><div class="lesson-num">4</div>Soufflés & advanced desserts</div>
+          <div class="lesson-item"><div class="lesson-num">5</div>The perfect croissant</div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier">Academy</span>
+          <a href="auth.html" class="course-btn">Enrol</a>
+        </div>
       </div>
     </div>
+    <p style="text-align:center;font-size:12px;color:var(--dark);margin-top:24px;letter-spacing:0.06em;">More courses launching soon — Mexican Kitchen, BBQ & Southern, Japanese Technique and more</p>
   </div>
 </section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-mark">✦</span><div class="divider-line"></div></div>
 
 <!-- HOW IT WORKS -->
-<section class="section section-white">
+<section class="section">
   <div class="section-inner">
-    <p class="section-eyebrow">How it works</p>
-    <h2 class="section-title">Simple as saying hello.</h2>
+    <p class="section-label">How it works</p>
+    <h2 class="section-title">Learning that<br><em>remembers you.</em></h2>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-title">Set up your profile</div><div class="step-desc">Tell us your skill level, dietary needs and kitchen setup. Takes 60 seconds.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-title">Pick your chef</div><div class="step-desc">Start free with Charlie or Rosie. Upgrade to unlock the full global team.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-title">Start cooking</div><div class="step-desc">Ask anything. Get guided through any recipe, step by step, in real time.</div></div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Enrol & profile</div>
+        <div class="step-desc">Tell us your skill level, dietary requirements and kitchen setup. Your chefs know you from day one.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Choose your course</div>
+        <div class="step-desc">Pick a chef and a course. Start with Charlie's foundations or go straight to Lorenzo's Italian Masterclass.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Learn interactively</div>
+        <div class="step-desc">Each lesson is a live conversation with your chef. Ask questions, make mistakes, get real guidance.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Progress & certify</div>
+        <div class="step-desc">Your chef remembers every lesson. Complete a course and receive your certificate of completion.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- QUOTE -->
-<section class="section" style="background:linear-gradient(135deg,var(--sky-light) 0%,#fff8f2 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div class="section-inner">
-    <div class="quote-wrap">
-      <div class="quote-mark">"</div>
-      <div class="quote-text">I asked Chef Marco if I could put cream in my carbonara. I will never make that mistake again.</div>
-      <div class="quote-author">Early user · London</div>
-    </div>
-  </div>
-</section>
+<div class="divider"><div class="divider-line"></div><span class="divider-mark">✦</span><div class="divider-line"></div></div>
 
 <!-- PRICING -->
-<section class="section section-navy">
+<section class="section section-dark" id="pricing">
   <div class="section-inner">
-    <div style="text-align:center;margin-bottom:48px;">
-      <p class="section-eyebrow-amber">Simple pricing</p>
-      <h2 class="section-title-light">Start free. Upgrade when ready.</h2>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:680px;margin:0 auto;">
-      <div style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:16px;padding:32px;">
-        <p style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;">Free forever</p>
-        <p style="font-family:'Playfair Display',serif;font-size:40px;color:#f0e6d3;margin-bottom:4px;">£0</p>
-        <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:24px;">No card required · No ads · No data selling</p>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ Chat with Charlie</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ Unlimited recipes on demand</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ Meal planning</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ Voice cooking guidance</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4);">✗ Premium chefs</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4);">✗ International accents</div>
-        </div>
-        <a href="chat.html" class="btn-secondary" style="width:100%;text-align:center;display:block;">Start cooking free</a>
+    <p class="section-label" style="text-align:center">Tuition</p>
+    <h2 class="section-title" style="text-align:center">Simple, <em>transparent</em> pricing.</h2>
+    <p style="font-size:14px;color:var(--muted);text-align:center;margin-top:12px;margin-bottom:0">No ads. No data selling. Cancel anytime.</p>
+    <div class="pricing-grid" style="margin-top:48px;">
+      <div class="price-card">
+        <p class="price-label">Taster</p>
+        <p class="price-amount">£0</p>
+        <p class="price-period">Free forever · No card required</p>
+        <ul class="price-features">
+          <li class="price-feature"><span class="price-check">✦</span>Chat with Charlie & Rosie</li>
+          <li class="price-feature"><span class="price-check">✦</span>Unlimited recipes on demand</li>
+          <li class="price-feature"><span class="price-check">✦</span>Basic voice guidance</li>
+          <li class="price-feature"><span class="price-check">✦</span>Noticeboard access</li>
+          <li class="price-feature"><span class="price-check">✦</span>Save 3 favourite recipes</li>
+          <li class="price-feature"><span class="price-cross">—</span>International faculty</li>
+          <li class="price-feature"><span class="price-cross">—</span>Full courses</li>
+        </ul>
+        <a href="auth.html" class="price-btn">Start free</a>
       </div>
-      <div style="background:linear-gradient(135deg,rgba(74,158,221,0.15),rgba(200,135,58,0.1));border:1.5px solid var(--sky);border-radius:16px;padding:32px;position:relative;">
-        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--sky),var(--sky2));border-radius:20px;padding:4px 16px;font-size:10px;color:white;font-weight:500;letter-spacing:0.05em;white-space:nowrap;">MOST POPULAR</div>
-        <p style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--sky);margin-bottom:12px;">Premium</p>
-        <p style="font-family:'Playfair Display',serif;font-size:40px;color:#f0e6d3;margin-bottom:4px;">£4.99<span style="font-size:16px;color:rgba(255,255,255,0.4)">/mo</span></p>
-        <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:24px;">7-day free trial</p>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ Everything in Free</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ All 10 AI chefs</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ Authentic accents per chef</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ Full voice cook mode</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ Advanced meal planning</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);">✓ Cooking courses</div>
-        </div>
-        <a href="#signup" class="btn-amber" style="width:100%;text-align:center;display:block;">Join the waitlist</a>
+      <div class="price-card featured">
+        <p class="price-label">Kitchen</p>
+        <p class="price-amount">£4.99</p>
+        <p class="price-period">/month · 7-day free trial</p>
+        <ul class="price-features">
+          <li class="price-feature"><span class="price-check">✦</span>Everything in Taster</li>
+          <li class="price-feature"><span class="price-check">✦</span>Full international faculty</li>
+          <li class="price-feature"><span class="price-check">✦</span>Authentic chef accents</li>
+          <li class="price-feature"><span class="price-check">✦</span>Unlimited saved recipes</li>
+          <li class="price-feature"><span class="price-check">✦</span>Smart meal planner</li>
+          <li class="price-feature"><span class="price-check">✦</span>Your kitchen across every device</li>
+          <li class="price-feature"><span class="price-cross">—</span>Full course access</li>
+        </ul>
+        <a href="auth.html" class="price-btn primary">Start Kitchen trial</a>
+      </div>
+      <div class="price-card">
+        <p class="price-label">Academy</p>
+        <p class="price-amount">£9.99</p>
+        <p class="price-period">/month · 7-day free trial</p>
+        <ul class="price-features">
+          <li class="price-feature"><span class="price-check">✦</span>Everything in Kitchen</li>
+          <li class="price-feature"><span class="price-check">✦</span>Full access to all courses</li>
+          <li class="price-feature"><span class="price-check">✦</span>Chef remembers your progress</li>
+          <li class="price-feature"><span class="price-check">✦</span>Certificates of completion</li>
+          <li class="price-feature"><span class="price-check">✦</span>Priority support</li>
+          <li class="price-feature"><span class="price-check">✦</span>Early access to new courses</li>
+          <li class="price-feature"><span class="price-check">✦</span>All future chefs included</li>
+        </ul>
+        <a href="auth.html" class="price-btn">Start Academy trial</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SIGNUP -->
-<section class="section" style="background:linear-gradient(135deg,var(--sky-light),#fff8f2);" id="signup">
+<div class="divider"><div class="divider-line"></div><span class="divider-mark">✦</span><div class="divider-line"></div></div>
+
+<!-- QUOTE -->
+<section class="section quote-section">
   <div class="section-inner">
-    <div class="signup-inner">
-      <p class="section-eyebrow" style="text-align:center">Early access</p>
-      <h2 class="section-title" style="text-align:center">Be first in the kitchen.</h2>
-      <p style="font-size:15px;color:var(--muted);line-height:1.7;text-align:center;margin-top:10px;">Join the waitlist for free early access to premium features. No card required.</p>
+    <div class="quote-mark">"</div>
+    <p class="quote-text">I asked Chef Lorenzo if I could put cream in my carbonara. I will never make that mistake again.</p>
+    <p class="quote-author">Early student · London</p>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-mark">✦</span><div class="divider-line"></div></div>
+
+<!-- SIGNUP -->
+<section class="section section-alt" id="signup">
+  <div class="section-inner">
+    <div class="signup-wrap">
+      <p class="section-label" style="text-align:center">Early access</p>
+      <h2 class="section-title" style="text-align:center">Join the <em>waitlist.</em></h2>
+      <p style="font-size:14px;color:var(--muted);line-height:1.7;text-align:center;margin-top:12px;">Be first to access new courses, new chefs and exclusive early pricing.</p>
       <div class="signup-form">
         <input type="email" id="email-input" class="signup-input" placeholder="your@email.com"/>
         <button class="signup-btn" onclick="handleSignup()">Join Waitlist</button>
       </div>
-      <div class="signup-success" id="signup-success">✦ You're on the list! We'll be in touch soon.</div>
-      <p class="signup-note">No spam. No card. Just great cooking.</p>
+      <div class="signup-success" id="signup-success">✦ You're on the list. We'll be in touch.</div>
+      <p class="signup-note">No spam. No card. No ads. Ever.</p>
       <div style="text-align:center;margin-top:28px;">
-        <a href="auth.html" class="btn-amber">Or start cooking with Charlie now →</a>
+        <a href="auth.html" class="btn-gold">Or begin your masterclass now →</a>
       </div>
     </div>
   </div>
@@ -452,122 +500,43 @@ footer{padding:40px 28px;border-top:1px solid var(--border);background:white;dis
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">
-    <span style="color:var(--amber)">✦</span>
-    <span style="font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);margin-left:7px">The Pickled Chef</span>
+    <span class="footer-logo-name">Fillet & Bone</span>
+    <span class="footer-logo-tag">A Culinary Masterclass</span>
   </div>
   <div class="footer-links">
-    <a href="#chefs">Our Team</a>
+    <a href="#faculty">Faculty</a>
+    <a href="#courses">Courses</a>
     <a href="noticeboard.html">Noticeboard</a>
-    <a href="#features">Features</a>
-    <a href="#recipes">Recipes</a>
-    <a href="#signup">Early Access</a>
-    <a href="auth.html">Start Cooking</a>
+    <a href="#pricing">Pricing</a>
+    <a href="chat.html">The Kitchen</a>
+    <a href="auth.html">Enrol</a>
   </div>
-  <div class="footer-copy">© 2025 The Pickled Chef · Rollright Publishing Ltd · pickledchef.com · No ads. Ever.</div>
+  <div class="footer-copy">© 2025 Fillet & Bone · Rollright Publishing Ltd · filletandbone.com · No ads. Ever.</div>
 </footer>
 
 <script>
-var RECIPES=[
-  {chef:'charlie',name:'Perfect Scrambled Eggs',emoji:'🥚',time:'10 mins',level:'beginner',tags:['quick','beginner'],desc:'Low heat, constant movement. Life-changing.',chefLabel:'Charlie · Everyday'},
-  {chef:'charlie',name:'Roast Chicken',emoji:'🍗',time:'1.5 hrs',level:'beginner',tags:['beginner'],desc:'Perfectly golden and juicy every time.',chefLabel:'Charlie · Everyday'},
-  {chef:'charlie',name:'Classic Omelette',emoji:'🍳',time:'8 mins',level:'beginner',tags:['quick','beginner'],desc:'Fluffy, golden and ready in minutes.',chefLabel:'Charlie · Everyday'},
-  {chef:'charlie',name:'Spaghetti Bolognese',emoji:'🍝',time:'45 mins',level:'beginner',tags:['beginner'],desc:'Rich slow-cooked meat sauce done properly.',chefLabel:'Charlie · Everyday'},
-  {chef:'charlie',name:'Banana Bread',emoji:'🍌',time:'55 mins',level:'beginner',tags:['beginner'],desc:'Moist, sweet and incredibly easy.',chefLabel:'Charlie · Everyday'},
-  {chef:'charlie',name:'Shakshuka',emoji:'🍅',time:'25 mins',level:'beginner',tags:['quick','beginner'],desc:'Eggs in spiced tomato sauce. Brunch perfection.',chefLabel:'Charlie · Everyday'},
-  {chef:'charlie',name:'Chicken Soup',emoji:'🍲',time:'1 hr',level:'beginner',tags:['beginner'],desc:'The ultimate comfort food.',chefLabel:'Charlie · Everyday'},
-  {chef:'charlie',name:'Stir Fry',emoji:'🥢',time:'20 mins',level:'beginner',tags:['quick','beginner'],desc:'High heat, fast cooking. Done in 20 minutes.',chefLabel:'Charlie · Everyday'},
-  {chef:'charlie',name:'Fish and Chips',emoji:'🐟',time:'40 mins',level:'intermediate',tags:[],desc:'Crispy beer batter, proper chips.',chefLabel:'Charlie · Everyday'},
-  {chef:'charlie',name:'Chocolate Chip Cookies',emoji:'🍪',time:'25 mins',level:'beginner',tags:['beginner'],desc:'Chewy in the middle, crispy at the edge.',chefLabel:'Charlie · Everyday'},
-  {chef:'marco',name:'Spaghetti Carbonara',emoji:'🍝',time:'25 mins',level:'intermediate',tags:[],desc:'Egg yolks, pecorino, guanciale. No cream. Never cream.',chefLabel:'Chef Marco · Italian'},
-  {chef:'marco',name:'Cacio e Pepe',emoji:'🧀',time:'20 mins',level:'intermediate',tags:['quick'],desc:'Three ingredients. Infinite skill.',chefLabel:'Chef Marco · Italian'},
-  {chef:'marco',name:'Osso Buco',emoji:'🫕',time:'2 hrs',level:'intermediate',tags:[],desc:'Braised veal shanks. Sunday in Milan on a plate.',chefLabel:'Chef Marco · Italian'},
-  {chef:'marco',name:'Tiramisu',emoji:'☕',time:'30 mins',level:'beginner',tags:['beginner'],desc:"Mascarpone, espresso, savoiardi. Marco's grandmother's recipe.",chefLabel:'Chef Marco · Italian'},
-  {chef:'marco',name:'Risotto ai Funghi',emoji:'🍄',time:'35 mins',level:'intermediate',tags:[],desc:'Slow stirred, rich with porcini and parmesan.',chefLabel:'Chef Marco · Italian'},
-  {chef:'marco',name:'Pizza Margherita',emoji:'🍕',time:'45 mins',level:'intermediate',tags:[],desc:'Proper Neapolitan-style. San Marzano tomatoes.',chefLabel:'Chef Marco · Italian'},
-  {chef:'marco',name:'Focaccia',emoji:'🫓',time:'2 hrs',level:'beginner',tags:['beginner'],desc:'Dimpled, olive-oiled, crispy underneath.',chefLabel:'Chef Marco · Italian'},
-  {chef:'marco',name:'Panna Cotta',emoji:'🍮',time:'20 mins',level:'beginner',tags:['quick','beginner'],desc:'Silky, wobbly, perfect. No baking needed.',chefLabel:'Chef Marco · Italian'},
-  {chef:'marco',name:'Arancini',emoji:'🍙',time:'1 hr',level:'intermediate',tags:[],desc:'Crispy rice balls with molten mozzarella centre.',chefLabel:'Chef Marco · Italian'},
-  {chef:'marco',name:'Saltimbocca',emoji:'🥩',time:'20 mins',level:'intermediate',tags:['quick'],desc:'Veal, prosciutto and sage. Roman perfection.',chefLabel:'Chef Marco · Italian'},
-  {chef:'jules',name:'Croissants',emoji:'🥐',time:'3 hrs',level:'advanced',tags:[],desc:'Laminated dough, cold butter, absolute precision.',chefLabel:'Chef Jules · French'},
-  {chef:'jules',name:'Beef Bourguignon',emoji:'🫕',time:'3 hrs',level:'intermediate',tags:[],desc:'Slow braised beef in Burgundy wine.',chefLabel:'Chef Jules · French'},
-  {chef:'jules',name:'Crème Brûlée',emoji:'🍮',time:'45 mins',level:'intermediate',tags:[],desc:'Silky vanilla custard, caramelised sugar.',chefLabel:'Chef Jules · French'},
-  {chef:'jules',name:'French Onion Soup',emoji:'🧅',time:'1 hr',level:'beginner',tags:['beginner'],desc:'Deeply caramelised onions, gruyère croûton.',chefLabel:'Chef Jules · French'},
-  {chef:'jules',name:'Tarte Tatin',emoji:'🍎',time:'50 mins',level:'intermediate',tags:[],desc:'Upside-down caramelised apple tart.',chefLabel:'Chef Jules · French'},
-  {chef:'jules',name:'Coq au Vin',emoji:'🍷',time:'1.5 hrs',level:'intermediate',tags:[],desc:'Chicken braised slowly in red wine.',chefLabel:'Chef Jules · French'},
-  {chef:'jules',name:'Soufflé au Chocolat',emoji:'🍫',time:'35 mins',level:'advanced',tags:[],desc:'Light as air, intensely chocolatey.',chefLabel:'Chef Jules · French'},
-  {chef:'jules',name:'Ratatouille',emoji:'🫑',time:'1 hr',level:'beginner',tags:['beginner'],desc:'Slow-cooked Provençal vegetables.',chefLabel:'Chef Jules · French'},
-  {chef:'jules',name:'Hollandaise Sauce',emoji:'🫙',time:'20 mins',level:'intermediate',tags:['quick'],desc:'Emulsified butter and egg yolks. The king of sauces.',chefLabel:'Chef Jules · French'},
-  {chef:'jules',name:'Madeleines',emoji:'🍰',time:'30 mins',level:'beginner',tags:['beginner'],desc:'Buttery shell-shaped cakes. Light and deeply French.',chefLabel:'Chef Jules · French'},
-  {chef:'mei',name:'Dan Dan Noodles',emoji:'🍜',time:'25 mins',level:'intermediate',tags:['quick'],desc:'Silky noodles, spiced pork, sesame sauce.',chefLabel:'Chef Mei · Chinese'},
-  {chef:'mei',name:'Kung Pao Chicken',emoji:'🌶️',time:'25 mins',level:'intermediate',tags:['quick'],desc:'Spicy, tangy, crunchy peanuts. A Sichuan classic.',chefLabel:'Chef Mei · Chinese'},
-  {chef:'mei',name:'Steamed Sea Bass',emoji:'🐟',time:'20 mins',level:'beginner',tags:['quick','beginner'],desc:'Whole fish steamed with ginger and soy.',chefLabel:'Chef Mei · Chinese'},
-  {chef:'mei',name:'Mapo Tofu',emoji:'🫙',time:'25 mins',level:'intermediate',tags:['quick'],desc:'Silken tofu in numbing spiced pork sauce.',chefLabel:'Chef Mei · Chinese'},
-  {chef:'mei',name:'Char Siu Pork',emoji:'🥩',time:'1.5 hrs',level:'intermediate',tags:[],desc:'Sticky, caramelised Cantonese barbecue pork.',chefLabel:'Chef Mei · Chinese'},
-  {chef:'priya',name:'Chicken Tikka Masala',emoji:'🍛',time:'45 mins',level:'intermediate',tags:[],desc:"Properly spiced. Priya's grandmother's recipe.",chefLabel:'Chef Priya · Indian'},
-  {chef:'priya',name:'Dal Makhani',emoji:'🫘',time:'2 hrs',level:'beginner',tags:['beginner'],desc:'Black lentils slow cooked with butter and cream.',chefLabel:'Chef Priya · Indian'},
-  {chef:'priya',name:'Lamb Biryani',emoji:'🍚',time:'1.5 hrs',level:'intermediate',tags:[],desc:'Fragrant basmati, slow-cooked lamb.',chefLabel:'Chef Priya · Indian'},
-  {chef:'priya',name:'Hummus from Scratch',emoji:'🫙',time:'20 mins',level:'beginner',tags:['quick','beginner'],desc:'Real hummus with tahini and lemon.',chefLabel:'Chef Priya · Middle Eastern'},
-  {chef:'priya',name:'Butter Chicken',emoji:'🍗',time:'45 mins',level:'beginner',tags:['beginner'],desc:'Creamy mildly spiced tomato sauce. A classic.',chefLabel:'Chef Priya · Indian'},
-  {chef:'priya',name:'Falafel',emoji:'🥙',time:'40 mins',level:'beginner',tags:['beginner'],desc:'Crispy outside, fluffy inside. Fresh herbs and chickpeas.',chefLabel:'Chef Priya · Middle Eastern'},
-  {chef:'priya',name:'Paneer Butter Masala',emoji:'🧀',time:'35 mins',level:'beginner',tags:['beginner'],desc:'Soft paneer in rich tomato and cream sauce.',chefLabel:'Chef Priya · Indian'},
-  {chef:'priya',name:'Shakshuka Spiced',emoji:'🍅',time:'25 mins',level:'beginner',tags:['quick','beginner'],desc:'Eggs in smoky harissa tomato sauce.',chefLabel:'Chef Priya · Middle Eastern'},
-  {chef:'priya',name:'Samosas',emoji:'🥟',time:'1 hr',level:'intermediate',tags:[],desc:'Crispy pastry, spiced potato filling.',chefLabel:'Chef Priya · Indian'},
-  {chef:'priya',name:'Baklava',emoji:'🍯',time:'1 hr',level:'intermediate',tags:[],desc:"Layers of filo, crushed nuts, honey syrup. Priya's family recipe.",chefLabel:'Chef Priya · Middle Eastern'},
-];
-
-function renderRecipes(){
-  var grid=document.getElementById('recipes-grid');
-  grid.innerHTML=RECIPES.map(function(r){
-    return '<div class="recipe-card" data-chef="'+r.chef+'" data-tags="'+r.tags.join(',')+'">'+
-      '<div class="recipe-emoji">'+r.emoji+'</div>'+
-      '<div class="recipe-name">'+r.name+'</div>'+
-      '<div class="recipe-tags">'+
-        '<span class="recipe-tag">'+r.time+'</span>'+
-        '<span class="recipe-tag-amber">'+r.level+'</span>'+
-      '</div>'+
-      '<div class="recipe-desc">'+r.desc+'</div>'+
-      '<div class="recipe-chef">👨‍🍳 '+r.chefLabel+'</div>'+
-    '</div>';
-  }).join('');
+function handleSignup() {
+  var email = document.getElementById('email-input').value;
+  if (!email || !email.includes('@')) { document.getElementById('email-input').style.borderColor = '#c0392b'; return; }
+  document.getElementById('email-input').style.borderColor = 'var(--gold)';
+  document.getElementById('signup-success').style.display = 'block';
+  document.getElementById('email-input').value = '';
+  var signups = JSON.parse(localStorage.getItem('fb_signups') || '[]');
+  signups.push({ email: email, date: new Date().toISOString() });
+  localStorage.setItem('fb_signups', JSON.stringify(signups));
 }
+document.getElementById('email-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleSignup(); });
 
-function filterRecipes(filter,btn){
-  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  document.querySelectorAll('.recipe-card').forEach(function(card){
-    var chef=card.dataset.chef;
-    var tags=card.dataset.tags;
-    var show=filter==='all'||filter===chef||(filter==='beginner'&&tags.includes('beginner'))||(filter==='quick'&&tags.includes('quick'));
-    card.classList.toggle('hidden',!show);
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }
   });
-}
-
-function handleSignup(){
-  var email=document.getElementById('email-input').value;
-  if(!email||!email.includes('@')){document.getElementById('email-input').style.borderColor='#e74c3c';return;}
-  document.getElementById('email-input').style.borderColor='var(--sky)';
-  document.getElementById('signup-success').style.display='block';
-  document.getElementById('email-input').value='';
-  var signups=JSON.parse(localStorage.getItem('pc_signups')||'[]');
-  signups.push({email:email,date:new Date().toISOString()});
-  localStorage.setItem('pc_signups',JSON.stringify(signups));
-}
-
-document.getElementById('email-input').addEventListener('keydown',function(e){if(e.key==='Enter')handleSignup();});
-
-// Scroll animations
-var observer=new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)';}
-  });
-},{threshold:0.08});
-
-document.querySelectorAll('.chef-card,.feature-card,.recipe-card,.step,.planner-day').forEach(function(el){
-  el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';
+}, { threshold: 0.08 });
+document.querySelectorAll('.faculty-card,.course-card,.step,.price-card').forEach(function(el) {
+  el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   observer.observe(el);
 });
-
-renderRecipes();
 </script>
 </body>
 </html>
