@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Certificate of Completion — Fillet & Bone</title>
+<meta name="robots" content="noindex"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#0d1b2a;--bg2:#1a2e42;--border:#2a3f55;--gold:#c9a84c;--gold2:#a8873a;--cream:#f0ece4;--text:#d4cfc7;--muted:#8a9bb0;--dark:#4a5a6a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;font-weight:300;color:var(--text);min-height:100vh;padding:40px 20px;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+
+.page-wrap{max-width:780px;margin:0 auto;position:relative;z-index:1;}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;text-decoration:none;margin-bottom:32px;letter-spacing:0.04em;transition:color 0.2s;}
+.back-link:hover{color:var(--gold);}
+
+/* CERTIFICATE */
+.cert-wrap{background:var(--bg2);border:1px solid var(--border);position:relative;overflow:hidden;}
+.cert-border{position:absolute;inset:8px;border:1px solid rgba(201,168,76,0.2);pointer-events:none;}
+.cert-corner{position:absolute;width:40px;height:40px;border-color:var(--gold);border-style:solid;opacity:0.4;}
+.cert-corner.tl{top:16px;left:16px;border-width:1px 0 0 1px;}
+.cert-corner.tr{top:16px;right:16px;border-width:1px 1px 0 0;}
+.cert-corner.bl{bottom:16px;left:16px;border-width:0 0 1px 1px;}
+.cert-corner.br{bottom:16px;right:16px;border-width:0 1px 1px 0;}
+
+.cert-inner{padding:56px 60px;text-align:center;}
+.cert-logo{margin-bottom:32px;}
+.cert-logo-name{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);display:block;letter-spacing:0.04em;}
+.cert-logo-tag{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.8;}
+.cert-rule{width:60px;height:1px;background:var(--gold);margin:20px auto;opacity:0.4;}
+.cert-eyebrow{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;opacity:0.8;}
+.cert-headline{font-family:'Playfair Display',serif;font-size:clamp(14px,2vw,18px);color:var(--muted);margin-bottom:8px;font-weight:400;}
+.cert-name{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,52px);color:var(--cream);margin-bottom:8px;font-weight:400;font-style:italic;}
+.cert-has{font-family:'Playfair Display',serif;font-size:clamp(14px,2vw,18px);color:var(--muted);margin-bottom:16px;}
+.cert-course{font-family:'Playfair Display',serif;font-size:clamp(20px,3.5vw,32px);color:var(--gold);margin-bottom:8px;font-weight:500;}
+.cert-school{font-family:'Playfair Display',serif;font-size:clamp(14px,2vw,18px);color:var(--muted);margin-bottom:32px;}
+.cert-rule2{width:40px;height:1px;background:var(--gold);margin:0 auto 24px;opacity:0.3;}
+.cert-details{display:flex;justify-content:center;gap:48px;margin-bottom:32px;flex-wrap:wrap;}
+.cert-detail{text-align:center;}
+.cert-detail-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dark);margin-bottom:4px;}
+.cert-detail-value{font-family:'Playfair Display',serif;font-size:14px;color:var(--cream);}
+.cert-sig{margin-top:8px;}
+.cert-sig-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);font-style:italic;}
+.cert-sig-role{font-size:10px;color:var(--dark);letter-spacing:0.08em;text-transform:uppercase;margin-top:3px;}
+.cert-id{font-size:10px;color:var(--dark);letter-spacing:0.06em;margin-top:20px;}
+
+/* ACTIONS */
+.actions{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;padding:12px 24px;color:var(--bg);font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;display:inline-block;}
+.btn-outline{background:transparent;border:1px solid var(--border);padding:11px 22px;color:var(--muted);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.06em;text-decoration:none;display:inline-block;transition:border-color 0.2s,color 0.2s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+.loading-state{text-align:center;padding:60px;color:var(--muted);font-size:13px;}
+
+@media(max-width:600px){
+  .cert-inner{padding:36px 24px;}
+  .cert-details{gap:24px;}
+  body{padding:20px 16px;}
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+  <a href="courses.html" class="back-link">← Back to courses</a>
+  <div id="cert-container"><div class="loading-state">Loading certificate…</div></div>
+  <div class="actions" id="cert-actions" style="display:none">
+    <button class="btn-gold" onclick="window.print()">Download PDF</button>
+    <a href="courses.html" class="btn-outline">Back to courses</a>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL='https://ctlwnlxifaibyezrvlau.supabase.co';
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
+var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+var certId = new URLSearchParams(window.location.search).get('id');
+
+window.onload = function() {
+  if (!certId) { showError(); return; }
+
+  supabase.from('certificates').select('*').eq('id', certId).single().then(function(result) {
+    if (result.error || !result.data) { showError(); return; }
+    renderCert(result.data);
+  });
+};
+
+function renderCert(cert) {
+  var date = new Date(cert.issued_at);
+  var dateStr = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  document.getElementById('cert-container').innerHTML =
+    '<div class="cert-wrap">' +
+      '<div class="cert-border"></div>' +
+      '<div class="cert-corner tl"></div><div class="cert-corner tr"></div>' +
+      '<div class="cert-corner bl"></div><div class="cert-corner br"></div>' +
+      '<div class="cert-inner">' +
+        '<div class="cert-logo"><span class="cert-logo-name">Fillet & Bone</span><span class="cert-logo-tag">A Culinary Masterclass</span></div>' +
+        '<div class="cert-rule"></div>' +
+        '<div class="cert-eyebrow">Certificate of Completion</div>' +
+        '<div class="cert-headline">This is to certify that</div>' +
+        '<div class="cert-name">' + escHtml(cert.student_name) + '</div>' +
+        '<div class="cert-has">has successfully completed</div>' +
+        '<div class="cert-course">' + escHtml(cert.course_name) + '</div>' +
+        '<div class="cert-school">at Fillet & Bone Online Culinary School</div>' +
+        '<div class="cert-rule2"></div>' +
+        '<div class="cert-details">' +
+          '<div class="cert-detail"><div class="cert-detail-label">Instructor</div><div class="cert-detail-value">' + escHtml(cert.chef_name) + '</div></div>' +
+          '<div class="cert-detail"><div class="cert-detail-label">Date of completion</div><div class="cert-detail-value">' + dateStr + '</div></div>' +
+          '<div class="cert-detail"><div class="cert-detail-label">Certificate ID</div><div class="cert-detail-value">' + escHtml(cert.id) + '</div></div>' +
+        '</div>' +
+        '<div class="cert-sig">' +
+          '<div class="cert-sig-name">Fillet & Bone</div>' +
+          '<div class="cert-sig-role">Online Culinary School · Rollright Publishing Ltd</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('cert-actions').style.display = 'flex';
+  document.title = 'Certificate — ' + cert.course_name + ' — Fillet & Bone';
+}
+
+function showError() {
+  document.getElementById('cert-container').innerHTML = '<div class="loading-state">Certificate not found.</div>';
+}
+
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+</script>
+</body>
+</html>
