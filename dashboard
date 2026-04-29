@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Dashboard — Fillet & Bone</title>
+<meta name="robots" content="noindex"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="ranks.js"></script>
+<style>
+:root{--bg:#0d1b2a;--bg2:#1a2e42;--bg3:#0a1520;--border:#2a3f55;--gold:#c9a84c;--gold2:#a8873a;--cream:#f0ece4;--text:#d4cfc7;--muted:#8a9bb0;--dark:#4a5a6a;--gold-light:rgba(201,168,76,0.08);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+
+header{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(13,27,42,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.logo{text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);display:block;}
+.logo-tag{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);opacity:0.7;}
+nav{display:flex;align-items:center;gap:10px;}
+.nav-btn{background:transparent;border:1px solid var(--border);padding:5px 12px;color:var(--muted);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:none;letter-spacing:0.04em;transition:all 0.2s;}
+.nav-btn:hover{border-color:var(--gold);color:var(--gold);}
+.nav-signout{border-color:rgba(192,57,43,0.3);color:rgba(192,57,43,0.7);}
+.nav-signout:hover{border-color:#c0392b;color:#c0392b;}
+
+.page{max-width:920px;margin:0 auto;padding:48px 32px;position:relative;z-index:1;}
+
+/* HERO SECTION */
+.profile-hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.profile-av-large{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:26px;color:var(--bg);margin-bottom:14px;}
+.profile-name{font-family:'Playfair Display',serif;font-size:28px;color:var(--cream);margin-bottom:6px;}
+.profile-email{font-size:12px;color:var(--dark);letter-spacing:0.04em;margin-bottom:12px;}
+.profile-rank-display{display:flex;align-items:center;gap:8px;}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:32px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);padding:20px;}
+.stat-num{font-family:'Playfair Display',serif;font-size:32px;color:var(--gold);margin-bottom:4px;}
+.stat-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dark);}
+
+/* SECTIONS */
+.section-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;opacity:0.8;}
+.section-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);margin-bottom:16px;}
+
+/* RANK SECTION */
+.rank-section{margin-bottom:36px;}
+.all-ranks{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:16px;}
+.rank-tier{background:var(--bg2);border:1px solid var(--border);padding:14px 16px;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;}
+.rank-tier.current{border-color:var(--gold);background:var(--gold-light);}
+.rank-tier.achieved{border-color:rgba(201,168,76,0.3);}
+.rank-tier-icon{font-size:18px;}
+.rank-tier-name{font-family:'Playfair Display',serif;font-size:13px;color:var(--cream);}
+.rank-tier-req{font-size:10px;color:var(--dark);letter-spacing:0.04em;}
+.rank-tier.current .rank-tier-name{color:var(--gold);}
+.rank-check{margin-left:auto;color:var(--gold);font-size:12px;}
+
+/* COURSE PROGRESS */
+.progress-section{margin-bottom:36px;}
+.course-progress-card{background:var(--bg2);border:1px solid var(--border);padding:18px;margin-bottom:8px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;}
+.course-progress-flag{font-size:24px;}
+.course-progress-name{font-family:'Playfair Display',serif;font-size:14px;color:var(--cream);margin-bottom:4px;}
+.course-progress-detail{font-size:11px;color:var(--muted);}
+.course-progress-bar-wrap{margin-top:7px;}
+.course-progress-bar{height:2px;background:var(--border);}
+.course-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width 0.6s ease;}
+.course-cta-btn{background:transparent;border:1px solid var(--gold);padding:7px 14px;color:var(--gold);font-size:10px;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
+.course-cta-btn:hover{background:var(--gold);color:var(--bg);}
+.empty-state{text-align:center;padding:32px;border:1px solid var(--border);background:var(--bg2);}
+.empty-state p{font-size:13px;color:var(--muted);margin-bottom:14px;}
+
+/* CERTIFICATES */
+.cert-section{margin-bottom:36px;}
+.cert-item{background:var(--bg2);border:1px solid var(--border);padding:16px 20px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.cert-item-name{font-family:'Playfair Display',serif;font-size:14px;color:var(--cream);margin-bottom:3px;}
+.cert-item-date{font-size:11px;color:var(--dark);letter-spacing:0.04em;}
+.cert-view{background:transparent;border:1px solid var(--border);padding:6px 14px;color:var(--muted);font-size:10px;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.05em;text-decoration:none;transition:all 0.2s;}
+.cert-view:hover{border-color:var(--gold);color:var(--gold);}
+
+footer{padding:32px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:relative;z-index:1;}
+.footer-logo-name{font-family:'Playfair Display',serif;font-size:14px;color:var(--cream);}
+.footer-copy{font-size:11px;color:var(--dark);}
+
+@media(max-width:640px){
+  header{padding:0 16px;}
+  .page{padding:32px 16px;}
+  .profile-hero{grid-template-columns:1fr;}
+  .course-progress-card{grid-template-columns:auto 1fr;}
+  .course-cta-btn{grid-column:1/-1;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <span class="logo-name">Fillet & Bone</span>
+    <span class="logo-tag">A Culinary Masterclass</span>
+  </a>
+  <nav>
+    <a href="courses.html" class="nav-btn">Courses</a>
+    <a href="chat.html" class="nav-btn">Kitchen</a>
+    <a href="noticeboard.html" class="nav-btn">Noticeboard</a>
+    <button class="nav-btn nav-signout" onclick="handleSignOut()">Sign out</button>
+  </nav>
+</header>
+
+<div class="page">
+  <div id="loading" style="text-align:center;padding:60px;color:var(--muted);font-size:13px;">Loading your dashboard…</div>
+  <div id="dashboard" style="display:none">
+
+    <!-- PROFILE HERO -->
+    <div class="profile-hero">
+      <div>
+        <div class="profile-av-large" id="profile-av">?</div>
+        <div class="profile-name" id="profile-name">Loading…</div>
+        <div class="profile-email" id="profile-email"></div>
+        <div class="profile-rank-display" id="profile-rank-display"></div>
+      </div>
+      <div>
+        <a href="upgrade.html" class="nav-btn" id="upgrade-link" style="display:none;border-color:rgba(201,168,76,0.4);color:var(--gold);">Upgrade →</a>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-modules">0</div>
+        <div class="stat-label">Modules Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-courses">0</div>
+        <div class="stat-label">Courses Started</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-certs">0</div>
+        <div class="stat-label">Certificates</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-streak">—</div>
+        <div class="stat-label">Current Rank</div>
+      </div>
+    </div>
+
+    <!-- RANK SECTION -->
+    <div class="rank-section">
+      <div class="section-label">Your progression</div>
+      <div class="section-title">Chef Rank</div>
+      <div id="rank-card-wrap"></div>
+      <div class="all-ranks" id="all-ranks"></div>
+    </div>
+
+    <!-- COURSE PROGRESS -->
+    <div class="progress-section">
+      <div class="section-label">Your courses</div>
+      <div class="section-title">In Progress</div>
+      <div id="course-progress-list"></div>
+    </div>
+
+    <!-- CERTIFICATES -->
+    <div class="cert-section">
+      <div class="section-label">Achievements</div>
+      <div class="section-title">Certificates</div>
+      <div id="certs-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo-name">Fillet & Bone</div>
+  </div>
+  <div class="footer-copy">© 2025 Fillet & Bone · Rollright Publishing Ltd</div>
+</footer>
+
+<script>
+var SUPABASE_URL='https://ctlwnlxifaibyezrvlau.supabase.co';
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
+var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+var currentUser=null;
+
+var COURSE_MAP={
+  'Knife Skills':        {key:'knife-skills',flag:'🔪',total:5},
+  'Heat Control':        {key:'heat-control',flag:'🔥',total:5},
+  'Seasoning Technique': {key:'seasoning',   flag:'🧂',total:4},
+  'Sauce Fundamentals':  {key:'sauces',      flag:'🫙',total:5},
+  'Cooking Protein':     {key:'protein',     flag:'🥩',total:5},
+  'Italian Masterclass': {key:'italian',     flag:'🇮🇹',total:8},
+  'French Technique':    {key:'french',      flag:'🇫🇷',total:8},
+  'Mexican Kitchen':     {key:'mexican',     flag:'🇲🇽',total:8},
+  'BBQ & Southern':      {key:'bbq',         flag:'🇺🇸',total:8}
+};
+
+window.onload=function(){
+  supabase.auth.getSession().then(function(r){
+    if(!r.data.session){window.location.href='auth.html';return;}
+    currentUser=r.data.session.user;
+    loadDashboard();
+  });
+};
+
+function loadDashboard(){
+  Promise.all([
+    supabase.from('profiles').select('*').eq('id',currentUser.id).single(),
+    supabase.from('course_progress').select('*').eq('user_id',currentUser.id).order('completed_at',{ascending:false}),
+    supabase.from('certificates').select('*').eq('user_id',currentUser.id).order('issued_at',{ascending:false})
+  ]).then(function(results){
+    var profile = results[0].data || {};
+    var progress = results[1].data || [];
+    var certs = results[2].data || [];
+
+    // Sync module count to DB
+    var moduleCount = progress.length;
+    if((profile.completed_modules||0) !== moduleCount){
+      supabase.from('profiles').update({completed_modules:moduleCount}).eq('id',currentUser.id);
+    }
+
+    renderDashboard(profile, progress, certs, moduleCount);
+  });
+}
+
+function renderDashboard(profile, progress, certs, moduleCount){
+  document.getElementById('loading').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+
+  var name = profile.name || currentUser.email.split('@')[0];
+  var firstName = name.split(' ')[0];
+
+  // Profile hero
+  document.getElementById('profile-av').textContent = firstName[0].toUpperCase();
+  document.getElementById('profile-name').textContent = name;
+  document.getElementById('profile-email').textContent = currentUser.email;
+
+  var rankInfo = getUserChefRank(moduleCount);
+  document.getElementById('profile-rank-display').innerHTML = renderRankBadge(moduleCount, true, false);
+
+  if(!profile.is_premium){
+    document.getElementById('upgrade-link').style.display='block';
+  }
+
+  // Stats
+  var coursesStarted = Object.keys(progress.reduce(function(acc,p){acc[p.course_name]=1;return acc;},{})).length;
+  document.getElementById('stat-modules').textContent = moduleCount;
+  document.getElementById('stat-courses').textContent = coursesStarted;
+  document.getElementById('stat-certs').textContent = certs.length;
+  document.getElementById('stat-streak').textContent = rankInfo.rank;
+
+  // Rank card
+  document.getElementById('rank-card-wrap').innerHTML = renderRankCard(moduleCount);
+
+  // All ranks ladder
+  var ranksHtml = CHEF_RANKS.map(function(rank){
+    var achieved = moduleCount >= rank.min;
+    var isCurrent = rankInfo.rank === rank.name;
+    return '<div class="rank-tier'+(isCurrent?' current':achieved?' achieved':'')+'">'+
+      '<div style="display:none">'+rank.icon+'</div>'+
+      '<div>'+
+        '<div class="rank-tier-name">'+rank.name+'</div>'+
+        '<div class="rank-tier-req">'+(rank.min===0?'Starting rank':rank.min+' modules')+'</div>'+
+      '</div>'+
+      (achieved?'<div class="rank-check">✦</div>':'')+
+    '</div>';
+  }).join('');
+  document.getElementById('all-ranks').innerHTML = ranksHtml;
+
+  // Course progress
+  var courseGroups={};
+  progress.forEach(function(p){
+    if(!courseGroups[p.course_name]) courseGroups[p.course_name]={lessons:[],chef:p.chef_name};
+    courseGroups[p.course_name].lessons.push(p.lesson_number);
+  });
+
+  var progressHtml='';
+  Object.keys(courseGroups).forEach(function(courseName){
+    var group=courseGroups[courseName];
+    var map=COURSE_MAP[courseName];
+    if(!map)return;
+    var completed=group.lessons.length;
+    var total=map.total;
+    var pct=Math.round((completed/total)*100);
+    var nextLesson=Math.max.apply(null,group.lessons)+1;
+    var isComplete=completed>=total;
+    progressHtml+='<div class="course-progress-card">'+
+      '<div class="course-progress-flag">'+map.flag+'</div>'+
+      '<div>'+
+        '<div class="course-progress-name">'+escHtml(courseName)+'</div>'+
+        '<div class="course-progress-detail">'+completed+' of '+total+' lessons · '+pct+'% complete</div>'+
+        '<div class="course-progress-bar-wrap"><div class="course-progress-bar"><div class="course-progress-fill" style="width:'+pct+'%"></div></div></div>'+
+      '</div>'+
+      (isComplete
+        ? '<span style="font-size:12px;color:var(--gold);">Complete ✦</span>'
+        : '<a href="lesson.html?course='+map.key+'&lesson='+Math.min(nextLesson,total)+'" class="course-cta-btn">Continue →</a>'
+      )+
+    '</div>';
+  });
+
+  if(!progressHtml){
+    progressHtml='<div class="empty-state"><p>You haven\'t started any courses yet.</p><a href="courses.html" class="course-cta-btn">Explore courses →</a></div>';
+  }
+  document.getElementById('course-progress-list').innerHTML=progressHtml;
+
+  // Certificates
+  var certsHtml='';
+  if(certs.length){
+    certs.forEach(function(cert){
+      var date=new Date(cert.issued_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+      certsHtml+='<div class="cert-item">'+
+        '<div>'+
+          '<div class="cert-item-name">'+escHtml(cert.course_name)+'</div>'+
+          '<div class="cert-item-date">Issued '+date+' · '+escHtml(cert.chef_name)+'</div>'+
+        '</div>'+
+        '<a href="certificate.html?id='+cert.id+'" class="cert-view">View →</a>'+
+      '</div>';
+    });
+  } else {
+    certsHtml='<div class="empty-state"><p>Complete a course to earn your first certificate.</p><a href="courses.html" class="course-cta-btn">Start a course →</a></div>';
+  }
+  document.getElementById('certs-list').innerHTML=certsHtml;
+}
+
+function handleSignOut(){
+  supabase.auth.signOut().then(function(){window.location.href='auth.html';});
+}
+
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+</script>
+</body>
+</html>
