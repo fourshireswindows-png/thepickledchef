@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Fillet & Bone | Culinary Masterclass Lesson</title>
+<meta name="robots" content="noindex"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="ranks.js"></script>
+<style>
+:root{
+  --bg:#0d1b2a;--bg2:#1a2e42;--bg3:#0a1520;--border:#2a3f55;
+  --gold:#c9a84c;--gold2:#a8873a;--cream:#f0ece4;
+  --text:#d4cfc7;--muted:#8a9bb0;--dark:#4a5a6a;
+  --gold-light:rgba(201,168,76,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+
+/* SCREENS */
+.screen{display:none;height:100vh;flex-direction:column;position:relative;z-index:1;}
+.screen.active{display:flex;}
+
+/* NAV */
+nav{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(13,27,42,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);flex-shrink:0;}
+.logo{text-decoration:none;display:flex;flex-direction:column;}
+.logo-name{font-family:'Playfair Display',serif;font-size:14px;color:var(--cream);}
+.logo-tag{font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);opacity:0.7;}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-btn{background:transparent;border:1px solid var(--border);padding:5px 11px;color:var(--muted);font-size:10px;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.05em;text-decoration:none;transition:all 0.2s;}
+.nav-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+/* LESSON HEADER */
+.lesson-header{background:var(--bg3);border-bottom:1px solid var(--border);padding:12px 20px;flex-shrink:0;}
+.lesson-breadcrumb{font-size:10px;color:var(--dark);letter-spacing:0.05em;margin-bottom:4px;}
+.lesson-breadcrumb a{color:var(--muted);text-decoration:none;}
+.lesson-breadcrumb a:hover{color:var(--gold);}
+.lesson-info{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.lesson-title-wrap{display:flex;align-items:center;gap:10px;}
+.lesson-num-badge{width:28px;height:28px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:11px;color:var(--gold);flex-shrink:0;}
+.lesson-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);}
+.lesson-course{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:0.04em;}
+.lesson-progress{display:flex;align-items:center;gap:10px;}
+.progress-dots{display:flex;gap:4px;}
+.progress-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background 0.3s;}
+.progress-dot.done{background:var(--gold);}
+.progress-dot.current{background:var(--gold);opacity:0.5;}
+.complete-btn{background:transparent;border:1px solid var(--gold);padding:6px 14px;color:var(--gold);font-size:10px;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:all 0.2s;}
+.complete-btn:hover{background:var(--gold);color:var(--bg);}
+
+/* LESSON INTRO SCREEN */
+.intro-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 20px;overflow-y:auto;}
+.intro-card{width:100%;max-width:560px;}
+.intro-rule{width:24px;height:1px;background:var(--gold);margin-bottom:16px;opacity:0.6;}
+.intro-eyebrow{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;opacity:0.8;}
+.intro-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--cream);margin-bottom:10px;line-height:1.2;}
+.intro-chef{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding:12px;background:var(--bg2);border:1px solid var(--border);}
+.intro-chef-flag{font-size:24px;}
+.intro-chef-name{font-family:'Playfair Display',serif;font-size:14px;color:var(--cream);}
+.intro-chef-role{font-size:10px;color:var(--muted);letter-spacing:0.04em;}
+.intro-objectives{margin-bottom:24px;}
+.intro-objectives-title{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;opacity:0.8;}
+.objective{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted);}
+.objective:last-child{border-bottom:none;}
+.objective-mark{color:var(--gold);flex-shrink:0;margin-top:1px;}
+.intro-context{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:24px;padding:14px;background:var(--bg2);border:1px solid var(--border);border-left:2px solid var(--gold);}
+.start-btn{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;padding:13px;color:var(--bg);font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;transition:opacity 0.2s;}
+.start-btn:hover{opacity:0.9;}
+.free-notice{font-size:11px;color:var(--dark);text-align:center;margin-top:10px;letter-spacing:0.03em;}
+.locked-notice{background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);padding:14px;text-align:center;margin-top:16px;}
+.locked-notice p{font-size:13px;color:var(--muted);margin-bottom:10px;}
+.locked-notice a{display:inline-block;border:1px solid var(--gold);padding:8px 20px;color:var(--gold);font-size:11px;text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:all 0.2s;}
+.locked-notice a:hover{background:var(--gold);color:var(--bg);}
+
+/* CHAT */
+.chat-main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.chat-thread{max-width:680px;margin:0 auto;padding:20px 16px;display:flex;flex-direction:column;gap:14px;}
+.msg-row{display:flex;animation:fadeUp 0.3s ease both;}
+.msg-row.user{justify-content:flex-end;}
+.msg-row.assistant{justify-content:flex-start;align-items:flex-start;gap:9px;}
+.msg-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--bg);flex-shrink:0;}
+.msg-bubble{max-width:78%;padding:10px 14px;font-size:14px;line-height:1.7;font-weight:300;}
+.msg-bubble.user{background:var(--bg2);color:var(--cream);border:1px solid var(--border);}
+.msg-bubble.assistant{background:var(--gold-light);color:var(--text);border:1px solid rgba(201,168,76,0.15);}
+.typing-bubble{background:var(--gold-light);border:1px solid rgba(201,168,76,0.15);padding:12px 16px;}
+.typing-dots{display:flex;gap:4px;align-items:center;height:18px;}
+.typing-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);display:inline-block;animation:bounce 1.2s infinite ease-in-out;opacity:0.6;}
+
+/* COMPLETE MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--bg2);border:1px solid var(--border);padding:36px;width:100%;max-width:480px;}
+.modal-rule{width:24px;height:1px;background:var(--gold);margin-bottom:16px;opacity:0.6;}
+.modal-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);margin-bottom:16px;}
+.modal-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;opacity:0.8;display:block;margin-top:14px;}
+.modal-textarea{width:100%;background:var(--bg);border:1px solid var(--border);padding:10px 13px;color:var(--cream);font-size:13px;font-family:'DM Sans',sans-serif;font-weight:300;resize:none;min-height:70px;transition:border-color 0.2s;}
+.modal-textarea:focus{outline:none;border-color:var(--gold);}
+.modal-textarea::placeholder{color:var(--dark);}
+.rating-wrap{display:flex;gap:6px;margin-top:6px;}
+.rating-btn{width:36px;height:36px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:14px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.rating-btn:hover,.rating-btn.sel{background:var(--gold);border-color:var(--gold);color:var(--bg);}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;}
+.modal-cancel{background:transparent;border:1px solid var(--border);padding:9px 16px;color:var(--muted);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.05em;}
+.modal-save{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;padding:9px 20px;color:var(--bg);font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;}
+
+/* FOOTER */
+.chat-footer{padding:8px 16px 14px;border-top:1px solid var(--border);background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);flex-shrink:0;}
+.input-wrap{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:7px;background:var(--bg2);border:1px solid var(--border);padding:7px 7px 7px 14px;transition:border-color 0.3s;}
+.input-wrap.listening{border-color:var(--gold);}
+.chat-textarea{flex:1;background:transparent;border:none;color:var(--cream);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.5;max-height:100px;resize:none;caret-color:var(--gold);}
+.chat-textarea:focus{outline:none;}
+.chat-textarea::placeholder{color:var(--dark);}
+.mic-btn{width:34px;height:34px;background:transparent;border:1px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:all 0.2s;}
+.mic-btn:hover{border-color:var(--gold);color:var(--gold);}
+.mic-btn.active{background:var(--gold);border-color:var(--gold);color:var(--bg);}
+.send-btn{width:34px;height:34px;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:opacity 0.2s;}
+.send-btn:disabled{opacity:0.35;cursor:default;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.4;}40%{transform:translateY(-5px);opacity:1;}}
+
+@media(max-width:640px){
+  .screen{height:100dvh;}
+  nav{height:50px;padding:0 12px;}
+  .logo-tag{display:none;}
+  .lesson-header{padding:10px 12px;}
+  .lesson-name{font-size:14px;}
+  .intro-wrap{padding:16px;}
+  .intro-title{font-size:22px;}
+  .chat-thread{padding:12px;}
+  .msg-bubble{max-width:88%;font-size:13px;}
+  .chat-footer{padding:7px 12px 12px;}
+  .chat-textarea{font-size:16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO SCREEN -->
+<div id="screen-intro" class="screen active">
+  <nav>
+    <a href="courses.html" class="logo">
+      <span class="logo-name">Fillet & Bone</span>
+      <span class="logo-tag">A Culinary Masterclass</span>
+    </a>
+    <div class="nav-right">
+      <a href="courses.html" class="nav-btn">← All Courses</a>
+    </div>
+  </nav>
+  <div class="lesson-header">
+    <div class="lesson-breadcrumb">
+      <a href="index.html">Home</a> → <a href="courses.html">Courses</a> → <span id="breadcrumb-course"></span>
+    </div>
+  </div>
+  <div class="intro-wrap">
+    <div class="intro-card" id="intro-card">
+      <div class="intro-rule"></div>
+      <div class="intro-eyebrow" id="intro-eyebrow">Lesson loading…</div>
+      <h1 class="intro-title" id="intro-title">Loading…</h1>
+      <div class="intro-chef" id="intro-chef"></div>
+      <div class="intro-objectives" id="intro-objectives"></div>
+      <div class="intro-context" id="intro-context"></div>
+      <div id="intro-actions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSON CHAT SCREEN -->
+<div id="screen-lesson" class="screen">
+  <nav>
+    <a href="courses.html" class="logo">
+      <span class="logo-name">Fillet & Bone</span>
+      <span class="logo-tag">A Culinary Masterclass</span>
+    </a>
+    <div class="nav-right">
+      <a href="courses.html" class="nav-btn">← Courses</a>
+      <button class="complete-btn" onclick="openCompleteModal()">Mark Complete ✦</button>
+    </div>
+  </nav>
+  <div class="lesson-header">
+    <div class="lesson-info">
+      <div class="lesson-title-wrap">
+        <div class="lesson-num-badge" id="lesson-num-badge">1</div>
+        <div>
+          <div class="lesson-name" id="lesson-name-header">Loading…</div>
+          <div class="lesson-course" id="lesson-course-header"></div>
+        </div>
+      </div>
+      <div class="lesson-progress">
+        <div class="progress-dots" id="progress-dots"></div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-main" id="chat-main">
+    <div class="chat-thread" id="chat-thread"></div>
+  </div>
+  <div class="chat-footer">
+    <div class="input-wrap" id="input-wrap">
+      <textarea id="chat-input" class="chat-textarea" rows="1"
+        placeholder="Ask your chef anything about this lesson…"
+        onkeydown="handleKey(event)"
+        oninput="autoResize(this)"></textarea>
+      <button class="mic-btn" id="mic-btn" onclick="toggleListen()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </button>
+      <button class="send-btn" id="send-btn" onclick="sendMessage()" disabled>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLETE MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-rule"></div>
+    <h2 class="modal-title">Lesson complete ✦</h2>
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:4px;">Take a moment to reflect on what you learned.</p>
+    <label class="modal-label">What went well?</label>
+    <textarea class="modal-textarea" id="went-well" placeholder="What did you feel confident about?"></textarea>
+    <label class="modal-label">What needs more practice?</label>
+    <textarea class="modal-textarea" id="needs-work" placeholder="What would you like to improve?"></textarea>
+    <label class="modal-label">Rate this lesson</label>
+    <div class="rating-wrap" id="rating-wrap">
+      <button class="rating-btn" onclick="setRating(1,this)">1</button>
+      <button class="rating-btn" onclick="setRating(2,this)">2</button>
+      <button class="rating-btn" onclick="setRating(3,this)">3</button>
+      <button class="rating-btn" onclick="setRating(4,this)">4</button>
+      <button class="rating-btn" onclick="setRating(5,this)">5</button>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Not yet</button>
+      <button class="modal-save" onclick="completeLesson()">Save & continue →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Config ──────────────────────────────────────────────────────────────────
+var SUPABASE_URL = 'https://ctlwnlxifaibyezrvlau.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
+var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+var currentUser = null;
+var userProfile = null;
+var messages = [];
+var loading = false;
+var listening = false;
+var recognition = null;
+var currentLesson = null;
+var selectedRating = 0;
+
+// ── Course & Lesson Data ─────────────────────────────────────────────────────
+var COURSES = {
+  'knife-skills': {
+    name: 'Knife Skills',
+    course: 'Kitchen Foundations',
+    chef: 'Charlie',
+    flag: '🇬🇧',
+    chefRole: 'Kitchen Foundations Instructor',
+    totalLessons: 5,
+    tier: 'free',
+    lessons: {
+      1: {
+        title: 'The Correct Grip',
+        eyebrow: 'Lesson 1 of 5 — Knife Skills',
+        objectives: ['Understand the pinch grip vs handle grip', 'Learn why grip affects control and fatigue', 'Practice the correct hand position'],
+        context: 'Before we talk about cutting technique, we need to talk about how you hold the knife. Most home cooks hold a knife wrong their entire lives — and it costs them control, speed and safety. Today we fix that.',
+        systemPrompt: 'You are Charlie, a warm and knowledgeable cooking instructor at Fillet & Bone culinary school. You are teaching Lesson 1 of the Knife Skills course — The Correct Grip. Your learning objectives are: (1) teach the pinch grip where the student pinches the blade between thumb and index finger, (2) explain why this gives more control than holding the handle, (3) address the claw technique for the guiding hand. Be warm, clear and encouraging. Ask the student to try the grip and describe what they feel. Build their confidence. Keep responses concise and focused on this lesson.'
+      },
+      2: {
+        title: 'The Rocking Motion',
+        eyebrow: 'Lesson 2 of 5 — Knife Skills',
+        objectives: ['Master the rocking chopping motion', 'Understand the tip-pivot technique', 'Apply consistent rhythm and speed'],
+        context: 'You have the grip. Now we work on the motion. Professional chefs do not lift the knife fully between cuts — they use a rocking motion that keeps the tip on the board. It is faster, more precise and far less tiring.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. You are teaching Lesson 2 of Knife Skills — The Rocking Motion. Build on Lesson 1 (the pinch grip). Teach: (1) keeping the knife tip on the board as the pivot point, (2) the rocking motion rather than lifting, (3) building rhythm and consistency. Get the student to practice on an imaginary onion and describe their technique. Correct gently. Be encouraging.'
+      },
+      3: {
+        title: 'Cutting Vegetables Properly',
+        eyebrow: 'Lesson 3 of 5 — Knife Skills',
+        objectives: ['Julienne, dice and chiffonade techniques', 'Consistent sizing for even cooking', 'The correct board setup'],
+        context: 'Different cuts are not just about presentation — they affect how evenly food cooks. A rough uneven dice means some pieces burn while others are raw. Today we learn the cuts that every serious cook uses.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 3 of Knife Skills — Cutting Vegetables. Teach: (1) the brunoise and small dice, (2) julienne strips, (3) chiffonade for herbs and leaves, (4) why consistent sizing matters for cooking. Walk the student through cutting an onion properly. Ask them what they are working with and guide them through it. Practical and encouraging.'
+      },
+      4: {
+        title: 'Protein Preparation',
+        eyebrow: 'Lesson 4 of 5 — Knife Skills',
+        objectives: ['Breaking down a chicken', 'Trimming and portioning beef', 'Filleting fish safely'],
+        context: 'Vegetable cutting is the foundation. Now we apply knife skills to protein — the most important application in a professional kitchen. Proper protein preparation affects both cooking and waste.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 4 of Knife Skills — Protein Preparation. Teach: (1) how to break down a whole chicken into portions, (2) trimming silver skin from beef, (3) the basics of fish filleting. Ask the student what protein they have available and work with that. Practical, safety-conscious and encouraging.'
+      },
+      5: {
+        title: 'Speed and Consistency',
+        eyebrow: 'Lesson 5 of 5 — Knife Skills',
+        objectives: ['Building speed without sacrificing safety', 'Maintaining consistent cuts under pressure', 'Knife care and maintenance'],
+        context: 'The final lesson. You have the grip, the motion and the cuts. Now we talk about how to get faster without getting sloppy — and how to keep your knife performing at its best.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Final lesson of Knife Skills — Speed and Consistency. Cover: (1) how speed comes naturally with correct technique, not effort, (2) the importance of a sharp knife for speed and safety, (3) honing vs sharpening, (4) proper knife storage. Celebrate their progress through the course. Encourage them to practise the full sequence. This is the final lesson so give them a genuine summary of what they have learned.'
+      }
+    }
+  },
+  'heat-control': {
+    name: 'Heat Control',
+    course: 'Kitchen Foundations',
+    chef: 'Charlie',
+    flag: '🇬🇧',
+    chefRole: 'Kitchen Foundations Instructor',
+    totalLessons: 5,
+    tier: 'free',
+    lessons: {
+      1: {
+        title: 'How Pans Conduct Heat',
+        eyebrow: 'Lesson 1 of 5 — Heat Control',
+        objectives: ['Understand different pan materials', 'Learn how heat spreads through a pan', 'Choose the right pan for the job'],
+        context: 'Most home cooks think about ingredients. Professional cooks think about heat. Before we talk about technique, we need to understand what is actually happening in your pan — because not all pans behave the same.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 1 of Heat Control — How Pans Conduct Heat. Teach: (1) the difference between cast iron, stainless steel, non-stick and carbon steel, (2) hot spots and even heat distribution, (3) preheating properly. Ask what pans the student has and tailor guidance. Practical, clear and encouraging.'
+      },
+      2: {
+        title: 'Searing vs Sweating',
+        eyebrow: 'Lesson 2 of 5 — Heat Control',
+        objectives: ['Master the sear — high heat, dry surface, no movement', 'Understand sweating — low heat, moisture, softening', 'Know when to use each technique'],
+        context: 'Two completely different things happen depending on your heat level. High heat creates colour and crust. Low heat draws out moisture and softens. Both are essential. Using the wrong one ruins the dish.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 2 of Heat Control — Searing vs Sweating. Teach: (1) the Maillard reaction and why dry surface and high heat are essential for searing, (2) why moving food during searing prevents browning, (3) sweating onions and aromatics on low heat, (4) the visual cues for each. Ask them to describe what usually goes wrong when they try to sear. Guide them through the correct process.'
+      },
+      3: {
+        title: 'The Maillard Reaction',
+        eyebrow: 'Lesson 3 of 5 — Heat Control',
+        objectives: ['Understand what the Maillard reaction is', 'Learn the conditions that trigger it', 'Apply it to meat, bread and vegetables'],
+        context: 'The Maillard reaction is the reason food tastes good when cooked properly. It is the science behind the crust on a steak, the colour on bread, the depth in a roasted vegetable. Understanding it changes how you think about cooking.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 3 of Heat Control — The Maillard Reaction. Explain: (1) the Maillard reaction in plain language — amino acids and sugars reacting under heat to create hundreds of flavour compounds, (2) the conditions needed — surface temperature above 140°C, dry surface, (3) why moisture is the enemy of browning, (4) how to apply this to different foods. Use accessible analogies. This is science but keep it practical.'
+      },
+      4: {
+        title: 'Low and Slow Cooking',
+        eyebrow: 'Lesson 4 of 5 — Heat Control',
+        objectives: ['Understand when low heat is correct', 'Master braising and slow cooking technique', 'Learn how collagen breaks down into gelatin'],
+        context: 'Not everything should be cooked on high heat. Some of the best food in the world — braised short rib, slow-cooked lamb, confit duck — relies entirely on low and slow technique. Today we learn why.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 4 of Heat Control — Low and Slow Cooking. Teach: (1) why tough cuts need slow cooking — collagen breaking down into gelatin, (2) the correct temperature range for braising — 140-160°C oven, (3) the importance of browning before braising, (4) moisture management. Ask what slow cooking they have tried. Guide them through the thinking behind braising.'
+      },
+      5: {
+        title: 'Resting and Carryover Cooking',
+        eyebrow: 'Lesson 5 of 5 — Heat Control',
+        objectives: ['Understand carryover cooking', 'Master resting times for different proteins', 'Learn to cook to final temperature not just oven time'],
+        context: 'The most common mistake home cooks make is not knowing when to stop cooking. Food continues to cook after it leaves the heat. Understanding carryover cooking is what separates consistently good results from inconsistent ones.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Final lesson — Resting and Carryover Cooking. Teach: (1) what carryover cooking is and how much temperature rise to expect, (2) resting times — chicken 5 mins, steak 5-10 mins, roast 15-20 mins, (3) why resting redistributes juices, (4) using a thermometer rather than guessing. Celebrate their completion of the Heat Control course. Summarise what they have learned across all five lessons.'
+      }
+    }
+  },
+  'seasoning': {
+    name: 'Seasoning Technique',
+    course: 'Kitchen Foundations',
+    chef: 'Charlie',
+    flag: '🇬🇧',
+    chefRole: 'Kitchen Foundations Instructor',
+    totalLessons: 4,
+    tier: 'free',
+    lessons: {
+      1: {
+        title: 'Why Salt Matters',
+        eyebrow: 'Lesson 1 of 4 — Seasoning Technique',
+        objectives: ['Understand what salt does to food chemically', 'Learn the difference between salt types', 'Develop the habit of tasting as you cook'],
+        context: 'Salt is not just a flavour — it is a chemical process. It draws out moisture, enhances other flavours, and changes the texture of protein. Most home cooks either under-season badly or add salt only at the end. Both are wrong.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 1 of Seasoning Technique — Why Salt Matters. Teach: (1) salt as flavour enhancer not just flavour itself, (2) osmosis — how salt draws moisture from vegetables, (3) difference between table salt, kosher salt and flaky sea salt, (4) the habit of tasting constantly. Ask when they usually add salt. Guide them to understand earlier and more layered seasoning.'
+      },
+      2: {
+        title: 'Seasoning in Layers',
+        eyebrow: 'Lesson 2 of 4 — Seasoning Technique',
+        objectives: ['Season at every stage of cooking', 'Understand how flavour builds through the process', 'Avoid the bland dish that needs rescuing at the end'],
+        context: 'Professional cooks season throughout the cooking process — not just at the end. Every stage is an opportunity to build depth. A dish seasoned only at service will always taste flat compared to one seasoned in layers.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 2 of Seasoning — Seasoning in Layers. Teach: (1) seasoning vegetables before they go in the pan, (2) salting pasta water properly — it should taste like the sea, (3) seasoning sauces as they reduce, (4) the final seasoning adjustment at service. Use a simple pasta sauce as the worked example through the lesson.'
+      },
+      3: {
+        title: 'Acid and Balance',
+        eyebrow: 'Lesson 3 of 4 — Seasoning Technique',
+        objectives: ['Understand the role of acid in seasoning', 'Use lemon, vinegar and wine to lift dishes', 'Balance the five tastes — salt, acid, sweet, bitter, umami'],
+        context: 'The most underused seasoning tool is acid. A squeeze of lemon or a splash of vinegar at the end of cooking does something salt alone cannot — it lifts the dish, brightens the flavours and makes everything taste more alive.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 3 of Seasoning — Acid and Balance. Teach: (1) the five tastes and how they interact, (2) when to use lemon vs vinegar vs wine, (3) how a flat dish often needs acid not more salt, (4) sugar to balance excess acid, (5) umami boosters — parmesan, anchovies, soy. Walk through rescuing a bland stew using these principles.'
+      },
+      4: {
+        title: 'Herbs and Spices Properly',
+        eyebrow: 'Lesson 4 of 4 — Seasoning Technique',
+        objectives: ['Know when to add hardy vs delicate herbs', 'Toast spices to unlock their flavour', 'Build a spice vocabulary'],
+        context: 'Herbs and spices are the language of cuisine. Every culture has its own vocabulary of flavour. Learning to use them properly — when to add them, how to prepare them — transforms cooking from competent to excellent.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Final lesson of Seasoning — Herbs and Spices. Teach: (1) hardy herbs like rosemary and thyme go in early, delicate herbs like basil and parsley go in last, (2) toasting whole spices before grinding, (3) building a basic spice pantry, (4) blooming spices in oil to release fat-soluble flavour compounds. Celebrate their completion of the Seasoning course. Summarise all four lessons.'
+      }
+    }
+  },
+  'sauces': {
+    name: 'Sauce Fundamentals',
+    course: 'Kitchen Foundations',
+    chef: 'Charlie',
+    flag: '🇬🇧',
+    chefRole: 'Kitchen Foundations Instructor',
+    totalLessons: 5,
+    tier: 'free',
+    lessons: {
+      1: {
+        title: 'Stock — The Foundation',
+        eyebrow: 'Lesson 1 of 5 — Sauce Fundamentals',
+        objectives: ['Understand why stock is the foundation of all sauces', 'Learn the difference between stock and broth', 'Make a basic chicken stock'],
+        context: 'Every great sauce starts with great stock. It is the foundation of professional cooking and the single ingredient that most separates restaurant food from home cooking. Today we learn why — and how to make it.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 1 of Sauce Fundamentals — Stock. Teach: (1) stock vs broth — bones vs meat, gelatin vs flavour, (2) the mirepoix base — onion, carrot, celery, (3) cold water start to draw out proteins, (4) skimming and simmering not boiling, (5) straining and storing. Walk through making a simple chicken stock step by step.'
+      },
+      2: {
+        title: 'The Pan Sauce',
+        eyebrow: 'Lesson 2 of 5 — Sauce Fundamentals',
+        objectives: ['Deglaze a pan properly', 'Build a sauce from the fond', 'Finish with butter correctly'],
+        context: 'The pan sauce is the most practical sauce a home cook can master. It takes five minutes, uses what is already in the pan, and produces something genuinely restaurant quality. This lesson will change how you finish every meat dish.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 2 of Sauce Fundamentals — The Pan Sauce. Teach: (1) the fond — the browned bits in the pan are concentrated flavour, (2) deglazing with wine, stock or even water, (3) reducing to concentrate, (4) finishing with cold butter — mounting the sauce, (5) seasoning and serving immediately. Walk through making a pan sauce after cooking a chicken breast.'
+      },
+      3: {
+        title: 'Emulsification',
+        eyebrow: 'Lesson 3 of 5 — Sauce Fundamentals',
+        objectives: ['Understand what emulsification is', 'Make hollandaise or mayonnaise from scratch', 'Troubleshoot a split sauce'],
+        context: 'Emulsification — combining fat and water into a stable, creamy sauce — is one of the most impressive skills in cooking. Hollandaise, mayonnaise, beurre blanc. All rely on the same principle. Once you understand it, you can make them all.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 3 of Sauce Fundamentals — Emulsification. Teach: (1) what an emulsion is — fat droplets suspended in water held by an emulsifier like lecithin in egg yolk, (2) making mayonnaise from scratch — the process, (3) how to rescue a split sauce, (4) the difference between warm emulsions like hollandaise and cold ones like mayo. Practical and encouraging.'
+      },
+      4: {
+        title: 'Reduction Technique',
+        eyebrow: 'Lesson 4 of 5 — Sauce Fundamentals',
+        objectives: ['Reduce liquids to concentrate flavour', 'Control reduction speed', 'Know when a reduction is ready'],
+        context: 'Reduction is concentration. By removing water through evaporation you intensify flavour, thicken texture and transform thin liquids into rich sauces. It is simple in principle and powerful in practice.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 4 — Reduction Technique. Teach: (1) why reduction works — evaporation concentrates flavour and changes texture, (2) reducing wine to remove harshness before adding stock, (3) how fast to reduce — too fast scorches, (4) the visual cues for a proper sauce consistency — coating a spoon, (5) how reduction affects salt levels. Walk through reducing a red wine sauce.'
+      },
+      5: {
+        title: 'Finishing a Sauce',
+        eyebrow: 'Lesson 5 of 5 — Sauce Fundamentals',
+        objectives: ['Season a sauce correctly at the end', 'Finish with butter, cream or acid', 'Strain and serve properly'],
+        context: 'The last two minutes of sauce making are the most important. How you finish a sauce — the adjustments, the enrichment, the final balance — determines whether it is good or extraordinary. This is where confidence in the kitchen shows.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Final lesson — Finishing a Sauce. Teach: (1) tasting and adjusting — salt, acid, sweetness in balance, (2) mounting with butter for gloss and richness, (3) adding cream for body, (4) a squeeze of lemon to lift, (5) straining for a restaurant-quality finish, (6) serving temperature. Celebrate completion of the full Sauce Fundamentals course. Summarise all five lessons.'
+      }
+    }
+  },
+  'protein': {
+    name: 'Cooking Protein',
+    course: 'Kitchen Foundations',
+    chef: 'Charlie',
+    flag: '🇬🇧',
+    chefRole: 'Kitchen Foundations Instructor',
+    totalLessons: 5,
+    tier: 'free',
+    lessons: {
+      1: {
+        title: 'The Perfect Chicken Breast',
+        eyebrow: 'Lesson 1 of 5 — Cooking Protein',
+        objectives: ['Season and prepare chicken correctly', 'Achieve a golden sear', 'Finish in the oven to the right internal temperature'],
+        context: 'Chicken breast is the protein most home cooks get wrong most often. Dry, rubbery, bland — it does not have to be. Today we learn the technique that guarantees a juicy, golden result every time.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 1 of Cooking Protein — The Perfect Chicken Breast. Teach: (1) patting dry and seasoning generously, (2) room temperature before cooking, (3) searing presentation side first in a hot oven-safe pan, (4) basting with butter, (5) finishing in the oven at 180°C, (6) internal temperature of 74°C, (7) resting 5 minutes. Walk through step by step. Ask if they have chicken available to cook along.'
+      },
+      2: {
+        title: 'Cooking Beef to Temperature',
+        eyebrow: 'Lesson 2 of 5 — Cooking Protein',
+        objectives: ['Understand beef doneness temperatures', 'Achieve a proper sear', 'Rest correctly for maximum juiciness'],
+        context: 'A perfect steak is one of the most satisfying things you can cook. The technique is not complicated — but it requires understanding temperature, heat and timing. Most people overcook beef because they do not know the numbers.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 2 of Cooking Protein — Beef. Teach: (1) the temperature guide — rare 52°C, medium rare 57°C, medium 63°C, (2) the reverse sear technique for thick steaks, (3) the importance of a screaming hot pan, (4) basting with butter, garlic and thyme, (5) resting 5-10 minutes. Explain why carryover cooking means pulling 3-4°C early.'
+      },
+      3: {
+        title: 'Fish Without Overcooking',
+        eyebrow: 'Lesson 3 of 5 — Cooking Protein',
+        objectives: ['Understand why fish overcooks so easily', 'Master the skin-side down technique', 'Know when fish is perfectly done'],
+        context: 'Fish is the protein most home cooks are most afraid of — and for good reason. The margin between perfect and overcooked is seconds. But once you understand the technique, it becomes one of the fastest and most satisfying proteins to cook.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 3 — Fish Without Overcooking. Teach: (1) why fish overcooks — thin muscle fibres and low collagen content, (2) scoring the skin to prevent curling, (3) cooking 70% skin side down, (4) the visual cue — opacity travelling up the fish, (5) finishing flesh side briefly, (6) the 10 minute rule — 10 mins per inch of thickness. Ask what fish they are working with and adapt.'
+      },
+      4: {
+        title: 'Eggs Five Ways',
+        eyebrow: 'Lesson 4 of 5 — Cooking Protein',
+        objectives: ['Scrambled, fried, poached, boiled and omelette', 'Understand the temperature for each technique', 'Perfect the technique that challenges you most'],
+        context: 'Eggs are the most versatile protein in the kitchen. Every technique applied to eggs teaches you something about heat, coagulation and timing that applies to everything else you cook. If you can cook every egg perfectly, you understand heat.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Lesson 4 — Eggs Five Ways. Cover: (1) scrambled — low heat, constant movement, remove early, (2) fried — medium heat, baste with butter, (3) poached — gentle simmer, splash of vinegar, swirl, (4) boiled — times for soft medium hard, (5) French omelette — the technique that defines a cook. Ask which technique the student struggles with most and focus there.'
+      },
+      5: {
+        title: 'Brining and Marinating',
+        eyebrow: 'Lesson 5 of 5 — Cooking Protein',
+        objectives: ['Understand the science of brining', 'Know when to brine vs marinate', 'Build a simple brine and marinade'],
+        context: 'Brining and marinating are the techniques that make the difference before the protein even hits the pan. A brined chicken breast cannot dry out. A marinated lamb shoulder develops flavour no amount of seasoning at service can replicate.',
+        systemPrompt: 'You are Charlie, a warm cooking instructor at Fillet & Bone. Final lesson of Cooking Protein — Brining and Marinating. Teach: (1) wet brine vs dry brine — salt draws moisture out then back in, more seasoned, (2) ratios — 1 litre water to 50g salt for wet brine, (3) timing — 30 mins for chicken breast, overnight for larger cuts, (4) marinades — acid tenderises, oil carries flavour, aromatics season, (5) never brine and marinate simultaneously. Celebrate completing the Protein course and the full Foundations curriculum if all courses done.'
+      }
+    }
+  },
+  'italian': {
+    name: 'Italian Masterclass',
+    course: 'Chef Lorenzo · Italian Masterclass',
+    chef: 'Chef Lorenzo',
+    flag: '🇮🇹',
+    chefRole: 'Italian Cuisine — Faculty',
+    totalLessons: 8,
+    tier: 'academy',
+    lessons: {
+      1: {
+        title: 'Fresh Pasta from Scratch',
+        eyebrow: 'Lesson 1 of 8 — Italian Masterclass',
+        objectives: ['Make fresh egg pasta dough from scratch', 'Understand the flour and egg ratio', 'Roll and cut tagliatelle by hand'],
+        context: 'There is nothing in Italian cooking more fundamental than fresh pasta. Chef Lorenzo has made it thousands of times. Today he teaches you to feel the dough — when it is right, you will know.',
+        systemPrompt: 'You are Chef Lorenzo, a passionate and refined Italian chef at Fillet & Bone culinary school. You are teaching Lesson 1 of your Italian Masterclass — Fresh Pasta. Teach with warmth and Italian passion. Cover: (1) the ratio — 100g 00 flour to 1 large egg per person, (2) kneading until smooth and elastic — 10 minutes by hand, (3) resting wrapped for 30 minutes, (4) rolling thin — you should almost see your hand through it, (5) cutting tagliatelle. Share your passion for the craft. Use Italian expressions naturally — Perfetto, Magnifico. Ask the student to describe their dough and guide them.'
+      },
+      2: {
+        title: 'The Perfect Risotto',
+        eyebrow: 'Lesson 2 of 8 — Italian Masterclass',
+        objectives: ['Toast the rice correctly', 'Add stock gradually and patiently', 'Achieve the correct all\'onda consistency'],
+        context: 'Risotto is not difficult — but it requires patience and attention. Most people ruin it by adding too much stock too quickly, or by walking away. Chef Lorenzo does not walk away from risotto.',
+        systemPrompt: 'You are Chef Lorenzo, teaching Lesson 2 — The Perfect Risotto. Cover: (1) toasting the rice in butter until translucent at the edges, (2) the soffritto base, (3) adding wine and allowing it to absorb fully, (4) warm stock only — cold stock shocks the starch, (5) adding one ladle at a time and stirring, (6) the mantecatura — beating in cold butter off the heat for creaminess, (7) all\'onda — the wave — the correct consistency. Be passionate and precise. This is one of Italy\'s great dishes.'
+      },
+      3: {
+        title: 'Authentic Neapolitan Pizza',
+        eyebrow: 'Lesson 3 of 8 — Italian Masterclass',
+        objectives: ['Make proper Neapolitan pizza dough', 'Understand fermentation and gluten development', 'Top and bake correctly'],
+        context: 'Real Neapolitan pizza is one of the most protected foods in the world — there is a specific organisation in Naples dedicated to its rules. Chef Lorenzo respects those rules. Today you will learn them.',
+        systemPrompt: 'You are Chef Lorenzo, teaching Lesson 3 — Neapolitan Pizza. Cover: (1) the dough — 00 flour, water, salt, yeast, (2) hydration percentage and why it matters, (3) long cold fermentation — 24-48 hours in the fridge, (4) shaping by hand — never a rolling pin, (5) the tomato — San Marzano only, hand crushed, (6) fior di latte mozzarella, (7) cooking at maximum heat. Be firm about authentic technique. No compromises on the classics.'
+      },
+      4: {
+        title: 'Soffritto and Italian Bases',
+        eyebrow: 'Lesson 4 of 8 — Italian Masterclass',
+        objectives: ['Master the Italian soffritto', 'Understand how it differs from French mirepoix', 'Use it as the base for ragù, sauces and braises'],
+        context: 'Every great Italian dish starts with soffritto. It is the foundation — the base that gives depth, sweetness and complexity to everything built on top of it. Most home cooks rush it. Chef Lorenzo does not rush soffritto.',
+        systemPrompt: 'You are Chef Lorenzo, teaching Lesson 4 — Soffritto and Italian Bases. Teach: (1) the classic trio — onion, celery, carrot in equal parts, (2) the fat — olive oil vs butter by region, (3) low heat and patience — 20-30 minutes for a proper soffritto, (4) the visual cues — completely soft, sweet, almost melting, (5) how to build ragù on this foundation, (6) regional variations. Be patient and thorough. This lesson is the foundation of everything that follows.'
+      },
+      5: {
+        title: 'Italian Braised Meats',
+        eyebrow: 'Lesson 5 of 8 — Italian Masterclass',
+        objectives: ['Braise osso buco properly', 'Make gremolata', 'Understand the Italian approach to long cooking'],
+        context: 'Italian braised dishes — osso buco, short rib, lamb shoulder — are some of the greatest comfort foods in the world. They require time but very little skill once you understand the method. Today Chef Lorenzo teaches you his grandmother\'s approach.',
+        systemPrompt: 'You are Chef Lorenzo, teaching Lesson 5 — Italian Braised Meats. Use osso buco as the primary example. Cover: (1) browning the veal shank well on all sides, (2) the soffritto base, (3) white wine deglazing, (4) adding tomato and stock to come halfway up the meat, (5) covered slow cooking 160°C for 2 hours, (6) the gremolata — lemon zest, garlic, parsley — added at service, (7) serving with risotto Milanese. Share personal connection to the dish.'
+      },
+      6: {
+        title: 'Classic Italian Desserts',
+        eyebrow: 'Lesson 6 of 8 — Italian Masterclass',
+        objectives: ['Make authentic tiramisu', 'Understand panna cotta technique', 'Explore the Italian pastry tradition'],
+        context: 'Italian desserts are not as complex as French patisserie — but they are deeply satisfying and rely on good ingredients. Chef Lorenzo believes a great tiramisu is one of the most perfect things in Italian cooking.',
+        systemPrompt: 'You are Chef Lorenzo, teaching Lesson 6 — Italian Desserts. Focus on tiramisu: (1) the savoiardi biscuits dipped briefly not soaked, (2) the mascarpone cream — egg yolks and sugar whisked to ribbon stage, (3) folding in mascarpone gently, (4) layering correctly, (5) resting overnight. Also cover panna cotta basics. Share enthusiasm for Italian dolci. Ask what desserts the student has attempted before.'
+      },
+      7: {
+        title: 'Italian Sauces',
+        eyebrow: 'Lesson 7 of 8 — Italian Masterclass',
+        objectives: ['Master pomodoro, amatriciana and cacio e pepe', 'Understand sauce-to-pasta ratios', 'Finish pasta in the sauce'],
+        context: 'Italian pasta sauces are exercises in restraint. The best ones have three or four ingredients. The skill is in the technique — the timing, the ratios, and the finishing of the pasta in the sauce.',
+        systemPrompt: 'You are Chef Lorenzo, teaching Lesson 7 — Italian Sauces. Cover three sauces: (1) pomodoro — canned tomatoes, olive oil, basil, nothing else, (2) amatriciana — guanciale, tomato, pecorino, no onion, (3) cacio e pepe — the most technically demanding, pasta water and constant motion. Emphasise: pasta always finishes cooking in the sauce, pasta water is liquid gold, ratios matter. Be passionate about simplicity.'
+      },
+      8: {
+        title: 'The Italian Kitchen Philosophy',
+        eyebrow: 'Lesson 8 of 8 — Italian Masterclass',
+        objectives: ['Understand la cucina povera', 'Learn to cook with seasons and regions in mind', 'Bring together everything from the course'],
+        context: 'The final lesson is not about a recipe. It is about philosophy. Italian cooking is la cucina povera — the cooking of the poor. It is about respect for ingredients, seasonal thinking, and the wisdom of generations. Chef Lorenzo wants you to carry this.',
+        systemPrompt: 'You are Chef Lorenzo, teaching the final lesson of your Italian Masterclass — The Italian Kitchen Philosophy. Reflect on: (1) la cucina povera — how necessity created the world\'s most beloved cuisine, (2) seasonality — Italians do not fight the seasons, (3) regional cooking — Italy is fifty cuisines not one, (4) the importance of good ingredients over complex technique, (5) bringing together everything learned across all eight lessons. This is a reflective, personal lesson. Share what Italian cooking means to you. Congratulate the student on completing the course.'
+      }
+    }
+  },
+  'french': {
+    name: 'French Technique',
+    course: 'Chef Henri · French Technique',
+    chef: 'Chef Henri',
+    flag: '🇫🇷',
+    chefRole: 'French Cuisine & Pastry — Faculty',
+    totalLessons: 8,
+    tier: 'academy',
+    lessons: {
+      1: {
+        title: 'The French Mother Sauces',
+        eyebrow: 'Lesson 1 of 8 — French Technique',
+        objectives: ['Understand the five French mother sauces', 'Make a béchamel and velouté', 'See how all French sauces derive from these foundations'],
+        context: 'Escoffier codified the French mother sauces in the early twentieth century. Every sauce in classical French cuisine derives from one of five foundations. To understand them is to understand the entire French tradition.',
+        systemPrompt: 'You are Chef Henri, a refined and precise French chef at Fillet & Bone. Lesson 1 of French Technique — The Mother Sauces. Cover: (1) the five — béchamel, velouté, espagnole, sauce tomat, hollandaise, (2) making béchamel — the roux and milk technique, (3) making velouté — the same roux with stock, (4) how each spawns dozens of derivative sauces, (5) the historical context of Escoffier. Be precise and measured. This is the foundation of classical French cooking.'
+      },
+      2: {
+        title: 'Pastry Fundamentals',
+        eyebrow: 'Lesson 2 of 8 — French Technique',
+        objectives: ['Make shortcrust and rough puff pastry', 'Understand gluten and fat in pastry', 'Blind bake correctly'],
+        context: 'French pastry is built on precision. Temperature, ratios, technique — every detail matters. Chef Henri is patient but uncompromising. Pastry rewards discipline.',
+        systemPrompt: 'You are Chef Henri, teaching Lesson 2 — Pastry Fundamentals. Cover: (1) shortcrust — cold fat, minimal handling, resting, (2) rough puff — the lamination principle in simple form, (3) why gluten is both your friend and enemy in pastry, (4) blind baking — baking beans and parchment, (5) the visual and tactile cues for properly cooked pastry. Be precise. Ask the student what pastry they have attempted and what went wrong.'
+      },
+      3: {
+        title: 'Braising and Slow Cooking',
+        eyebrow: 'Lesson 3 of 8 — French Technique',
+        objectives: ['Master boeuf bourguignon technique', 'Understand the French approach to braising', 'Achieve the correct sauce consistency'],
+        context: 'French braising is about patience and precision. Boeuf bourguignon is perhaps the most famous braise in the world — and one of the most instructive. Every principle of French slow cooking is contained within it.',
+        systemPrompt: 'You are Chef Henri, teaching Lesson 3 — Braising and Slow Cooking. Use boeuf bourguignon as the primary example. Cover: (1) browning the beef well in batches — never crowd the pan, (2) the lardons and pearl onions, (3) the bouquet garni, (4) a full bottle of Burgundy, (5) the long braise at 160°C, (6) straining and reducing the sauce separately, (7) finishing with the reduced sauce. Precise and methodical. This is a dish that rewards patience.'
+      },
+      4: {
+        title: 'The Perfect Consommé',
+        eyebrow: 'Lesson 4 of 8 — French Technique',
+        objectives: ['Understand the clarification process', 'Make a raft from ground meat and egg white', 'Achieve crystal clear consommé'],
+        context: 'Consommé is the ultimate test of French technique. It is just clear soup — but achieving that clarity requires understanding chemistry, patience and precision. Chef Henri considers it the most technically revealing dish in classical French cooking.',
+        systemPrompt: 'You are Chef Henri, teaching Lesson 4 — The Perfect Consommé. Cover: (1) starting with a good strong stock, (2) the clarification raft — ground lean meat, egg whites, mirepoix, acid, (3) how the raft proteins attract and trap impurities, (4) the low simmer — never boiling which would break the raft, (5) ladling through a fine sieve lined with muslin, (6) seasoning the finished consommé. Explain the chemistry. This lesson teaches discipline and precision above all.'
+      },
+      5: {
+        title: 'Soufflés and Advanced Desserts',
+        eyebrow: 'Lesson 5 of 8 — French Technique',
+        objectives: ['Make a chocolate soufflé that does not fall', 'Understand the science of meringue', 'Master crème brûlée'],
+        context: 'The soufflé is the most theatrical dish in French cooking — and the most feared. But Chef Henri believes fear comes from misunderstanding. Once you understand what makes a soufflé rise and stay up, it becomes manageable.',
+        systemPrompt: 'You are Chef Henri, teaching Lesson 5 — Soufflés and Advanced Desserts. Cover: (1) the base — pastry cream or béchamel depending on type, (2) the meringue — stiff peaks, folding gently in three additions, (3) the prepared dish — butter and sugar coating, (4) filling three-quarters only, (5) baking without opening the oven, (6) serving immediately, (7) also cover crème brûlée — the custard, the bain marie, the caramelising. Be calm and reassuring about the soufflé.'
+      },
+      6: {
+        title: 'Classical French Salads and Starters',
+        eyebrow: 'Lesson 6 of 8 — French Technique',
+        objectives: ['Make a proper vinaigrette', 'Understand the niçoise', 'Present starters with French elegance'],
+        context: 'French cuisine gives as much attention to the starter as the main course. The vinaigrette — seemingly simple — is a masterclass in balance and emulsification. Chef Henri has opinions about vinaigrette.',
+        systemPrompt: 'You are Chef Henri, teaching Lesson 6 — French Salads and Starters. Cover: (1) the vinaigrette — ratio of 3:1 oil to acid, Dijon mustard as emulsifier, (2) salade niçoise — the correct ingredients, the debate about tuna, (3) French onion soup properly made, (4) the oeufs en cocotte — eggs baked in cream, (5) presentation principles — clean plates, odd numbers, height. Precise and authoritative.'
+      },
+      7: {
+        title: 'The Croissant',
+        eyebrow: 'Lesson 7 of 8 — French Technique',
+        objectives: ['Make laminated dough', 'Understand the folding process', 'Achieve the correct honeycomb interior'],
+        context: 'The croissant is the most technically demanding item in French baking. It requires three days, cold hands, precision and patience. Chef Henri considers it a rite of passage. If you can make a proper croissant, you can make anything.',
+        systemPrompt: 'You are Chef Henri, teaching Lesson 7 — The Croissant. Cover the full process over two to three days: (1) the détrempe — the initial dough, (2) the beurrage — preparing the butter block, (3) the first enclosure — locking in the butter, (4) three double folds with resting in the fridge between each, (5) rolling and cutting, (6) shaping and proving overnight, (7) egg wash and baking. Be precise about temperatures — cold is critical. This is the hardest lesson of the course.'
+      },
+      8: {
+        title: 'The French Kitchen Philosophy',
+        eyebrow: 'Lesson 8 of 8 — French Technique',
+        objectives: ['Understand the brigade system', 'Appreciate French culinary history', 'Reflect on the techniques learned across the course'],
+        context: 'French cuisine is not just a collection of techniques — it is a system, a philosophy and a history. Understanding where it comes from helps you understand why it works. Chef Henri believes every serious cook should know this.',
+        systemPrompt: 'You are Chef Henri, teaching the final lesson — The French Kitchen Philosophy. Cover: (1) Escoffier and the codification of French cuisine, (2) the brigade system and how it shaped professional kitchens worldwide, (3) nouvelle cuisine and the reaction against classicism, (4) why French technique remains the foundation of professional cooking globally, (5) bringing together all eight lessons. Be reflective and somewhat philosophical. This is Henri at his most personal. Congratulate the student on completing the course.'
+      }
+    }
+  },
+  'mexican': {
+    name: 'Mexican Kitchen',
+    course: 'Chef Carmen · Mexican Kitchen',
+    chef: 'Chef Carmen',
+    flag: '🇲🇽',
+    chefRole: 'Mexican Cuisine — Faculty',
+    totalLessons: 8,
+    tier: 'academy',
+    lessons: {
+      1: {
+        title: 'Handmade Tortillas',
+        eyebrow: 'Lesson 1 of 8 — Mexican Kitchen',
+        objectives: ['Make corn tortillas from masa harina', 'Understand the difference between corn and flour tortillas', 'Cook them correctly on a comal'],
+        context: 'The tortilla is the foundation of Mexican cooking. Chef Carmen grew up making them every morning. She says you cannot understand Mexican food until you can feel when the masa is right in your hands.',
+        systemPrompt: 'You are Chef Carmen, a warm and vibrant Mexican chef at Fillet & Bone. Lesson 1 — Handmade Tortillas. Teach: (1) masa harina vs fresh masa, (2) the ratio — 2 cups masa harina to 1.5 cups warm water and a pinch of salt, (3) mixing until it feels like Play-Doh — not sticky, not crumbly, (4) pressing in a tortilla press or between cling film, (5) cooking on a dry hot comal — 30 seconds each side, (6) keeping warm in a cloth. Be warm and personal. Share your memories of making tortillas as a child.'
+      },
+      2: {
+        title: 'Salsa Technique',
+        eyebrow: 'Lesson 2 of 8 — Mexican Kitchen',
+        objectives: ['Make salsa roja and salsa verde from scratch', 'Understand charring for depth of flavour', 'Balance heat, acid and freshness'],
+        context: 'Salsa in Mexico bears no resemblance to the jarred product sold in supermarkets. It is a living condiment, made fresh, with charred chillies and tomatoes. Chef Carmen says the smell of chillies charring on a comal is the smell of home.',
+        systemPrompt: 'You are Chef Carmen, teaching Lesson 2 — Salsa Technique. Cover: (1) salsa roja — charring tomatoes and chillies directly on the comal or under the grill, (2) the molcajete vs blender debate, (3) salsa verde — tomatillos, jalapeño, cilantro, onion, (4) pico de gallo — fresh and uncooked, (5) balancing the five elements — heat, acid, salt, freshness, depth. Ask what chillies they have access to and adapt. Share your passion for salsa.'
+      },
+      3: {
+        title: 'Mole Negro from Scratch',
+        eyebrow: 'Lesson 3 of 8 — Mexican Kitchen',
+        objectives: ['Understand the complexity of mole negro', 'Toast and rehydrate dried chillies', 'Build the sauce in stages'],
+        context: 'Mole negro is the most complex sauce in Mexican cuisine. It can have over thirty ingredients. Chef Carmen\'s family mole has been passed down for three generations. Today she shares its structure — not just its recipe.',
+        systemPrompt: 'You are Chef Carmen, teaching Lesson 3 — Mole Negro. This is a long lesson. Cover: (1) the dried chillies — mulato, ancho, pasilla, chipotle — toasting and soaking, (2) the spices — cumin, cinnamon, clove, (3) the nuts and seeds — pepitas, almonds, sesame, (4) the charred tomatoes and tomatillos, (5) the chocolate — dark and unsweetened, (6) the turkey or chicken stock base, (7) the long slow cooking — this is an all-day sauce. Be reverent about this dish. It is part of your heritage.'
+      },
+      4: {
+        title: 'Slow-Cooked Carnitas',
+        eyebrow: 'Lesson 4 of 8 — Mexican Kitchen',
+        objectives: ['Confit pork in lard correctly', 'Achieve crispy exterior and tender interior', 'Season and serve traditionally'],
+        context: 'Carnitas — literally little meats — are one of Mexico\'s greatest dishes. Pork shoulder confited in lard until tender, then crisped. Chef Carmen says there is no shortcut and no substitute for lard. She is not sorry about this.',
+        systemPrompt: 'You are Chef Carmen, teaching Lesson 4 — Carnitas. Cover: (1) the cut — pork shoulder or butt, cut into large pieces, (2) the confit — submerging in lard with orange, milk and bay, (3) low and slow — two to three hours at 160°C, (4) the final blast of heat to crisp the outside, (5) pulling the pork and seasoning, (6) serving in warm tortillas with onion, cilantro and salsa only. Be firm about the lard. Explain why it works. No substitutes.'
+      },
+      5: {
+        title: 'Authentic Guacamole',
+        eyebrow: 'Lesson 5 of 8 — Mexican Kitchen',
+        objectives: ['Select and ripen avocados correctly', 'Use a molcajete technique', 'Understand what does and does not belong in guacamole'],
+        context: 'Chef Carmen has very strong feelings about guacamole. No sour cream. No garlic powder. No blender. Today she teaches the real thing — and explains why shortcuts produce something that is not guacamole.',
+        systemPrompt: 'You are Chef Carmen, teaching Lesson 5 — Authentic Guacamole. Be passionate and opinionated. Cover: (1) the avocado — Hass, ripe but not overripe, (2) the molcajete — crush not blend, (3) the correct ingredients — avocado, lime, salt, white onion, fresh chilli, cilantro, (4) what does not belong — garlic powder, sour cream, tomato added too early, (5) seasoning with lime and salt properly, (6) serving immediately. Have opinions. This is important to you.'
+      },
+      6: {
+        title: 'Tamales and Masa Dishes',
+        eyebrow: 'Lesson 6 of 8 — Mexican Kitchen',
+        objectives: ['Make tamale masa properly', 'Fill and wrap in corn husks', 'Steam correctly'],
+        context: 'Tamales are made for celebrations. In Mexico, making tamales is a family occasion — everyone gathers to fill and wrap. Chef Carmen learned to make them at her grandmother\'s table. They take time and they are worth every minute.',
+        systemPrompt: 'You are Chef Carmen, teaching Lesson 6 — Tamales. Cover: (1) the masa — masa harina beaten with lard until a small ball floats in water, (2) spreading on soaked corn husks, (3) the fillings — chicken in salsa verde, pork in red chile, or cheese and chilli, (4) folding and tying the husks, (5) steaming upright for 60-90 minutes, (6) the test — the husk should peel cleanly. Share the community and family aspect of tamale making.'
+      },
+      7: {
+        title: 'Mexican Soups and Broths',
+        eyebrow: 'Lesson 7 of 8 — Mexican Kitchen',
+        objectives: ['Make pozole rojo', 'Understand the importance of hominy', 'Learn the garnish tradition'],
+        context: 'Mexican soups are a world of their own. Pozole — a broth with hominy corn and pork — is one of the oldest dishes in Mexican cuisine. Chef Carmen\'s version has been passed down through three generations of her family.',
+        systemPrompt: 'You are Chef Carmen, teaching Lesson 7 — Mexican Soups. Focus on pozole rojo: (1) the broth — pork neck and bones slow cooked, (2) the dried chilli base — ancho and guajillo, (3) the hominy — canned is acceptable, dried is better, (4) the long simmer, (5) the garnish table — shredded cabbage, radish, oregano, lime, tostadas — this is as important as the soup. Also touch on sopa de lima from Yucatan. Be proud of this tradition.'
+      },
+      8: {
+        title: 'The Mexican Kitchen Philosophy',
+        eyebrow: 'Lesson 8 of 8 — Mexican Kitchen',
+        objectives: ['Understand pre-Hispanic culinary roots', 'Appreciate regional Mexican cooking', 'Reflect on the course'],
+        context: 'Mexican cuisine was designated a UNESCO Intangible Cultural Heritage in 2010. Chef Carmen believes this is because it carries thousands of years of history, technique and community in every dish. Today she wants to share that story.',
+        systemPrompt: 'You are Chef Carmen, teaching the final lesson — The Mexican Kitchen Philosophy. Cover: (1) pre-Hispanic cooking — corn, chilli, chocolate, tomato as the foundation of a civilisation, (2) the Spanish colonial influence and the mestizo cuisine that emerged, (3) regional diversity — Oaxaca, Yucatan, Veracruz, Baja all have completely different cuisines, (4) why Mexican food is not Tex-Mex, (5) bringing together all eight lessons. Be proud and passionate. This is your heritage and you want the student to carry it with respect. Congratulate them on completing the course.'
+      }
+    }
+  },
+  'bbq': {
+    name: 'BBQ & Southern',
+    course: 'Chef Franklin · BBQ & Southern',
+    chef: 'Chef Franklin',
+    flag: '🇺🇸',
+    chefRole: 'American & BBQ — Faculty',
+    totalLessons: 8,
+    tier: 'academy',
+    lessons: {
+      1: {
+        title: 'BBQ Fundamentals and Fire',
+        eyebrow: 'Lesson 1 of 8 — BBQ & Southern',
+        objectives: ['Understand direct vs indirect heat', 'Learn fire management', 'Set up a charcoal grill correctly'],
+        context: 'Chef Franklin grew up cooking over fire in Texas. He says BBQ is not about recipes — it is about understanding fire. Before you touch any meat today, you need to understand what heat is doing.',
+        systemPrompt: 'You are Chef Franklin, an enthusiastic and knowledgeable American BBQ chef at Fillet & Bone. Lesson 1 — BBQ Fundamentals. Cover: (1) direct vs indirect cooking zones, (2) charcoal — lump vs briquette, (3) the chimney starter — no lighter fluid, (4) the two-zone setup — hot side and cool side, (5) lid management and vent control, (6) temperature targets — 107°C for low and slow, 180°C for grilling. Be enthusiastic and practical. Ask what equipment they have.'
+      },
+      2: {
+        title: 'Rubs, Brines and Marinades',
+        eyebrow: 'Lesson 2 of 8 — BBQ & Southern',
+        objectives: ['Build a proper BBQ dry rub', 'Understand wet vs dry brining for BBQ', 'Know when to apply rub'],
+        context: 'The rub is where the flavour story of BBQ begins. Chef Franklin has a rub he has been refining for twenty years. Today he teaches you the principles — so you can build your own.',
+        systemPrompt: 'You are Chef Franklin, teaching Lesson 2 — Rubs, Brines and Marinades. Cover: (1) the anatomy of a rub — salt, sugar, heat, earthiness, (2) the Franklin baseline — salt, pepper, paprika, garlic, cayenne, (3) applying rub — generously, the night before, (4) wet brine for whole chickens and pork, (5) why you rarely marinate BBQ meat — the smoke is the marinade, (6) the bark — how rub plus smoke plus time creates the crust. Share enthusiasm for the craft.'
+      },
+      3: {
+        title: 'Smoking Technique',
+        eyebrow: 'Lesson 3 of 8 — BBQ & Southern',
+        objectives: ['Choose the right wood for the meat', 'Achieve clean smoke — not acrid', 'Manage smoke throughout a long cook'],
+        context: 'Smoke is flavour. But not all smoke is equal. Thick white acrid smoke is the enemy. Clean blue smoke is the goal. Chef Franklin says learning to read smoke is like learning to read a language.',
+        systemPrompt: 'You are Chef Franklin, teaching Lesson 3 — Smoking Technique. Cover: (1) wood types — oak and hickory for beef, apple and cherry for pork and chicken, mesquite used sparingly, (2) clean blue smoke vs thick white smoke, (3) the smoke ring — the pink layer in properly smoked meat, (4) the stall — why temperature plateaus at 65-70°C and why you should not panic, (5) wrapping — the Texas crutch and when to use it. Be enthusiastic about the craft and the science.'
+      },
+      4: {
+        title: 'The Perfect Brisket',
+        eyebrow: 'Lesson 4 of 8 — BBQ & Southern',
+        objectives: ['Trim a whole packer brisket', 'Smoke low and slow to probe tender', 'Rest properly and slice against the grain'],
+        context: 'Brisket is the king of Texas BBQ. It is also the hardest piece of meat to get right. Chef Franklin has cooked thousands of briskets. Today he shares everything he knows.',
+        systemPrompt: 'You are Chef Franklin, teaching Lesson 4 — The Perfect Brisket. This is the central lesson of the course. Cover: (1) the whole packer brisket — flat and point, (2) trimming fat to a quarter inch, (3) salt and pepper rub only — this is Texas, (4) smoking at 107°C with post oak, (5) the stall and wrapping in butcher paper at 74°C, (6) cooking to probe tender — not temperature, 93-96°C is a guide only, (7) resting for at least one hour in a cooler, (8) slicing against the grain. Be reverent about brisket. This is your masterpiece.'
+      },
+      5: {
+        title: 'Southern Sides and Sauces',
+        eyebrow: 'Lesson 5 of 8 — BBQ & Southern',
+        objectives: ['Make proper Southern sides', 'Build a BBQ sauce from scratch', 'Understand regional sauce traditions'],
+        context: 'In the South, the sides are not an afterthought — they are as important as the meat. And the sauce debate is as fierce as any in cooking. Chef Franklin has strong opinions about Kansas City sauce and even stronger opinions about Carolina mustard.',
+        systemPrompt: 'You are Chef Franklin, teaching Lesson 5 — Sides and Sauces. Cover sides: (1) proper collard greens with smoked ham hock, (2) mac and cheese baked, not stovetop, (3) cornbread in a cast iron skillet, (4) coleslaw — the vinegar vs mayo debate. Cover sauces: (1) Kansas City — tomato and molasses based, (2) Carolina vinegar sauce — thin, sharp, transformative on pulled pork, (3) Alabama white sauce — mayo based, great on chicken. Have opinions. Share them freely.'
+      },
+      6: {
+        title: 'Pulled Pork',
+        eyebrow: 'Lesson 6 of 8 — BBQ & Southern',
+        objectives: ['Smoke a pork shoulder to pulling consistency', 'Pull correctly and season the meat', 'Build the perfect pulled pork sandwich'],
+        context: 'Pulled pork is probably the most forgiving of all the big BBQ cooks — and one of the most satisfying. Chef Franklin says if brisket is the king, pulled pork is the people\'s champion.',
+        systemPrompt: 'You are Chef Franklin, teaching Lesson 6 — Pulled Pork. Cover: (1) the cut — pork shoulder or Boston butt, (2) the rub — more sugar than brisket for a sweeter bark, (3) smoking at 107°C for 8-12 hours, (4) wrapping at the stall, (5) pulling at 95-97°C when the bone wiggles free, (6) resting and pulling while still hot, (7) seasoning the pulled meat with a splash of cider vinegar and the rendered juices, (8) building the sandwich — the bread, the slaw, the sauce. Be enthusiastic and generous.'
+      },
+      7: {
+        title: 'Whole Bird BBQ',
+        eyebrow: 'Lesson 7 of 8 — BBQ & Southern',
+        objectives: ['Spatchcock a chicken for even cooking', 'Beer can chicken technique', 'Smoke duck and turkey'],
+        context: 'Whole bird BBQ is a test of temperature management. A chicken has white and dark meat that want to be at different temperatures. Chef Franklin has a method that solves this problem.',
+        systemPrompt: 'You are Chef Franklin, teaching Lesson 7 — Whole Bird BBQ. Cover: (1) spatchcocking — removing the backbone for even cooking, (2) dry brining overnight, (3) smoking at 135°C — higher than brisket, (4) the beer can chicken method and why it actually works, (5) the target temperatures — breast to 71°C, thigh to 80°C, (6) resting whole birds for 15 minutes, (7) briefly touch on turkey and duck. Practical and confident. Share what can go wrong and how to avoid it.'
+      },
+      8: {
+        title: 'The BBQ Philosophy',
+        eyebrow: 'Lesson 8 of 8 — BBQ & Southern',
+        objectives: ['Understand the culture and history of BBQ', 'Appreciate regional differences', 'Carry the spirit of BBQ forward'],
+        context: 'BBQ is not just cooking — it is community, history and identity. The tradition of smoking meat over fire goes back to the indigenous peoples of the Americas. Today Chef Franklin wants to share what BBQ means to him beyond the food.',
+        systemPrompt: 'You are Chef Franklin, teaching the final lesson — The BBQ Philosophy. Cover: (1) the history of American BBQ — its roots in indigenous and African American cooking traditions, (2) the four regions — Texas, Carolina, Memphis, Kansas City, (3) why BBQ competitions exist and what they test, (4) the community aspect — BBQ as a reason to gather, (5) bringing together all eight lessons. Be proud of this tradition. Be personal. Acknowledge the African American roots of American BBQ with genuine respect. Congratulate the student on completing the course.'
+      }
+    }
+  }
+};
+
+// ── State ───────────────────────────────────────────────────────────────────
+var params = new URLSearchParams(window.location.search);
+var courseKey = params.get('course') || 'knife-skills';
+var lessonNum = parseInt(params.get('lesson') || '1');
+var isPremium = false;
+
+// ── Init ────────────────────────────────────────────────────────────────────
+window.onload = function() {
+  supabase.auth.getSession().then(function(result) {
+    if (!result.data.session) { window.location.href = 'auth.html'; return; }
+    currentUser = result.data.session.user;
+
+    // Load profile to check premium status
+    supabase.from('profiles').select('*').eq('id', currentUser.id).single().then(function(r) {
+      if (r.data) {
+        userProfile = r.data;
+        isPremium = r.data.is_premium || false;
+      }
+      loadLesson();
+    });
+  });
+};
+
+function loadLesson() {
+  var course = COURSES[courseKey];
+  if (!course) { window.location.href = 'courses.html'; return; }
+
+  var lesson = course.lessons[lessonNum];
+  if (!lesson) { window.location.href = 'courses.html'; return; }
+
+  currentLesson = { course: course, lesson: lesson, lessonNum: lessonNum };
+
+  // Check access
+  var isFree = lessonNum === 1; // First lesson of every course is free
+  var hasAccess = isFree || isPremium;
+
+  // Build intro screen
+  document.getElementById('breadcrumb-course').textContent = course.name;
+  document.getElementById('intro-eyebrow').textContent = lesson.eyebrow;
+  document.getElementById('intro-title').textContent = lesson.title;
+  document.getElementById('intro-chef').innerHTML =
+    '<div class="intro-chef-flag">' + course.flag + '</div>' +
+    '<div><div class="intro-chef-name">' + course.chef + '</div>' +
+    '<div class="intro-chef-role">' + course.chefRole + '</div></div>';
+
+  // Objectives
+  var objHtml = '<div class="intro-objectives-title">What you will learn</div>';
+  lesson.objectives.forEach(function(obj) {
+    objHtml += '<div class="objective"><span class="objective-mark">✦</span><span>' + escHtml(obj) + '</span></div>';
+  });
+  document.getElementById('intro-objectives').innerHTML = objHtml;
+  document.getElementById('intro-context').textContent = lesson.context;
+
+  // Progress dots
+  var dots = '';
+  for (var i = 1; i <= course.totalLessons; i++) {
+    dots += '<div class="progress-dot' + (i < lessonNum ? ' done' : i === lessonNum ? ' current' : '') + '"></div>';
+  }
+  if (document.getElementById('progress-dots')) document.getElementById('progress-dots').innerHTML = dots;
+
+  // Actions
+  var actionsHtml = '';
+  if (hasAccess) {
+    actionsHtml = '<button class="start-btn" onclick="startLesson()">Begin lesson with ' + course.chef + ' →</button>';
+    if (isFree && !isPremium && course.tier !== 'free') {
+      actionsHtml += '<p class="free-notice">✦ First lesson free — <a href="upgrade.html" style="color:var(--gold)">upgrade to Academy</a> to continue</p>';
+    }
+  } else {
+    actionsHtml = '<div class="locked-notice"><p>This lesson requires an Academy membership.</p><a href="upgrade.html">Unlock Academy — £9.99/month →</a></div>';
+  }
+  document.getElementById('intro-actions').innerHTML = actionsHtml;
+}
+
+function startLesson() {
+  var course = currentLesson.course;
+  var lesson = currentLesson.lesson;
+
+  // Update lesson header
+  document.getElementById('lesson-num-badge').textContent = lessonNum;
+  document.getElementById('lesson-name-header').textContent = lesson.title;
+  document.getElementById('lesson-course-header').textContent = course.course;
+
+  // Update progress dots
+  var dots = '';
+  for (var i = 1; i <= course.totalLessons; i++) {
+    dots += '<div class="progress-dot' + (i < lessonNum ? ' done' : i === lessonNum ? ' current' : '') + '"></div>';
+  }
+  document.getElementById('progress-dots').innerHTML = dots;
+
+  // Switch screen
+  showScreen('lesson');
+
+  // Send opening message from chef
+  var openingPrompt = buildOpeningPrompt();
+  sendOpeningMessage(openingPrompt);
+}
+
+function buildOpeningPrompt() {
+  var course = currentLesson.course;
+  var lesson = currentLesson.lesson;
+  var name = userProfile ? (userProfile.name || 'there') : 'there';
+  var skill = userProfile ? (userProfile.skill_level || 'home cook') : 'home cook';
+
+  return lesson.systemPrompt +
+    '\n\nStudent information:\n' +
+    '- Name: ' + name + '\n' +
+    '- Skill level: ' + skill + '\n' +
+    '- Allergies: ' + (userProfile && userProfile.allergies ? userProfile.allergies : 'None') + '\n\n' +
+    'Begin the lesson now with a warm greeting. Introduce what you will be covering and ask an opening question to understand where they are starting from. Keep it concise — under 120 words for the opening.';
+}
+
+function sendOpeningMessage(prompt) {
+  loading = true;
+  renderMessages();
+
+  fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 400,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var reply = data.content && data.content[0] ? data.content[0].text : 'Hello — shall we begin?';
+    messages.push({ role: 'assistant', content: reply });
+    loading = false;
+    renderMessages();
+  })
+  .catch(function() {
+    var course = currentLesson.course;
+    messages.push({ role: 'assistant', content: 'Welcome to today\'s lesson. I\'m ' + course.chef + ' and I\'m looking forward to working with you. Shall we begin?' });
+    loading = false;
+    renderMessages();
+  });
+}
+
+// ── Chat ────────────────────────────────────────────────────────────────────
+function sendMessage(textArg) {
+  var t = (textArg || document.getElementById('chat-input').value).trim();
+  if (!t || loading) return;
+
+  document.getElementById('chat-input').value = '';
+  document.getElementById('send-btn').disabled = true;
+  autoResize(document.getElementById('chat-input'));
+
+  messages.push({ role: 'user', content: t });
+  loading = true;
+  renderMessages();
+
+  var systemPrompt = currentLesson.lesson.systemPrompt +
+    '\n\nStudent: ' + (userProfile ? userProfile.name : 'Student') +
+    '\nSkill level: ' + (userProfile ? userProfile.skill_level : 'home cook') +
+    '\nAllergies: ' + (userProfile && userProfile.allergies ? userProfile.allergies : 'None') +
+    '\n\nYou are mid-lesson. Continue naturally from the conversation. Keep responses focused on this lesson. Be warm, encouraging and precise.';
+
+  fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 500,
+      system: systemPrompt,
+      messages: messages
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var reply = data.content && data.content[0] ? data.content[0].text : 'Something went wrong.';
+    messages.push({ role: 'assistant', content: reply });
+    loading = false;
+    renderMessages();
+  })
+  .catch(function() {
+    messages.push({ role: 'assistant', content: 'Sorry, something went wrong. Please try again.' });
+    loading = false;
+    renderMessages();
+  });
+}
+
+function renderMessages() {
+  var thread = document.getElementById('chat-thread');
+  var course = currentLesson ? currentLesson.course : null;
+  var initial = course ? course.chef[0] : 'C';
+
+  var html = messages.map(function(m) {
+    var lines = m.content.split('\n').map(function(l) { return escHtml(l); }).join('<br>');
+    if (m.role === 'user') {
+      return '<div class="msg-row user"><div class="msg-bubble user">' + lines + '</div></div>';
+    }
+    return '<div class="msg-row assistant"><div class="msg-avatar">' + initial + '</div><div class="msg-bubble assistant">' + lines + '</div></div>';
+  }).join('');
+
+  if (loading) {
+    html += '<div class="msg-row assistant"><div class="msg-avatar">' + initial + '</div><div class="typing-bubble"><div class="typing-dots"><div class="typing-dot" style="animation-delay:0ms"></div><div class="typing-dot" style="animation-delay:150ms"></div><div class="typing-dot" style="animation-delay:300ms"></div></div></div></div>';
+  }
+
+  thread.innerHTML = html;
+  var main = document.getElementById('chat-main');
+  if (main) main.scrollTop = main.scrollHeight;
+}
+
+// ── Complete lesson ─────────────────────────────────────────────────────────
+function openCompleteModal() {
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function setRating(val, btn) {
+  selectedRating = val;
+  document.querySelectorAll('.rating-btn').forEach(function(b) { b.classList.remove('sel'); });
+  btn.classList.add('sel');
+}
+
+function completeLesson() {
+  if (!currentUser || !currentLesson) return;
+
+  var wentWell = document.getElementById('went-well').value;
+  var needsWork = document.getElementById('needs-work').value;
+  var courseName = currentLesson.course.name;
+  var chefName = currentLesson.course.chef;
+
+  // Get current module count BEFORE saving (for promotion check)
+  supabase.from('profiles').select('completed_modules').eq('id', currentUser.id).single().then(function(profileResult) {
+    var prevCount = (profileResult.data && profileResult.data.completed_modules) || 0;
+
+    // Use upsert with unique constraint — prevents duplicate completions
+    supabase.from('course_progress').upsert({
+      user_id: currentUser.id,
+      course_name: courseName,
+      chef_name: chefName,
+      lesson_number: lessonNum,
+      lesson_title: currentLesson.lesson.title,
+      lesson_notes: messages.map(function(m) { return m.role + ': ' + m.content; }).join('\n\n').slice(0, 2000),
+      what_went_well: wentWell,
+      needs_work: needsWork,
+      rating: selectedRating || null
+    }, { onConflict: 'user_id,course_name,lesson_number' }).then(function(result) {
+      closeModal();
+
+      // Recalculate module count from course_progress (source of truth)
+      supabase.from('course_progress').select('id', { count: 'exact' }).eq('user_id', currentUser.id).then(function(countResult) {
+        var newCount = countResult.count || 0;
+
+        // Update profiles.completed_modules
+        supabase.from('profiles').update({ completed_modules: newCount }).eq('id', currentUser.id);
+
+        // Check for rank promotion
+        var promotion = checkPromotion(prevCount, newCount);
+        if (promotion) {
+          var rankInfo = getUserChefRank(newCount);
+          showPromotionToast(promotion, rankInfo.icon);
+        }
+
+        // Check if all lessons complete
+        var totalLessons = currentLesson.course.totalLessons;
+        if (lessonNum >= totalLessons) {
+          generateCertificate(courseName, chefName);
+        } else {
+          var nextLesson = lessonNum + 1;
+          // Delay navigation if promotion toast is showing
+          setTimeout(function() {
+            window.location.href = 'lesson.html?course=' + courseKey + '&lesson=' + nextLesson;
+          }, promotion ? 2000 : 0);
+        }
+      });
+    });
+  });
+}
+
+function generateCertificate(courseName, chefName) {
+  // Save certificate to Supabase
+  var certId = 'FB-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+  var studentName = userProfile ? userProfile.name : 'Student';
+
+  supabase.from('certificates').insert({
+    id: certId,
+    user_id: currentUser.id,
+    student_name: studentName,
+    course_name: courseName,
+    chef_name: chefName,
+    issued_at: new Date().toISOString()
+  }).then(function() {
+    window.location.href = 'certificate.html?id=' + certId;
+  }).catch(function() {
+    // Certificate table might not exist yet — just go back to courses
+    window.location.href = 'courses.html?completed=' + encodeURIComponent(courseName);
+  });
+}
+
+// ── Voice ───────────────────────────────────────────────────────────────────
+function toggleListen() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { alert('Voice input works best in Chrome or Safari.'); return; }
+  if (listening) { recognition && recognition.stop(); return; }
+  recognition = new SR();
+  recognition.lang = 'en-GB';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.onstart = function() {
+    listening = true;
+    document.getElementById('mic-btn').classList.add('active');
+    document.getElementById('input-wrap').classList.add('listening');
+    document.getElementById('chat-input').placeholder = 'Listening…';
+  };
+  recognition.onresult = function(e) {
+    var t = e.results[0][0].transcript;
+    document.getElementById('chat-input').value = t;
+    document.getElementById('send-btn').disabled = !t.trim();
+    autoResize(document.getElementById('chat-input'));
+  };
+  recognition.onerror = recognition.onend = function() {
+    listening = false;
+    document.getElementById('mic-btn').classList.remove('active');
+    document.getElementById('input-wrap').classList.remove('listening');
+    document.getElementById('chat-input').placeholder = 'Ask your chef anything about this lesson…';
+  };
+  recognition.start();
+}
+
+// ── Helpers ─────────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('screen-' + id).classList.add('active');
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+  document.getElementById('send-btn').disabled = !el.value.trim();
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>
