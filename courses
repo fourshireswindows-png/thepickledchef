@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fillet & Bone | Culinary Masterclass Courses — Learn Professional Cooking</title>
+<meta name="description" content="Learn professional cooking techniques with Fillet & Bone structured masterclass courses. Knife skills, heat control, Italian, French, Mexican and more. Chef-level guidance for home cooks."/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:title" content="Fillet & Bone | Culinary Masterclass Courses"/>
+<meta property="og:description" content="Structured cooking courses taught by AI chef faculty. Master professional technique at home."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.filletandbone.com/courses.html"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://www.filletandbone.com/courses.html"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Fillet & Bone Culinary Masterclass Courses",
+  "description": "Structured cooking courses taught by professional AI chef faculty",
+  "url": "https://www.filletandbone.com/courses.html",
+  "itemListElement": [
+    {
+      "@type": "Course",
+      "position": 1,
+      "name": "Kitchen Foundations",
+      "description": "Master the fundamental techniques every serious home cook needs — knife skills, heat control, seasoning and sauces.",
+      "provider": {"@type": "EducationalOrganization", "name": "Fillet & Bone"},
+      "educationalLevel": "Beginner",
+      "teaches": ["knife skills", "heat control", "seasoning", "sauces", "protein cooking"],
+      "url": "https://www.filletandbone.com/foundations/"
+    },
+    {
+      "@type": "Course",
+      "position": 2,
+      "name": "Italian Masterclass with Chef Lorenzo",
+      "description": "Authentic Italian cooking technique — fresh pasta, risotto, pizza and classical Italian methods.",
+      "provider": {"@type": "EducationalOrganization", "name": "Fillet & Bone"},
+      "educationalLevel": "Intermediate",
+      "url": "https://www.filletandbone.com/masterclasses/italian/"
+    },
+    {
+      "@type": "Course",
+      "position": 3,
+      "name": "French Technique with Chef Henri",
+      "description": "Classical French method — mother sauces, pastry fundamentals, braising and advanced desserts.",
+      "provider": {"@type": "EducationalOrganization", "name": "Fillet & Bone"},
+      "educationalLevel": "Intermediate to Advanced",
+      "url": "https://www.filletandbone.com/masterclasses/french/"
+    }
+  ]
+}
+</script>
+<style>
+:root{--bg:#0d1b2a;--bg2:#1a2e42;--bg3:#0a1520;--border:#2a3f55;--gold:#c9a84c;--gold2:#a8873a;--sky:#4a9edd;--cream:#f0ece4;--text:#d4cfc7;--muted:#8a9bb0;--dark:#4a5a6a;--gold-light:rgba(201,168,76,0.08);}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+
+header{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(13,27,42,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.logo{text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);display:block;}
+.logo-tag{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);opacity:0.7;}
+nav{display:flex;align-items:center;gap:28px;}
+nav a{color:var(--muted);font-size:12px;text-decoration:none;letter-spacing:0.05em;transition:color 0.2s;}
+nav a:hover{color:var(--gold);}
+.nav-cta{border:1px solid var(--gold);padding:7px 16px;color:var(--gold);font-size:11px;letter-spacing:0.08em;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{background:var(--gold);color:var(--bg);}
+
+/* BREADCRUMB */
+.breadcrumb{padding:14px 40px;border-bottom:1px solid var(--border);background:var(--bg3);position:relative;z-index:1;}
+.breadcrumb ol{display:flex;gap:8px;list-style:none;font-size:11px;color:var(--dark);}
+.breadcrumb li::after{content:'→';margin-left:8px;opacity:0.4;}
+.breadcrumb li:last-child::after{content:'';}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.breadcrumb a:hover{color:var(--gold);}
+.breadcrumb li:last-child{color:var(--gold);}
+
+/* HERO */
+.hero{padding:64px 40px 48px;border-bottom:1px solid var(--border);position:relative;z-index:1;}
+.hero-inner{max-width:1100px;margin:0 auto;}
+.hero-rule{width:28px;height:1px;background:var(--gold);margin-bottom:16px;opacity:0.6;}
+.hero-eyebrow{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;opacity:0.8;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,56px);color:var(--cream);margin-bottom:14px;font-weight:400;line-height:1.1;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px;line-height:1.8;}
+
+/* FILTER */
+.filter-bar{padding:20px 40px;border-bottom:1px solid var(--border);background:var(--bg3);display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:1;}
+.filter-btn{background:transparent;border:1px solid var(--border);padding:7px 16px;font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted);cursor:pointer;letter-spacing:0.05em;transition:all 0.2s;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-light);}
+
+/* MAIN */
+main{max-width:1100px;margin:0 auto;padding:48px 40px;position:relative;z-index:1;}
+
+/* COURSE SECTIONS */
+.course-section{margin-bottom:64px;}
+.course-section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.course-section-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--cream);font-weight:400;}
+.course-section-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);opacity:0.8;margin-bottom:6px;}
+.course-section-tag{font-size:11px;color:var(--muted);}
+
+/* COURSE CARDS */
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.course-card{background:var(--bg2);border:1px solid var(--border);transition:border-color 0.3s,transform 0.3s;position:relative;}
+.course-card:hover{border-color:var(--gold);transform:translateY(-3px);}
+.course-card.locked{opacity:0.7;}
+.course-card.locked:hover{transform:none;border-color:var(--border);}
+.course-header{padding:28px 24px 20px;border-bottom:1px solid var(--border);}
+.course-flag{font-size:28px;margin-bottom:14px;}
+.course-chef-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;opacity:0.8;}
+.course-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);margin-bottom:8px;line-height:1.2;}
+.course-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+.course-meta{display:flex;gap:14px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+.course-meta-item{font-size:11px;color:var(--dark);display:flex;align-items:center;gap:5px;}
+.course-lessons-list{padding:20px 24px;}
+.lesson-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted);}
+.lesson-row:last-child{border-bottom:none;}
+.lesson-num{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--dark);flex-shrink:0;}
+.lesson-num.completed{background:var(--gold);border-color:var(--gold);color:var(--bg);}
+.lesson-title-text{flex:1;}
+.lesson-free{font-size:9px;color:var(--gold);background:var(--gold-light);border:1px solid rgba(201,168,76,0.2);padding:1px 6px;letter-spacing:0.05em;}
+.course-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.course-tier-badge{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
+.course-cta{background:transparent;border:1px solid var(--gold);padding:8px 18px;color:var(--gold);font-size:11px;font-family:'DM Sans',sans-serif;letter-spacing:0.06em;cursor:pointer;text-decoration:none;transition:all 0.2s;text-transform:uppercase;}
+.course-cta:hover{background:var(--gold);color:var(--bg);}
+.course-cta.locked-cta{border-color:var(--border);color:var(--dark);cursor:default;}
+.course-cta.locked-cta:hover{background:transparent;color:var(--dark);}
+.lock-overlay{position:absolute;top:12px;right:12px;width:28px;height:28px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;}
+
+/* PROGRESS BAR */
+.progress-wrap{padding:0 24px 16px;}
+.progress-label{font-size:10px;color:var(--dark);margin-bottom:6px;letter-spacing:0.04em;}
+.progress-bar{height:2px;background:var(--border);border-radius:1px;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:1px;transition:width 0.5s ease;}
+
+/* COMING SOON */
+.coming-soon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:24px;}
+.coming-soon-card{background:var(--bg2);border:1px solid var(--border);padding:20px;text-align:center;opacity:0.5;}
+.coming-soon-flag{font-size:24px;margin-bottom:8px;}
+.coming-soon-name{font-family:'Playfair Display',serif;font-size:14px;color:var(--cream);margin-bottom:4px;}
+.coming-soon-spec{font-size:10px;color:var(--dark);letter-spacing:0.06em;text-transform:uppercase;}
+
+footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:relative;z-index:1;}
+.footer-logo-name{font-family:'Playfair Display',serif;font-size:15px;color:var(--cream);}
+.footer-logo-tag{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);opacity:0.6;display:block;margin-top:2px;}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap;}
+.footer-links a{color:var(--dark);font-size:12px;text-decoration:none;letter-spacing:0.04em;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:11px;color:var(--dark);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp 0.5s ease both;}
+
+@media(max-width:768px){
+  header{padding:0 16px;}nav{display:none;}
+  .breadcrumb{padding:12px 16px;}
+  .hero{padding:40px 16px 32px;}
+  .filter-bar{padding:14px 16px;}
+  main{padding:32px 16px;}
+  footer{padding:24px 16px;flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <span class="logo-name">Fillet & Bone</span>
+    <span class="logo-tag">A Culinary Masterclass</span>
+  </a>
+  <nav aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="courses.html" aria-current="page">Courses</a>
+    <a href="noticeboard.html">Noticeboard</a>
+    <a href="chat.html">The Kitchen</a>
+  </nav>
+  <a href="auth.html" class="nav-cta">Enrol</a>
+</header>
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="index.html"><span itemprop="name">Home</span></a>
+      <meta itemprop="position" content="1"/>
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">Courses</span>
+      <meta itemprop="position" content="2"/>
+    </li>
+  </ol>
+</nav>
+
+<!-- Hero -->
+<section class="hero" aria-labelledby="courses-heading">
+  <div class="hero-inner">
+    <div class="hero-rule"></div>
+    <p class="hero-eyebrow">The curriculum</p>
+    <h1 id="courses-heading" class="hero-title">Structured courses.<br><em>Real progression.</em></h1>
+    <p class="hero-sub">Each course is a series of guided interactive lessons with your chef. They remember your progress, adapt to your pace and build on what you have learned.</p>
+  </div>
+</section>
+
+<!-- Filter -->
+<div class="filter-bar" role="toolbar" aria-label="Filter courses">
+  <button class="filter-btn active" onclick="filterCourses('all',this)">All Courses</button>
+  <button class="filter-btn" onclick="filterCourses('foundations',this)">Foundations</button>
+  <button class="filter-btn" onclick="filterCourses('masterclass',this)">Masterclasses</button>
+  <button class="filter-btn" onclick="filterCourses('free',this)">Free Access</button>
+  <button class="filter-btn" onclick="filterCourses('academy',this)">Academy</button>
+</div>
+
+<main id="main-content">
+
+  <!-- FOUNDATIONS -->
+  <section class="course-section" id="foundations" data-type="foundations">
+    <div class="course-section-header">
+      <div>
+        <div class="course-section-label">Start here</div>
+        <h2 class="course-section-title">Kitchen Foundations</h2>
+      </div>
+      <span class="course-section-tag">Free — first lesson of each</span>
+    </div>
+    <div class="courses-grid">
+
+      <article class="course-card fade-up" data-tier="free" data-type="foundations">
+        <div class="course-header">
+          <div class="course-flag">🔪</div>
+          <div class="course-chef-label">Charlie · Kitchen Foundations</div>
+          <h3 class="course-name">Knife Skills</h3>
+          <p class="course-desc">Learn the grip, the motion and the safety principles that underpin every professional kitchen. The single most important skill a home cook can develop.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">📚 5 lessons</span>
+            <span class="course-meta-item">⏱ 60 mins</span>
+            <span class="course-meta-item">📊 Beginner</span>
+          </div>
+        </div>
+        <div class="course-lessons-list">
+          <div class="lesson-row"><div class="lesson-num">1</div><span class="lesson-title-text">The correct grip</span><span class="lesson-free">Free</span></div>
+          <div class="lesson-row"><div class="lesson-num">2</div><span class="lesson-title-text">The rocking motion</span></div>
+          <div class="lesson-row"><div class="lesson-num">3</div><span class="lesson-title-text">Cutting vegetables properly</span></div>
+          <div class="lesson-row"><div class="lesson-num">4</div><span class="lesson-title-text">Protein preparation</span></div>
+          <div class="lesson-row"><div class="lesson-num">5</div><span class="lesson-title-text">Speed and consistency</span></div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier-badge">Free — first lesson</span>
+          <a href="auth.html" class="course-cta">Begin →</a>
+        </div>
+      </article>
+
+      <article class="course-card fade-up" data-tier="free" data-type="foundations">
+        <div class="course-header">
+          <div class="course-flag">🔥</div>
+          <div class="course-chef-label">Charlie · Kitchen Foundations</div>
+          <h3 class="course-name">Heat Control</h3>
+          <p class="course-desc">Understanding heat is what separates good cooks from great ones. Learn when to use high heat, when to go low and slow, and why it matters.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">📚 5 lessons</span>
+            <span class="course-meta-item">⏱ 55 mins</span>
+            <span class="course-meta-item">📊 Beginner</span>
+          </div>
+        </div>
+        <div class="course-lessons-list">
+          <div class="lesson-row"><div class="lesson-num">1</div><span class="lesson-title-text">How pans conduct heat</span><span class="lesson-free">Free</span></div>
+          <div class="lesson-row"><div class="lesson-num">2</div><span class="lesson-title-text">Searing vs sweating</span></div>
+          <div class="lesson-row"><div class="lesson-num">3</div><span class="lesson-title-text">The Maillard reaction</span></div>
+          <div class="lesson-row"><div class="lesson-num">4</div><span class="lesson-title-text">Low and slow cooking</span></div>
+          <div class="lesson-row"><div class="lesson-num">5</div><span class="lesson-title-text">Resting and carryover cooking</span></div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier-badge">Free — first lesson</span>
+          <a href="auth.html" class="course-cta">Begin →</a>
+        </div>
+      </article>
+
+      <article class="course-card fade-up" data-tier="free" data-type="foundations">
+        <div class="course-header">
+          <div class="course-flag">🧂</div>
+          <div class="course-chef-label">Charlie · Kitchen Foundations</div>
+          <h3 class="course-name">Seasoning Technique</h3>
+          <p class="course-desc">Salt is the most important ingredient in cooking. Learn when to add it, how much to use, and how layering seasoning transforms a dish.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">📚 4 lessons</span>
+            <span class="course-meta-item">⏱ 45 mins</span>
+            <span class="course-meta-item">📊 Beginner</span>
+          </div>
+        </div>
+        <div class="course-lessons-list">
+          <div class="lesson-row"><div class="lesson-num">1</div><span class="lesson-title-text">Why salt matters</span><span class="lesson-free">Free</span></div>
+          <div class="lesson-row"><div class="lesson-num">2</div><span class="lesson-title-text">Seasoning in layers</span></div>
+          <div class="lesson-row"><div class="lesson-num">3</div><span class="lesson-title-text">Acid and balance</span></div>
+          <div class="lesson-row"><div class="lesson-num">4</div><span class="lesson-title-text">Herbs and spices properly</span></div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier-badge">Free — first lesson</span>
+          <a href="auth.html" class="course-cta">Begin →</a>
+        </div>
+      </article>
+
+      <article class="course-card fade-up" data-tier="free" data-type="foundations">
+        <div class="course-header">
+          <div class="course-flag">🫙</div>
+          <div class="course-chef-label">Charlie · Kitchen Foundations</div>
+          <h3 class="course-name">Sauce Fundamentals</h3>
+          <p class="course-desc">Master the five building blocks of sauce making. These foundations underpin almost every dish in professional cooking.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">📚 5 lessons</span>
+            <span class="course-meta-item">⏱ 65 mins</span>
+            <span class="course-meta-item">📊 Beginner to Intermediate</span>
+          </div>
+        </div>
+        <div class="course-lessons-list">
+          <div class="lesson-row"><div class="lesson-num">1</div><span class="lesson-title-text">Stock — the foundation</span><span class="lesson-free">Free</span></div>
+          <div class="lesson-row"><div class="lesson-num">2</div><span class="lesson-title-text">The pan sauce</span></div>
+          <div class="lesson-row"><div class="lesson-num">3</div><span class="lesson-title-text">Emulsification</span></div>
+          <div class="lesson-row"><div class="lesson-num">4</div><span class="lesson-title-text">Reduction technique</span></div>
+          <div class="lesson-row"><div class="lesson-num">5</div><span class="lesson-title-text">Finishing a sauce</span></div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier-badge">Free — first lesson</span>
+          <a href="auth.html" class="course-cta">Begin →</a>
+        </div>
+      </article>
+
+      <article class="course-card fade-up" data-tier="free" data-type="foundations">
+        <div class="course-header">
+          <div class="course-flag">🥩</div>
+          <div class="course-chef-label">Charlie · Kitchen Foundations</div>
+          <h3 class="course-name">Cooking Protein</h3>
+          <p class="course-desc">Chicken, beef, fish, eggs — learn the techniques that ensure perfect results every time, regardless of the protein.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">📚 5 lessons</span>
+            <span class="course-meta-item">⏱ 70 mins</span>
+            <span class="course-meta-item">📊 Beginner to Intermediate</span>
+          </div>
+        </div>
+        <div class="course-lessons-list">
+          <div class="lesson-row"><div class="lesson-num">1</div><span class="lesson-title-text">The perfect chicken breast</span><span class="lesson-free">Free</span></div>
+          <div class="lesson-row"><div class="lesson-num">2</div><span class="lesson-title-text">Cooking beef to temperature</span></div>
+          <div class="lesson-row"><div class="lesson-num">3</div><span class="lesson-title-text">Fish without overcooking</span></div>
+          <div class="lesson-row"><div class="lesson-num">4</div><span class="lesson-title-text">Eggs five ways</span></div>
+          <div class="lesson-row"><div class="lesson-num">5</div><span class="lesson-title-text">Brining and marinating</span></div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier-badge">Free — first lesson</span>
+          <a href="auth.html" class="course-cta">Begin →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- MASTERCLASSES -->
+  <section class="course-section" id="masterclasses" data-type="masterclass">
+    <div class="course-section-header">
+      <div>
+        <div class="course-section-label">Academy</div>
+        <h2 class="course-section-title">International Masterclasses</h2>
+      </div>
+      <span class="course-section-tag">Academy membership required</span>
+    </div>
+    <div class="courses-grid">
+
+      <article class="course-card fade-up" data-tier="academy" data-type="masterclass">
+        <div class="lock-overlay">🔒</div>
+        <div class="course-header">
+          <div class="course-flag">🇮🇹</div>
+          <div class="course-chef-label">Chef Lorenzo · Italian Masterclass</div>
+          <h3 class="course-name">Italian Masterclass</h3>
+          <p class="course-desc">Authentic Italian technique from a chef who has spent a lifetime perfecting it. Fresh pasta, risotto, Neapolitan pizza and the Italian canon.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">📚 8 lessons</span>
+            <span class="course-meta-item">⏱ 3.5 hrs</span>
+            <span class="course-meta-item">📊 Intermediate</span>
+          </div>
+        </div>
+        <div class="course-lessons-list">
+          <div class="lesson-row"><div class="lesson-num">1</div><span class="lesson-title-text">Fresh pasta from scratch</span><span class="lesson-free">Free</span></div>
+          <div class="lesson-row"><div class="lesson-num">2</div><span class="lesson-title-text">The perfect risotto</span></div>
+          <div class="lesson-row"><div class="lesson-num">3</div><span class="lesson-title-text">Authentic Neapolitan pizza</span></div>
+          <div class="lesson-row"><div class="lesson-num">4</div><span class="lesson-title-text">Soffritto and Italian bases</span></div>
+          <div class="lesson-row"><div class="lesson-num">5</div><span class="lesson-title-text">Italian braised meats</span></div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier-badge">Academy</span>
+          <a href="upgrade.html" class="course-cta">Unlock →</a>
+        </div>
+      </article>
+
+      <article class="course-card fade-up" data-tier="academy" data-type="masterclass">
+        <div class="lock-overlay">🔒</div>
+        <div class="course-header">
+          <div class="course-flag">🇫🇷</div>
+          <div class="course-chef-label">Chef Henri · French Technique</div>
+          <h3 class="course-name">French Technique</h3>
+          <p class="course-desc">Classical French culinary method from a chef trained in the great Parisian tradition. Mother sauces, pastry, braising and the techniques that define haute cuisine.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">📚 8 lessons</span>
+            <span class="course-meta-item">⏱ 4 hrs</span>
+            <span class="course-meta-item">📊 Intermediate to Advanced</span>
+          </div>
+        </div>
+        <div class="course-lessons-list">
+          <div class="lesson-row"><div class="lesson-num">1</div><span class="lesson-title-text">The French mother sauces</span><span class="lesson-free">Free</span></div>
+          <div class="lesson-row"><div class="lesson-num">2</div><span class="lesson-title-text">Pastry fundamentals</span></div>
+          <div class="lesson-row"><div class="lesson-num">3</div><span class="lesson-title-text">Braising and slow cooking</span></div>
+          <div class="lesson-row"><div class="lesson-num">4</div><span class="lesson-title-text">The perfect consommé</span></div>
+          <div class="lesson-row"><div class="lesson-num">5</div><span class="lesson-title-text">Soufflés and advanced desserts</span></div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier-badge">Academy</span>
+          <a href="upgrade.html" class="course-cta">Unlock →</a>
+        </div>
+      </article>
+
+      <article class="course-card fade-up" data-tier="academy" data-type="masterclass">
+        <div class="lock-overlay">🔒</div>
+        <div class="course-header">
+          <div class="course-flag">🇲🇽</div>
+          <div class="course-chef-label">Chef Carmen · Mexican Kitchen</div>
+          <h3 class="course-name">Mexican Kitchen</h3>
+          <p class="course-desc">Authentic Mexican technique — not Tex-Mex. Learn the complex moles, handmade tortillas, salsas and slow-cooked meats at the heart of Mexican cuisine.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">📚 8 lessons</span>
+            <span class="course-meta-item">⏱ 3.5 hrs</span>
+            <span class="course-meta-item">📊 Intermediate</span>
+          </div>
+        </div>
+        <div class="course-lessons-list">
+          <div class="lesson-row"><div class="lesson-num">1</div><span class="lesson-title-text">Handmade tortillas</span><span class="lesson-free">Free</span></div>
+          <div class="lesson-row"><div class="lesson-num">2</div><span class="lesson-title-text">Salsa technique</span></div>
+          <div class="lesson-row"><div class="lesson-num">3</div><span class="lesson-title-text">Mole negro from scratch</span></div>
+          <div class="lesson-row"><div class="lesson-num">4</div><span class="lesson-title-text">Slow-cooked carnitas</span></div>
+          <div class="lesson-row"><div class="lesson-num">5</div><span class="lesson-title-text">Authentic guacamole</span></div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier-badge">Academy</span>
+          <a href="upgrade.html" class="course-cta">Unlock →</a>
+        </div>
+      </article>
+
+      <article class="course-card fade-up" data-tier="academy" data-type="masterclass">
+        <div class="lock-overlay">🔒</div>
+        <div class="course-header">
+          <div class="course-flag">🇺🇸</div>
+          <div class="course-chef-label">Chef Franklin · BBQ & Southern</div>
+          <h3 class="course-name">BBQ & Southern</h3>
+          <p class="course-desc">The art and science of American BBQ. Learn smoking technique, rubs, brines, and the slow cooking methods behind great Southern food.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">📚 8 lessons</span>
+            <span class="course-meta-item">⏱ 3.5 hrs</span>
+            <span class="course-meta-item">📊 Beginner to Intermediate</span>
+          </div>
+        </div>
+        <div class="course-lessons-list">
+          <div class="lesson-row"><div class="lesson-num">1</div><span class="lesson-title-text">BBQ fundamentals and fire</span><span class="lesson-free">Free</span></div>
+          <div class="lesson-row"><div class="lesson-num">2</div><span class="lesson-title-text">Rubs, brines and marinades</span></div>
+          <div class="lesson-row"><div class="lesson-num">3</div><span class="lesson-title-text">Smoking technique</span></div>
+          <div class="lesson-row"><div class="lesson-num">4</div><span class="lesson-title-text">The perfect brisket</span></div>
+          <div class="lesson-row"><div class="lesson-num">5</div><span class="lesson-title-text">Southern sides and sauces</span></div>
+        </div>
+        <div class="course-footer">
+          <span class="course-tier-badge">Academy</span>
+          <a href="upgrade.html" class="course-cta">Unlock →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- COMING SOON -->
+  <section class="course-section">
+    <div class="course-section-header">
+      <div>
+        <div class="course-section-label">Expanding faculty</div>
+        <h2 class="course-section-title">Coming Soon</h2>
+      </div>
+    </div>
+    <div class="coming-soon-grid">
+      <div class="coming-soon-card"><div class="coming-soon-flag">🇨🇳</div><div class="coming-soon-name">Chef Mei</div><div class="coming-soon-spec">Chinese Masterclass</div></div>
+      <div class="coming-soon-card"><div class="coming-soon-flag">🇯🇵</div><div class="coming-soon-name">Chef Kenji</div><div class="coming-soon-spec">Japanese Technique</div></div>
+      <div class="coming-soon-card"><div class="coming-soon-flag">🇮🇳</div><div class="coming-soon-name">Chef Priya</div><div class="coming-soon-spec">Indian & Middle Eastern</div></div>
+      <div class="coming-soon-card"><div class="coming-soon-flag">🇹🇭</div><div class="coming-soon-name">Chef Nari</div><div class="coming-soon-spec">Thai & Southeast Asian</div></div>
+      <div class="coming-soon-card"><div class="coming-soon-flag">🥖</div><div class="coming-soon-name">Chef Henri</div><div class="coming-soon-spec">Bread & Patisserie</div></div>
+      <div class="coming-soon-card"><div class="coming-soon-flag">🌱</div><div class="coming-soon-name">Charlie</div><div class="coming-soon-spec">Plant Based Cooking</div></div>
+    </div>
+    <p style="font-size:12px;color:var(--dark);margin-top:16px;letter-spacing:0.04em;">Academy members get early access to all new courses automatically.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div>
+    <div class="footer-logo-name">Fillet & Bone</div>
+    <span class="footer-logo-tag">A Culinary Masterclass</span>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="noticeboard.html">Noticeboard</a>
+    <a href="upgrade.html">Pricing</a>
+    <a href="chat.html">The Kitchen</a>
+  </div>
+  <div class="footer-copy">© 2025 Fillet & Bone · Rollright Publishing Ltd · No ads. Ever.</div>
+</footer>
+
+<script>
+function filterCourses(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.course-card').forEach(function(card){
+    var tier = card.dataset.tier;
+    var cardType = card.dataset.type;
+    var show = type === 'all' ||
+      (type === 'foundations' && cardType === 'foundations') ||
+      (type === 'masterclass' && cardType === 'masterclass') ||
+      (type === 'free' && tier === 'free') ||
+      (type === 'academy' && tier === 'academy');
+    card.closest('.course-card').style.display = show ? 'block' : 'none';
+  });
+  // Show/hide section headers based on visible cards
+  document.querySelectorAll('.course-section').forEach(function(section){
+    var visible = section.querySelectorAll('.course-card[style="display: block"], .course-card:not([style*="display: none"])');
+    section.style.display = visible.length === 0 ? 'none' : 'block';
+  });
+}
+
+// Animate cards on scroll
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)';}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.course-card,.coming-soon-card').forEach(function(el){
+  el.style.opacity='0';el.style.transform='translateY(14px)';
+  el.style.transition='opacity 0.5s ease,transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
