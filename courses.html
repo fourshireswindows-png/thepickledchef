@@ -510,6 +510,144 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
 </footer>
 
 <script>
+// Load user progress and update course buttons
+function loadUserProgress() {
+  var sb = window.supabase;
+  if (!sb) return;
+  sb.auth.getSession().then(function(r) {
+    if (!r.data.session) return;
+    sb.from('course_progress').select('course_name, lesson_number').eq('user_id', r.data.session.user.id).then(function(result) {
+      if (!result.data || !result.data.length) return;
+      var progress = {};
+      result.data.forEach(function(p) {
+        if (!progress[p.course_name] || progress[p.course_name] < p.lesson_number) {
+          progress[p.course_name] = p.lesson_number;
+        }
+      });
+      var courseMap = {
+        'Knife Skills':        {key:'knife-skills',total:5},
+        'Heat Control':        {key:'heat-control',total:5},
+        'Seasoning Technique': {key:'seasoning',total:4},
+        'Sauce Fundamentals':  {key:'sauces',total:5},
+        'Cooking Protein':     {key:'protein',total:5},
+        'Italian Masterclass': {key:'italian',total:8},
+        'French Technique':    {key:'french',total:8},
+        'Mexican Kitchen':     {key:'mexican',total:8},
+        'BBQ & Southern':      {key:'bbq',total:8}
+      };
+      // Update buttons based on progress
+      document.querySelectorAll('.course-footer').forEach(function(footer) {
+        var card = footer.closest('.course-card');
+        var nameEl = card.querySelector('.course-name');
+        if (!nameEl) return;
+        var courseName = nameEl.textContent.trim();
+        var map = courseMap[courseName];
+        if (!map || !progress[courseName]) return;
+        var lastLesson = progress[courseName];
+        var nextLesson = Math.min(lastLesson + 1, map.total);
+        var isComplete = lastLesson >= map.total;
+        var btn = footer.querySelector('.course-cta');
+        if (!btn) return;
+        if (isComplete) {
+          btn.textContent = 'Completed ✦';
+          btn.style.borderColor = 'rgba(201,168,76,0.3)';
+          btn.style.color = 'var(--gold)';
+        } else {
+          btn.href = 'lesson.html?course=' + map.key + '&lesson=' + nextLesson;
+          btn.textContent = 'Continue — Lesson ' + nextLesson + ' →';
+        }
+
+      });
+    });
+  });
+}
+
+window.addEventListener('load', function() {
+  if (window.supabase) loadUserProgress();
+  else setTimeout(loadUserProgress, 800);
+});
+
+// ── Supabase progress detection ──────────────────────────────────────────────
+var SUPABASE_URL = 'https://ctlwnlxifaibyezrvlau.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
+var _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+var COURSE_NAME_MAP = {
+  'knife-skills':  { name: 'Knife Skills',        total: 5 },
+  'heat-control':  { name: 'Heat Control',         total: 5 },
+  'seasoning':     { name: 'Seasoning Technique',  total: 4 },
+  'sauces':        { name: 'Sauce Fundamentals',   total: 5 },
+  'protein':       { name: 'Cooking Protein',      total: 5 },
+  'italian':       { name: 'Italian Masterclass',  total: 8 },
+  'french':        { name: 'French Technique',     total: 8 },
+  'mexican':       { name: 'Mexican Kitchen',      total: 8 },
+  'bbq':           { name: 'BBQ & Southern',       total: 8 }
+};
+
+// On load — check progress and update all course buttons
+window.addEventListener('load', function() {
+  _supabase.auth.getSession().then(function(r) {
+    if (!r.data || !r.data.session) return;
+    var userId = r.data.session.user.id;
+
+    _supabase.from('course_progress')
+      .select('course_name, lesson_number')
+      .eq('user_id', userId)
+      .then(function(result) {
+        if (!result.data || !result.data.length) return;
+
+        // Group completed lessons by course
+        var completed = {};
+        result.data.forEach(function(row) {
+          if (!completed[row.course_name]) completed[row.course_name] = [];
+          completed[row.course_name].push(row.lesson_number);
+        });
+
+        // Update each course button
+        Object.keys(COURSE_NAME_MAP).forEach(function(key) {
+          var meta = COURSE_NAME_MAP[key];
+          var done = completed[meta.name] || [];
+          if (!done.length) return;
+
+          // Find next incomplete lesson
+          var nextLesson = 1;
+          for (var i = 1; i <= meta.total; i++) {
+            if (!done.includes(i)) { nextLesson = i; break; }
+            if (i === meta.total) nextLesson = meta.total; // all done
+          }
+
+          var isComplete = done.length >= meta.total;
+          var btn = document.querySelector('a[href*="course=' + key + '"]');
+          if (!btn) return;
+
+          if (isComplete) {
+            btn.textContent = 'Completed ✦';
+            btn.style.borderColor = 'var(--gold)';
+            btn.style.color = 'var(--gold)';
+            btn.href = 'lesson.html?course=' + key + '&lesson=1';
+          } else {
+            btn.textContent = 'Continue — Lesson ' + nextLesson + ' →';
+            btn.href = 'lesson.html?course=' + key + '&lesson=' + nextLesson;
+          }
+
+          // Add progress bar to card
+          var pct = Math.round((done.length / meta.total) * 100);
+          var card = btn.closest('.course-card');
+          if (card) {
+            var existing = card.querySelector('.inline-progress');
+            if (!existing) {
+              var pb = document.createElement('div');
+              pb.className = 'inline-progress';
+              pb.style.cssText = 'height:2px;background:var(--border);margin:0 24px 16px;';
+              pb.innerHTML = '<div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width 0.6s;"></div>';
+              btn.closest('.course-footer').before(pb);
+            }
+          }
+        });
+      });
+  });
+});
+
 function filterCourses(type, btn) {
   document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
