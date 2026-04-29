@@ -167,6 +167,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
 </head>
 <body>
 
+<div id="fb-nav"></div>
 <header>
   <a href="index.html" class="logo">
     <span class="logo-name">Fillet & Bone</span>
@@ -248,7 +249,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
         </div>
         <div class="course-footer">
           <span class="course-tier-badge">Free — first lesson</span>
-          <a href="auth.html" class="course-cta">Begin →</a>
+          <a href="lesson.html?course=knife-skills&lesson=1" class="course-cta">Begin →</a>
         </div>
       </article>
 
@@ -273,7 +274,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
         </div>
         <div class="course-footer">
           <span class="course-tier-badge">Free — first lesson</span>
-          <a href="auth.html" class="course-cta">Begin →</a>
+          <a href="lesson.html?course=heat-control&lesson=1" class="course-cta">Begin →</a>
         </div>
       </article>
 
@@ -297,7 +298,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
         </div>
         <div class="course-footer">
           <span class="course-tier-badge">Free — first lesson</span>
-          <a href="auth.html" class="course-cta">Begin →</a>
+          <a href="lesson.html?course=seasoning&lesson=1" class="course-cta">Begin →</a>
         </div>
       </article>
 
@@ -322,7 +323,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
         </div>
         <div class="course-footer">
           <span class="course-tier-badge">Free — first lesson</span>
-          <a href="auth.html" class="course-cta">Begin →</a>
+          <a href="lesson.html?course=sauces&lesson=1" class="course-cta">Begin →</a>
         </div>
       </article>
 
@@ -347,7 +348,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
         </div>
         <div class="course-footer">
           <span class="course-tier-badge">Free — first lesson</span>
-          <a href="auth.html" class="course-cta">Begin →</a>
+          <a href="lesson.html?course=protein&lesson=1" class="course-cta">Begin →</a>
         </div>
       </article>
 
@@ -387,7 +388,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
         </div>
         <div class="course-footer">
           <span class="course-tier-badge">Academy</span>
-          <a href="upgrade.html" class="course-cta">Unlock →</a>
+          <a href="lesson.html?course=italian&lesson=1" class="course-cta">Preview →</a>
         </div>
       </article>
 
@@ -413,7 +414,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
         </div>
         <div class="course-footer">
           <span class="course-tier-badge">Academy</span>
-          <a href="upgrade.html" class="course-cta">Unlock →</a>
+          <a href="lesson.html?course=french&lesson=1" class="course-cta">Preview →</a>
         </div>
       </article>
 
@@ -439,7 +440,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
         </div>
         <div class="course-footer">
           <span class="course-tier-badge">Academy</span>
-          <a href="upgrade.html" class="course-cta">Unlock →</a>
+          <a href="lesson.html?course=mexican&lesson=1" class="course-cta">Preview →</a>
         </div>
       </article>
 
@@ -465,7 +466,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;align-items:
         </div>
         <div class="course-footer">
           <span class="course-tier-badge">Academy</span>
-          <a href="upgrade.html" class="course-cta">Unlock →</a>
+          <a href="lesson.html?course=bbq&lesson=1" class="course-cta">Preview →</a>
         </div>
       </article>
 
@@ -541,5 +542,7 @@ document.querySelectorAll('.course-card,.coming-soon-card').forEach(function(el)
   observer.observe(el);
 });
 </script>
+<script src="/ranks.js"></script>
+<script src="/nav.js"></script>
 </body>
 </html>
