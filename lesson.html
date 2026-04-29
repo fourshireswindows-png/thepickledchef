@@ -764,7 +764,7 @@ var isPremium = false;
 // ── Init ────────────────────────────────────────────────────────────────────
 window.onload = function() {
   supabase.auth.getSession().then(function(result) {
-    if (!result.data.session) { window.location.href = 'auth.html'; return; }
+    if (!result.data.session) { window.location.href = 'auth.html?return=' + encodeURIComponent(window.location.pathname + window.location.search); return; }
     currentUser = result.data.session.user;
 
     // Load profile to check premium status
