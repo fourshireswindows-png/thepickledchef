@@ -984,72 +984,95 @@ function completeLesson() {
   var needsWork = document.getElementById('needs-work').value;
   var courseName = currentLesson.course.name;
   var chefName = currentLesson.course.chef;
+  var prevCount = 0;
 
+  // Get previous count for promotion check
   supabase.from('profiles').select('completed_modules').eq('id', currentUser.id).single().then(function(profileResult) {
-    var prevCount = (profileResult.data && profileResult.data.completed_modules) || 0;
+    prevCount = (profileResult.data && profileResult.data.completed_modules) || 0;
+  });
 
-    supabase.from('course_progress').upsert({
-      user_id: currentUser.id,
-      course_name: courseName,
-      chef_name: chefName,
-      lesson_number: lessonNum,
-      lesson_title: currentLesson.lesson.title,
-      lesson_notes: messages.map(function(m) { return m.role + ': ' + m.content; }).join('\n\n').slice(0, 2000),
-      what_went_well: wentWell,
-      needs_work: needsWork,
-      rating: selectedRating || null
-    }, { onConflict: 'user_id,course_name,lesson_number' }).then(function(result) {
-      if (result.error) {
-        alert('Progress save error: ' + result.error.message);
-        return;
+  // Save via server proxy — bypasses schema cache entirely
+  fetch('/api/progress', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'save_progress',
+      userId: currentUser.id,
+      data: {
+        user_id: currentUser.id,
+        course_name: courseName,
+        chef_name: chefName,
+        lesson_number: lessonNum,
+        lesson_title: currentLesson.lesson.title,
+        lesson_notes: messages.map(function(m) { return m.role + ': ' + m.content; }).join('
+
+').slice(0, 2000),
+        what_went_well: wentWell,
+        needs_work: needsWork,
+        rating: selectedRating || null
       }
-      closeModal();
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(result) {
+    if (result.error) {
+      alert('Could not save progress: ' + result.error);
+      return;
+    }
 
-      supabase.from('course_progress').select('id', { count: 'exact' }).eq('user_id', currentUser.id).then(function(countResult) {
-        var newCount = countResult.count || 0;
+    closeModal();
 
-        supabase.from('profiles').update({ completed_modules: newCount }).eq('id', currentUser.id);
+    var newCount = result.moduleCount || 0;
+    var promotion = checkPromotion(prevCount, newCount);
+    if (promotion) {
+      var rankInfo = getUserChefRank(newCount);
+      showPromotionToast(promotion, rankInfo.icon);
+    }
 
-        var promotion = checkPromotion(prevCount, newCount);
-        if (promotion) {
-          var rankInfo = getUserChefRank(newCount);
-          showPromotionToast(promotion, rankInfo.icon);
-        }
-
-        var totalLessons = currentLesson.course.totalLessons;
-        setTimeout(function() {
-          if (lessonNum >= totalLessons) {
-            generateCertificate(courseName, chefName);
-          } else {
-            window.location.href = 'lesson.html?course=' + courseKey + '&lesson=' + (lessonNum + 1);
-          }
-        }, promotion ? 2000 : 0);
-      });
-    });
+    var totalLessons = currentLesson.course.totalLessons;
+    setTimeout(function() {
+      if (lessonNum >= totalLessons) {
+        generateCertificate(courseName, chefName);
+      } else {
+        window.location.href = 'lesson.html?course=' + courseKey + '&lesson=' + (lessonNum + 1);
+      }
+    }, promotion ? 2000 : 300);
+  })
+  .catch(function(err) {
+    alert('Something went wrong saving your progress. Please try again.');
   });
 }
 
 function generateCertificate(courseName, chefName) {
-  // Save certificate to Supabase
   var certId = 'FB-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
   var studentName = userProfile ? userProfile.name : 'Student';
 
-  supabase.from('certificates').insert({
-    id: certId,
-    user_id: currentUser.id,
-    student_name: studentName,
-    course_name: courseName,
-    chef_name: chefName,
-    issued_at: new Date().toISOString()
-  }).then(function(result) {
+  fetch('/api/progress', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'save_certificate',
+      userId: currentUser.id,
+      data: {
+        id: certId,
+        user_id: currentUser.id,
+        student_name: studentName,
+        course_name: courseName,
+        chef_name: chefName,
+        issued_at: new Date().toISOString()
+      }
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(result) {
     if (result.error) {
-      alert('Certificate error: ' + result.error.message);
+      alert('Certificate error: ' + result.error);
       window.location.href = 'courses.html';
       return;
     }
     window.location.href = 'certificate.html?id=' + certId;
-  }).catch(function(err) {
-    alert('Certificate failed: ' + err.message);
+  })
+  .catch(function() {
     window.location.href = 'courses.html';
   });
 }
