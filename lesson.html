@@ -788,7 +788,10 @@ function loadLesson() {
   currentLesson = { course: course, lesson: lesson, lessonNum: lessonNum };
 
   // Check access
-  var isFree = lessonNum === 1; // First lesson of every course is free
+  // Foundations courses are fully free for all users
+  // Academy masterclasses — lesson 1 free, rest require premium
+  var isFoundationsCourse = course.tier === 'free';
+  var isFree = isFoundationsCourse || lessonNum === 1;
   var hasAccess = isFree || isPremium;
 
   // Build intro screen
@@ -819,8 +822,8 @@ function loadLesson() {
   var actionsHtml = '';
   if (hasAccess) {
     actionsHtml = '<button class="start-btn" onclick="startLesson()">Begin lesson with ' + course.chef + ' →</button>';
-    if (isFree && !isPremium && course.tier !== 'free') {
-      actionsHtml += '<p class="free-notice">✦ First lesson free — <a href="upgrade.html" style="color:var(--gold)">upgrade to Academy</a> to continue</p>';
+    if (lessonNum === 1 && !isPremium && course.tier === 'academy') {
+      actionsHtml += '<p class="free-notice">✦ Preview lesson — <a href="upgrade.html" style="color:var(--gold)">upgrade to Academy</a> to unlock all lessons</p>';
     }
   } else {
     actionsHtml = '<div class="locked-notice"><p>This lesson requires an Academy membership.</p><a href="upgrade.html">Unlock Academy — £9.99/month →</a></div>';
