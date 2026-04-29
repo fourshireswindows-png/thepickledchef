@@ -1001,9 +1001,14 @@ function completeLesson() {
       needs_work: needsWork,
       rating: selectedRating || null
     }, { onConflict: 'user_id,course_name,lesson_number' }).then(function(result) {
+      if (result.error) {
+        alert('Progress save error: ' + result.error.message + ' (Code: ' + result.error.code + ')');
+        return;
+      }
       closeModal();
 
       // Recalculate module count from course_progress (source of truth)
+      // Progress saved successfully
       supabase.from('course_progress').select('id', { count: 'exact' }).eq('user_id', currentUser.id).then(function(countResult) {
         var newCount = countResult.count || 0;
 
@@ -1045,11 +1050,16 @@ function generateCertificate(courseName, chefName) {
     course_name: courseName,
     chef_name: chefName,
     issued_at: new Date().toISOString()
-  }).then(function() {
+  }).then(function(result) {
+    if (result.error) {
+      alert('Certificate error: ' + result.error.message);
+      window.location.href = 'courses.html';
+      return;
+    }
     window.location.href = 'certificate.html?id=' + certId;
-  }).catch(function() {
-    // Certificate table might not exist yet — just go back to courses
-    window.location.href = 'courses.html?completed=' + encodeURIComponent(courseName);
+  }).catch(function(err) {
+    alert('Certificate failed: ' + err.message);
+    window.location.href = 'courses.html';
   });
 }
 
