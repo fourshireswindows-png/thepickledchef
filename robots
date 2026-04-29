@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /private
+Disallow: /api/
+Disallow: /auth.html
+
+# Allow search engines to index all public content
+Allow: /index.html
+Allow: /noticeboard.html
+Allow: /upgrade.html
+Allow: /foundations/
+Allow: /masterclasses/
+
+Sitemap: https://www.filletandbone.com/sitemap.xml
