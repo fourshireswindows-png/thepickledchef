@@ -985,57 +985,75 @@ function completeLesson() {
   var courseName = currentLesson.course.name;
   var chefName = currentLesson.course.chef;
 
-  // Get current module count BEFORE saving (for promotion check)
-  supabase.from('profiles').select('completed_modules').eq('id', currentUser.id).single().then(function(profileResult) {
-    var prevCount = (profileResult.data && profileResult.data.completed_modules) || 0;
+  closeModal();
 
-    // Use upsert with unique constraint — prevents duplicate completions
-    supabase.from('course_progress').upsert({
-      user_id: currentUser.id,
-      course_name: courseName,
-      chef_name: chefName,
-      lesson_number: lessonNum,
-      lesson_title: currentLesson.lesson.title,
-      lesson_notes: messages.map(function(m) { return m.role + ': ' + m.content; }).join('\n\n').slice(0, 2000),
-      what_went_well: wentWell,
-      needs_work: needsWork,
-      rating: selectedRating || null
-    }, { onConflict: 'user_id,course_name,lesson_number' }).then(function(result) {
-      if (result.error) {
-        alert('Progress save error: ' + result.error.message + ' (Code: ' + result.error.code + ')');
-        return;
-      }
-      closeModal();
+  // Get session token and current module count
+  supabase.auth.getSession().then(function(sessionResult) {
+    var token = sessionResult.data.session ? sessionResult.data.session.access_token : SUPABASE_KEY;
+    var prevCount = 0;
 
-      // Recalculate module count from course_progress (source of truth)
-      // Progress saved successfully
-      supabase.from('course_progress').select('id', { count: 'exact' }).eq('user_id', currentUser.id).then(function(countResult) {
-        var newCount = countResult.count || 0;
+    supabase.from('profiles').select('completed_modules').eq('id', currentUser.id).single().then(function(profileResult) {
+      prevCount = (profileResult.data && profileResult.data.completed_modules) || 0;
 
-        // Update profiles.completed_modules
-        supabase.from('profiles').update({ completed_modules: newCount }).eq('id', currentUser.id);
+      // Save progress via direct REST API (bypasses schema cache issue)
+      var progressData = {
+        user_id: currentUser.id,
+        course_name: courseName,
+        chef_name: chefName,
+        lesson_number: lessonNum,
+        lesson_title: currentLesson.lesson.title,
+        lesson_notes: messages.map(function(m) { return m.role + ': ' + m.content; }).join('
 
-        // Check for rank promotion
-        var promotion = checkPromotion(prevCount, newCount);
-        if (promotion) {
-          var rankInfo = getUserChefRank(newCount);
-          showPromotionToast(promotion, rankInfo.icon);
+').slice(0, 2000),
+        what_went_well: wentWell,
+        needs_work: needsWork,
+        rating: selectedRating || null
+      };
+
+      fetch(SUPABASE_URL + '/rest/v1/course_progress', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + token,
+          'Prefer': 'resolution=merge-duplicates,return=minimal'
+        },
+        body: JSON.stringify(progressData)
+      }).then(function(response) {
+        if (!response.ok) {
+          return response.text().then(function(err) {
+            alert('Progress save error: ' + err);
+          });
         }
 
-        // Check if all lessons complete
-        var totalLessons = currentLesson.course.totalLessons;
-        if (lessonNum >= totalLessons) {
-          generateCertificate(courseName, chefName);
-        } else {
-          var nextLesson = lessonNum + 1;
-          // Delay navigation if promotion toast is showing
+        // Count completed modules
+        fetch(SUPABASE_URL + '/rest/v1/course_progress?user_id=eq.' + currentUser.id + '&select=id', {
+          headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + token }
+        }).then(function(r) { return r.json(); }).then(function(rows) {
+          var newCount = Array.isArray(rows) ? rows.length : 0;
+
+          // Update module count on profile
+          supabase.from('profiles').update({ completed_modules: newCount }).eq('id', currentUser.id);
+
+          // Check for rank promotion
+          var promotion = checkPromotion(prevCount, newCount);
+          if (promotion) {
+            var rankInfo = getUserChefRank(newCount);
+            showPromotionToast(promotion, rankInfo.icon);
+          }
+
+          // Navigate to next lesson or certificate
+          var totalLessons = currentLesson.course.totalLessons;
           setTimeout(function() {
-            window.location.href = 'lesson.html?course=' + courseKey + '&lesson=' + nextLesson;
-          }, promotion ? 2000 : 0);
-        }
+            if (lessonNum >= totalLessons) {
+              generateCertificate(courseName, chefName);
+            } else {
+              window.location.href = 'lesson.html?course=' + courseKey + '&lesson=' + (lessonNum + 1);
+            }
+          }, promotion ? 2000 : 300);
+        });
       });
-    }); // end fetch
-    }); // end getSession
+    });
   });
 }
 
