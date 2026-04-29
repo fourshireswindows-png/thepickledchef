@@ -3,183 +3,164 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Go Premium — The Pickled Chef</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>Fillet & Bone | Kitchen & Academy Membership</title>
+<meta name="description" content="Unlock the full Fillet & Bone culinary school. Access structured cooking courses, professional chef faculty and certificates of completion."/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:title" content="Fillet & Bone | Kitchen & Academy Membership"/>
+<meta property="og:description" content="Unlock the full Fillet & Bone culinary school. Access structured cooking courses, professional chef faculty and certificates of completion."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.filletandbone.com/upgrade.html"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://www.filletandbone.com/upgrade.html"/>
+<meta name="description" content="Unlock the full Fillet & Bone experience. Kitchen and Academy memberships with 7-day free trial."/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#f7f9fc;--bg2:#fff;--border:#dde8f5;--amber:#c8873a;--amber2:#a06828;--sky:#4a9edd;--sky2:#2980b9;--navy:#1a2340;--sky-light:#e8f2fb;--text:#2a3040;--muted:#6b7a8d;--dark:#9aa3b0;}
+:root{--bg:#0d1b2a;--bg2:#1a2e42;--bg3:#0a1520;--border:#2a3f55;--gold:#c9a84c;--gold2:#a8873a;--sky:#4a9edd;--cream:#f0ece4;--text:#d4cfc7;--muted:#8a9bb0;--dark:#4a5a6a;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);font-family:'DM Sans',sans-serif;font-weight:300;color:var(--text);}
-nav{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(247,249,252,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
-.logo{display:flex;align-items:center;gap:7px;text-decoration:none;}
-.logo-mark{color:var(--amber);font-size:13px;}
-.logo-text{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);}
-.nav-btn{background:transparent;border:1px solid var(--border);border-radius:8px;padding:5px 12px;color:var(--muted);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:none;}
-
-.hero{padding:60px 24px 40px;text-align:center;background:linear-gradient(160deg,#f7f9fc,#eef4fb);}
-.eyebrow{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sky);margin-bottom:12px;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,52px);font-weight:400;color:var(--navy);margin-bottom:12px;line-height:1.1;}
-.hero-title em{font-style:italic;color:var(--amber);}
-.hero-sub{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto 32px;line-height:1.7;}
-.trial-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(200,135,58,0.1);border:1px solid rgba(200,135,58,0.3);border-radius:20px;padding:8px 18px;font-size:13px;color:var(--amber);margin-bottom:32px;font-weight:500;}
-
-.pricing-wrap{max-width:640px;margin:0 auto;padding:40px 24px;}
-.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.plan{background:white;border:1.5px solid var(--border);border-radius:16px;padding:28px 24px;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
-.plan-premium{border-color:var(--sky);background:linear-gradient(160deg,white,var(--sky-light));box-shadow:0 8px 24px rgba(74,158,221,0.12);position:relative;}
-.popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--sky),var(--sky2));border-radius:20px;padding:4px 14px;font-size:10px;color:white;font-weight:500;white-space:nowrap;}
-.plan-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.plan-label-premium{color:var(--sky);}
-.plan-price{font-family:'Playfair Display',serif;font-size:36px;color:var(--navy);margin-bottom:4px;}
-.plan-period{font-size:13px;color:var(--muted);}
-.plan-features{list-style:none;margin:20px 0 24px;display:flex;flex-direction:column;gap:8px;}
-.plan-feature{font-size:12px;color:var(--text);display:flex;align-items:flex-start;gap:7px;line-height:1.5;}
-.check{color:var(--sky);flex-shrink:0;font-weight:500;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+nav{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid var(--border);position:relative;z-index:1;}
+.logo{text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);display:block;}
+.logo-tag{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);opacity:0.7;}
+.nav-back{color:var(--muted);font-size:12px;text-decoration:none;letter-spacing:0.04em;}
+.nav-back:hover{color:var(--gold);}
+.hero{padding:60px 24px 48px;text-align:center;position:relative;z-index:1;}
+.hero-rule{width:32px;height:1px;background:var(--gold);margin:0 auto 20px;opacity:0.6;}
+.hero-eyebrow{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;opacity:0.8;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);color:var(--cream);margin-bottom:10px;font-weight:400;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:14px;color:var(--muted);max-width:480px;margin:0 auto 28px;line-height:1.7;}
+.trial-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);padding:8px 20px;font-size:12px;color:var(--gold);letter-spacing:0.06em;}
+.pricing-wrap{max-width:760px;margin:48px auto;padding:0 24px;position:relative;z-index:1;}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;border:1px solid var(--border);}
+.price-card{background:var(--bg);padding:36px 32px;}
+.price-card.featured{background:var(--bg2);}
+.price-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;opacity:0.8;}
+.price-amount{font-family:'Playfair Display',serif;font-size:44px;color:var(--cream);margin-bottom:4px;line-height:1;}
+.price-period{font-size:12px;color:var(--muted);margin-bottom:28px;letter-spacing:0.04em;}
+.price-features{list-style:none;margin-bottom:32px;display:flex;flex-direction:column;gap:10px;}
+.price-feature{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.check{color:var(--gold);flex-shrink:0;}
 .cross{color:var(--dark);flex-shrink:0;}
-.btn-upgrade{width:100%;background:linear-gradient(135deg,var(--sky),var(--sky2));border:none;border-radius:11px;padding:13px;color:white;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;box-shadow:0 4px 14px rgba(74,158,221,0.25);transition:transform 0.2s;}
-.btn-upgrade:hover{transform:translateY(-1px);}
-.btn-upgrade:disabled{opacity:0.5;cursor:default;transform:none;}
-.btn-current{width:100%;background:transparent;border:1.5px solid var(--border);border-radius:11px;padding:12px;color:var(--muted);font-size:14px;font-family:'DM Sans',sans-serif;cursor:default;}
-
-.chefs-section{padding:40px 24px;max-width:640px;margin:0 auto;}
-.chefs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:20px;}
-.chef-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:16px 12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
-.chef-flag{font-size:28px;margin-bottom:8px;}
-.chef-name{font-family:'Playfair Display',serif;font-size:13px;color:var(--navy);margin-bottom:3px;}
-.chef-spec{font-size:10px;color:var(--sky);}
-
-.guarantee{background:white;border:1.5px solid var(--border);border-radius:16px;padding:24px;max-width:640px;margin:0 auto 40px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
-.guarantee p{font-size:13px;color:var(--muted);line-height:1.7;}
-
-.loading{opacity:0.6;pointer-events:none;}
-
-@media(max-width:480px){
-  .pricing-grid{grid-template-columns:1fr;}
-  .plan-price{font-size:30px;}
-}
+.price-btn{display:block;text-align:center;border:1px solid var(--gold);padding:13px;color:var(--gold);font-size:12px;font-family:'DM Sans',sans-serif;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;background:transparent;width:100%;transition:all 0.2s;}
+.price-btn:hover,.price-btn.primary{background:var(--gold);color:var(--bg);}
+.price-btn:disabled{opacity:0.4;cursor:default;}
+.price-btn.current{border-color:var(--border);color:var(--dark);cursor:default;}
+.price-btn.current:hover{background:transparent;color:var(--dark);}
+.faculty-section{max-width:760px;margin:0 auto 48px;padding:0 24px;position:relative;z-index:1;}
+.faculty-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:20px;}
+.faculty-card{background:var(--bg2);border:1px solid var(--border);padding:16px 12px;text-align:center;}
+.faculty-flag{font-size:24px;margin-bottom:8px;}
+.faculty-name{font-family:'Playfair Display',serif;font-size:12px;color:var(--cream);margin-bottom:2px;}
+.faculty-spec{font-size:9px;color:var(--gold);letter-spacing:0.06em;text-transform:uppercase;opacity:0.8;}
+.guarantee{max-width:760px;margin:0 auto 48px;padding:0 24px;position:relative;z-index:1;}
+.guarantee-inner{background:var(--bg2);border:1px solid var(--border);padding:28px 32px;text-align:center;}
+.guarantee-inner p{font-size:13px;color:var(--muted);line-height:1.7;}
+@media(max-width:600px){.pricing-grid{grid-template-columns:1fr;}.price-card{padding:28px 20px;}.hero{padding:40px 16px 32px;}}
 </style>
 </head>
 <body>
-
 <nav>
   <a href="chat.html" class="logo">
-    <span class="logo-mark">✦</span>
-    <span class="logo-text">The Pickled Chef</span>
+    <span class="logo-name">Fillet & Bone</span>
+    <span class="logo-tag">A Culinary Masterclass</span>
   </a>
-  <a href="chat.html" class="nav-btn">← Back to kitchen</a>
+  <a href="chat.html" class="nav-back">← Back to kitchen</a>
 </nav>
-
 <div class="hero">
-  <p class="eyebrow">Upgrade your kitchen</p>
-  <h1 class="hero-title">Unlock your full<br><em>kitchen team.</em></h1>
-  <p class="hero-sub">Start your 7-day free trial today. Access all ten AI chefs, unlimited recipes and every premium feature.</p>
-  <div class="trial-badge">✦ 7-day free trial — cancel anytime</div>
+  <div class="hero-rule"></div>
+  <p class="hero-eyebrow">Upgrade your membership</p>
+  <h1 class="hero-title">Unlock your full<br><em>culinary education.</em></h1>
+  <p class="hero-sub">Join our international faculty and access structured courses, authentic accents and certificates of completion.</p>
+  <div class="trial-badge">✦ 7-day free trial on all paid plans — cancel anytime</div>
 </div>
-
 <div class="pricing-wrap">
   <div class="pricing-grid">
-    <div class="plan">
-      <p class="plan-label">Free forever</p>
-      <p class="plan-price">£0</p>
-      <p class="plan-period">No card required</p>
-      <ul class="plan-features">
-        <li class="plan-feature"><span class="check">✓</span>Chat with Charlie</li>
-        <li class="plan-feature"><span class="check">✓</span>Unlimited recipes on demand</li>
-        <li class="plan-feature"><span class="check">✓</span>Voice guidance</li>
-        <li class="plan-feature"><span class="check">✓</span>Save 3 favourites</li>
-        <li class="plan-feature"><span class="cross">✗</span>Premium chefs</li>
-        <li class="plan-feature"><span class="cross">✗</span>Authentic accents</li>
-        <li class="plan-feature"><span class="cross">✗</span>Unlimited favourites</li>
-        <li class="plan-feature"><span class="cross">✗</span>Smart meal planner</li>
+    <div class="price-card">
+      <p class="price-label">Taster</p>
+      <p class="price-amount">£0</p>
+      <p class="price-period">Free forever · No card required</p>
+      <ul class="price-features">
+        <li class="price-feature"><span class="check">✦</span>Charlie & Rosie</li>
+        <li class="price-feature"><span class="check">✦</span>Unlimited recipes on demand</li>
+        <li class="price-feature"><span class="check">✦</span>Voice guidance</li>
+        <li class="price-feature"><span class="check">✦</span>Noticeboard access</li>
+        <li class="price-feature"><span class="check">✦</span>Save 3 favourite recipes</li>
+        <li class="price-feature"><span class="cross">—</span>International faculty</li>
+        <li class="price-feature"><span class="cross">—</span>Courses & certificates</li>
       </ul>
-      <button class="btn-current">Current plan</button>
+      <button class="price-btn current">Current plan</button>
     </div>
-    <div class="plan plan-premium">
-      <div class="popular-badge">MOST POPULAR</div>
-      <p class="plan-label plan-label-premium">Premium</p>
-      <p class="plan-price">£4.99</p>
-      <p class="plan-period">/month after trial</p>
-      <ul class="plan-features">
-        <li class="plan-feature"><span class="check">✓</span>Everything in Free</li>
-        <li class="plan-feature"><span class="check">✓</span>All 10 AI chefs</li>
-        <li class="plan-feature"><span class="check">✓</span>Authentic accents</li>
-        <li class="plan-feature"><span class="check">✓</span>Rosie — everyday companion</li>
-        <li class="plan-feature"><span class="check">✓</span>Unlimited favourites</li>
-        <li class="plan-feature"><span class="check">✓</span>Smart meal planner</li>
-        <li class="plan-feature"><span class="check">✓</span>All future chefs included</li>
-        <li class="plan-feature"><span class="check">✓</span>Your kitchen across every device</li>
+    <div class="price-card featured">
+      <p class="price-label">Kitchen</p>
+      <p class="price-amount">£4.99</p>
+      <p class="price-period">/month after 7-day trial</p>
+      <ul class="price-features">
+        <li class="price-feature"><span class="check">✦</span>Everything in Taster</li>
+        <li class="price-feature"><span class="check">✦</span>Full international faculty</li>
+        <li class="price-feature"><span class="check">✦</span>Authentic chef accents</li>
+        <li class="price-feature"><span class="check">✦</span>Unlimited saved recipes</li>
+        <li class="price-feature"><span class="check">✦</span>Smart meal planner</li>
+        <li class="price-feature"><span class="check">✦</span>Your kitchen across every device</li>
+        <li class="price-feature"><span class="cross">—</span>Courses & certificates</li>
       </ul>
-      <button class="btn-upgrade" id="upgrade-btn" onclick="handleUpgrade()">Start free trial →</button>
+      <button class="price-btn primary" id="kitchen-btn" onclick="handleUpgrade('kitchen')">Start Kitchen trial →</button>
+    </div>
+    <div class="price-card">
+      <p class="price-label">Academy</p>
+      <p class="price-amount">£9.99</p>
+      <p class="price-period">/month after 7-day trial</p>
+      <ul class="price-features">
+        <li class="price-feature"><span class="check">✦</span>Everything in Kitchen</li>
+        <li class="price-feature"><span class="check">✦</span>Full access to all courses</li>
+        <li class="price-feature"><span class="check">✦</span>Chef remembers your progress</li>
+        <li class="price-feature"><span class="check">✦</span>Certificates of completion</li>
+        <li class="price-feature"><span class="check">✦</span>Priority support</li>
+        <li class="price-feature"><span class="check">✦</span>Early access to new courses</li>
+        <li class="price-feature"><span class="check">✦</span>All future chefs included</li>
+      </ul>
+      <button class="price-btn" id="academy-btn" onclick="handleUpgrade('academy')">Start Academy trial →</button>
     </div>
   </div>
 </div>
-
-<div class="chefs-section">
-  <p style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sky);margin-bottom:8px">Your premium kitchen team</p>
-  <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);font-weight:400">Unlock the world's kitchens.</h2>
-  <div class="chefs-grid">
-    <div class="chef-card"><div class="chef-flag">🇮🇹</div><div class="chef-name">Chef Marco</div><div class="chef-spec">Italian</div></div>
-    <div class="chef-card"><div class="chef-flag">🇫🇷</div><div class="chef-name">Chef Jules</div><div class="chef-spec">French & pastry</div></div>
-    <div class="chef-card"><div class="chef-flag">🇲🇽</div><div class="chef-name">Chef Rosa</div><div class="chef-spec">Mexican</div></div>
-    <div class="chef-card"><div class="chef-flag">🇺🇸</div><div class="chef-name">Chef Bobby</div><div class="chef-spec">American & BBQ</div></div>
-    <div class="chef-card"><div class="chef-flag">🇨🇳</div><div class="chef-name">Chef Mei</div><div class="chef-spec">Chinese</div></div>
-    <div class="chef-card"><div class="chef-flag">🇯🇵</div><div class="chef-name">Chef Kenji</div><div class="chef-spec">Japanese</div></div>
-    <div class="chef-card"><div class="chef-flag">🇮🇳</div><div class="chef-name">Chef Priya</div><div class="chef-spec">Indian</div></div>
-    <div class="chef-card"><div class="chef-flag">🇹🇭</div><div class="chef-name">Chef Nari</div><div class="chef-spec">Thai</div></div>
+<div class="faculty-section">
+  <p style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;opacity:0.8;">Your premium faculty</p>
+  <h2 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);font-weight:400;">Unlock the world's kitchens.</h2>
+  <div class="faculty-grid">
+    <div class="faculty-card"><div class="faculty-flag">🇮🇹</div><div class="faculty-name">Chef Lorenzo</div><div class="faculty-spec">Italian</div></div>
+    <div class="faculty-card"><div class="faculty-flag">🇫🇷</div><div class="faculty-name">Chef Henri</div><div class="faculty-spec">French</div></div>
+    <div class="faculty-card"><div class="faculty-flag">🇲🇽</div><div class="faculty-name">Chef Carmen</div><div class="faculty-spec">Mexican</div></div>
+    <div class="faculty-card"><div class="faculty-flag">🇺🇸</div><div class="faculty-name">Chef Franklin</div><div class="faculty-spec">American</div></div>
+    <div class="faculty-card"><div class="faculty-flag">🇨🇳</div><div class="faculty-name">Chef Mei</div><div class="faculty-spec">Chinese</div></div>
+    <div class="faculty-card"><div class="faculty-flag">🇯🇵</div><div class="faculty-name">Chef Kenji</div><div class="faculty-spec">Japanese</div></div>
   </div>
 </div>
-
-<div style="padding:0 24px 40px;max-width:640px;margin:0 auto;">
-  <div class="guarantee">
-    <p style="font-size:20px;margin-bottom:8px;">🛡️</p>
-    <p style="font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);margin-bottom:8px;">No risk. Cancel anytime.</p>
-    <p>Your 7-day free trial gives you full access to everything. If you cancel before the trial ends you won't be charged a penny. No ads. No data selling. Ever.</p>
+<div class="guarantee">
+  <div class="guarantee-inner">
+    <p style="font-size:18px;margin-bottom:10px;">🛡️</p>
+    <p style="font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);margin-bottom:10px;">No risk. Cancel anytime.</p>
+    <p>Your 7-day free trial gives you full access. Cancel before it ends and you won't be charged. No ads. No data selling. Ever.</p>
   </div>
 </div>
-
 <script>
-var SUPABASE_URL = 'https://ctlwnlxifaibyezrvlau.supabase.co';
-var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
-var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-var currentUser = null;
-
-supabase.auth.getSession().then(function(result) {
-  if (!result.data.session) {
-    window.location.href = 'auth.html';
-    return;
-  }
-  currentUser = result.data.session.user;
-});
-
-function handleUpgrade() {
-  if (!currentUser) { window.location.href = 'auth.html'; return; }
-  var btn = document.getElementById('upgrade-btn');
-  btn.disabled = true;
-  btn.textContent = 'Loading…';
-
-  fetch('/api/checkout', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      userId: currentUser.id,
-      email: currentUser.email
-    })
+var SUPABASE_URL='https://ctlwnlxifaibyezrvlau.supabase.co';
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
+var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+var currentUser=null;
+supabase.auth.getSession().then(function(r){if(!r.data.session){window.location.href='auth.html';return;}currentUser=r.data.session.user;});
+function handleUpgrade(tier){
+  if(!currentUser){window.location.href='auth.html';return;}
+  var btn=document.getElementById(tier+'-btn');
+  btn.disabled=true;btn.textContent='Loading…';
+  fetch('/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:currentUser.id,email:currentUser.email,tier:tier})})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.url)window.location.href=data.url;
+    else{alert('Something went wrong. Please try again.');btn.disabled=false;btn.textContent=tier==='kitchen'?'Start Kitchen trial →':'Start Academy trial →';}
   })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      alert('Something went wrong. Please try again.');
-      btn.disabled = false;
-      btn.textContent = 'Start free trial →';
-    }
-  })
-  .catch(function() {
-    alert('Something went wrong. Please try again.');
-    btn.disabled = false;
-    btn.textContent = 'Start free trial →';
-  });
+  .catch(function(){alert('Something went wrong.');btn.disabled=false;btn.textContent=tier==='kitchen'?'Start Kitchen trial →':'Start Academy trial →';});
 }
 </script>
 </body>
