@@ -122,7 +122,8 @@ nav{height:60px;display:flex;align-items:center;justify-content:space-between;pa
 var SUPABASE_URL='https://ctlwnlxifaibyezrvlau.supabase.co';
 var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
 var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-supabase.auth.getSession().then(function(r){if(r.data.session)window.location.href='chat.html';});
+var returnUrl = new URLSearchParams(window.location.search).get('return') || 'chat.html';
+supabase.auth.getSession().then(function(r){if(r.data.session)window.location.href=returnUrl;});
 function switchTab(tab,btn){document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});btn.classList.add('active');document.getElementById('signup-form').style.display=tab==='signup'?'block':'none';document.getElementById('login-form').style.display=tab==='login'?'block':'none';hideMessages();}
 function showError(msg){var el=document.getElementById('error-msg');el.textContent=msg;el.style.display='block';document.getElementById('success-msg').style.display='none';}
 function showSuccess(msg){var el=document.getElementById('success-msg');el.textContent=msg;el.style.display='block';document.getElementById('error-msg').style.display='none';}
@@ -148,10 +149,10 @@ function handleLogin(){
   var btn=document.getElementById('login-btn');btn.disabled=true;btn.textContent='Signing in…';
   supabase.auth.signInWithPassword({email:email,password:password}).then(function(r){
     if(r.error){showError(r.error.message);btn.disabled=false;btn.textContent='Sign In';}
-    else window.location.href='chat.html';
+    else window.location.href=returnUrl;
   });
 }
-function handleGoogle(){supabase.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.origin+'/chat.html'}});}
+function handleGoogle(){supabase.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.origin+'/'+returnUrl}});}
 function forgotPassword(){
   var email=document.getElementById('login-email').value.trim();
   if(!email||!email.includes('@')){showError('Enter your email above first.');return;}
