@@ -3,59 +3,58 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Welcome to Premium — The Pickled Chef</title>
+<title>Welcome to Fillet & Bone</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#f7f9fc;--border:#dde8f5;--amber:#c8873a;--sky:#4a9edd;--sky2:#2980b9;--navy:#1a2340;--sky-light:#e8f2fb;--text:#2a3040;--muted:#6b7a8d;}
+:root{--bg:#0d1b2a;--bg2:#1a2e42;--border:#2a3f55;--gold:#c9a84c;--gold2:#a8873a;--cream:#f0ece4;--text:#d4cfc7;--muted:#8a9bb0;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);font-family:'DM Sans',sans-serif;font-weight:300;color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;}
-.logo{display:flex;align-items:center;gap:7px;margin-bottom:40px;}
-.logo-mark{color:var(--amber);font-size:16px;}
-.logo-text{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);}
-.card{background:white;border:1.5px solid var(--border);border-radius:24px;padding:48px 40px;max-width:480px;width:100%;box-shadow:0 8px 32px rgba(74,158,221,0.1);}
-.success-icon{font-size:56px;margin-bottom:20px;}
-.card-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;color:var(--navy);margin-bottom:12px;}
-.card-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:32px;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.logo{margin-bottom:48px;position:relative;z-index:1;}
+.logo-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);display:block;}
+.logo-tag{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);opacity:0.7;}
+.card{background:var(--bg2);border:1px solid var(--border);padding:48px 40px;max-width:500px;width:100%;position:relative;z-index:1;}
+.card-rule{width:32px;height:1px;background:var(--gold);margin:0 auto 24px;opacity:0.6;}
+.card-icon{font-size:48px;margin-bottom:20px;}
+.card-title{font-family:'Playfair Display',serif;font-size:30px;color:var(--cream);margin-bottom:12px;font-weight:400;}
+.card-sub{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:32px;}
 .features{display:flex;flex-direction:column;gap:10px;margin-bottom:36px;text-align:left;}
-.feature{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text);}
-.feature-icon{width:24px;height:24px;border-radius:50%;background:var(--sky-light);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
-.btn{background:linear-gradient(135deg,var(--sky),var(--sky2));border:none;border-radius:12px;padding:15px 32px;color:white;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 4px 14px rgba(74,158,221,0.25);}
-.trial-note{font-size:12px;color:var(--muted);margin-top:16px;}
+.feature{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);}
+.feature-mark{color:var(--gold);font-size:11px;flex-shrink:0;}
+.btn{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;padding:14px 32px;color:var(--bg);font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;letter-spacing:0.08em;text-transform:uppercase;}
+.trial-note{font-size:11px;color:var(--dark);margin-top:14px;letter-spacing:0.04em;}
+@media(max-width:480px){.card{padding:28px 20px;}}
 </style>
 </head>
 <body>
 <div class="logo">
-  <span class="logo-mark">✦</span>
-  <span class="logo-text">The Pickled Chef</span>
+  <span class="logo-name">Fillet & Bone</span>
+  <span class="logo-tag">A Culinary Masterclass</span>
 </div>
 <div class="card">
-  <div class="success-icon">🎉</div>
-  <h1 class="card-title">Welcome to Premium!</h1>
-  <p class="card-sub">Your 7-day free trial has started. You now have full access to The Pickled Chef — all chefs, all features, no limits.</p>
+  <div class="card-rule"></div>
+  <div class="card-icon">✦</div>
+  <h1 class="card-title">Welcome to the school.</h1>
+  <p class="card-sub">Your 7-day free trial has begun. You now have full access to Fillet & Bone — our international faculty, structured courses and everything in between.</p>
   <div class="features">
-    <div class="feature"><div class="feature-icon">🇮🇹</div>Chef Marco — Italian cuisine</div>
-    <div class="feature"><div class="feature-icon">🇫🇷</div>Chef Jules — French & pastry</div>
-    <div class="feature"><div class="feature-icon">🇲🇽</div>Chef Rosa — Mexican cuisine</div>
-    <div class="feature"><div class="feature-icon">🇺🇸</div>Chef Bobby — American & BBQ</div>
-    <div class="feature"><div class="feature-icon">♾️</div>Unlimited favourite recipes</div>
-    <div class="feature"><div class="feature-icon">📅</div>Smart weekly meal planner</div>
-    <div class="feature"><div class="feature-icon">🌍</div>Your kitchen across every device</div>
+    <div class="feature"><span class="feature-mark">✦</span>Chef Lorenzo — Italian Masterclass</div>
+    <div class="feature"><span class="feature-mark">✦</span>Chef Henri — French Technique</div>
+    <div class="feature"><span class="feature-mark">✦</span>Chef Carmen — Mexican Kitchen</div>
+    <div class="feature"><span class="feature-mark">✦</span>Chef Franklin — BBQ & Southern</div>
+    <div class="feature"><span class="feature-mark">✦</span>Structured courses with certificates</div>
+    <div class="feature"><span class="feature-mark">✦</span>Your kitchen across every device</div>
   </div>
-  <a href="chat.html" class="btn">Start cooking →</a>
+  <a href="chat.html" class="btn">Enter the kitchen →</a>
   <p class="trial-note">Your free trial ends in 7 days. Cancel anytime before then.</p>
 </div>
-
 <script>
-var SUPABASE_URL = 'https://ctlwnlxifaibyezrvlau.supabase.co';
-var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
-var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// Update user to premium in Supabase
-supabase.auth.getSession().then(function(result) {
-  if (result.data.session) {
-    var userId = result.data.session.user.id;
-    supabase.from('profiles').upsert({ id: userId, is_premium: true });
+var SUPABASE_URL='https://ctlwnlxifaibyezrvlau.supabase.co';
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
+var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+supabase.auth.getSession().then(function(r){
+  if(r.data.session){
+    supabase.from('profiles').upsert({id:r.data.session.user.id,is_premium:true});
   }
 });
 </script>
