@@ -3,159 +3,149 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>The Pickled Chef Noticeboard</title>
+<title>Fillet & Bone | The Noticeboard — Culinary Community</title>
+<meta name="description" content="Join the Fillet & Bone culinary community. Ask cooking questions, share recipes and get guidance from our professional AI chef faculty."/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:title" content="Fillet & Bone | The Noticeboard — Culinary Community"/>
+<meta property="og:description" content="Join the Fillet & Bone culinary community. Ask cooking questions, share recipes and get guidance from our professional AI chef faculty."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.filletandbone.com/noticeboard.html"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://www.filletandbone.com/noticeboard.html"/>
+<meta name="description" content="The Fillet & Bone Noticeboard. A community for serious home cooks. Ask questions, share recipes and get responses from our AI faculty."/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{
-  --bg:#f7f9fc;--bg2:#fff;--border:#dde8f5;
-  --amber:#c8873a;--amber2:#a06828;
-  --sky:#4a9edd;--sky2:#2980b9;
-  --navy:#1a2340;--sky-light:#e8f2fb;
-  --text:#2a3040;--muted:#6b7a8d;--dark:#9aa3b0;
-  --green:#27ae60;
-}
+:root{--bg:#0d1b2a;--bg2:#1a2e42;--bg3:#0a1520;--border:#2a3f55;--gold:#c9a84c;--gold2:#a8873a;--sky:#4a9edd;--cream:#f0ece4;--text:#d4cfc7;--muted:#8a9bb0;--dark:#4a5a6a;--gold-light:rgba(201,168,76,0.08);}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
 
-/* NAV */
-nav{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(247,249,252,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(74,158,221,0.06);}
-.logo{display:flex;align-items:center;gap:7px;text-decoration:none;}
-.logo-mark{color:var(--amber);font-size:13px;}
-.logo-text{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);}
+nav{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(13,27,42,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.logo{text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);display:block;}
+.logo-tag{font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);opacity:0.7;}
 .nav-right{display:flex;align-items:center;gap:8px;}
-.nav-btn{background:transparent;border:1px solid var(--border);border-radius:8px;padding:5px 12px;color:var(--muted);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:none;transition:all 0.2s;}
-.nav-btn:hover{border-color:var(--sky);color:var(--sky);}
-.nav-cta{background:linear-gradient(135deg,var(--sky),var(--sky2));border:none;border-radius:8px;padding:7px 14px;color:white;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;text-decoration:none;}
+.nav-btn{background:transparent;border:1px solid var(--border);padding:5px 12px;color:var(--muted);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:none;letter-spacing:0.04em;transition:all 0.2s;}
+.nav-btn:hover{border-color:var(--gold);color:var(--gold);}
+.nav-cta{background:transparent;border:1px solid var(--gold);padding:6px 14px;color:var(--gold);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:none;letter-spacing:0.06em;transition:all 0.2s;}
+.nav-cta:hover{background:var(--gold);color:var(--bg);}
 
-/* HERO */
-.hero{background:linear-gradient(160deg,#f7f9fc,#eef4fb);padding:48px 24px 32px;text-align:center;border-bottom:1px solid var(--border);}
-.hero-eyebrow{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sky);margin-bottom:10px;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,44px);font-weight:400;color:var(--navy);margin-bottom:8px;}
-.hero-sub{font-size:14px;color:var(--muted);max-width:500px;margin:0 auto 20px;line-height:1.6;}
+.hero{padding:52px 28px 36px;text-align:center;border-bottom:1px solid var(--border);position:relative;z-index:1;}
+.hero-rule{width:28px;height:1px;background:var(--gold);margin:0 auto 16px;opacity:0.6;}
+.hero-eyebrow{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;opacity:0.8;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,40px);color:var(--cream);margin-bottom:8px;font-weight:400;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:13px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7;}
 
-/* CATEGORIES */
-.categories{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:20px 24px;border-bottom:1px solid var(--border);background:white;}
-.cat-btn{background:white;border:1.5px solid var(--border);border-radius:20px;padding:7px 16px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--muted);transition:all 0.2s;white-space:nowrap;}
-.cat-btn:hover,.cat-btn.active{border-color:var(--sky);color:var(--sky);background:var(--sky-light);}
+.categories{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:16px 24px;border-bottom:1px solid var(--border);background:var(--bg3);position:relative;z-index:1;}
+.cat-btn{background:transparent;border:1px solid var(--border);padding:6px 14px;font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--muted);transition:all 0.2s;letter-spacing:0.04em;white-space:nowrap;}
+.cat-btn:hover,.cat-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-light);}
 
-/* MAIN LAYOUT */
-.main{max-width:900px;margin:0 auto;padding:24px 16px;display:grid;grid-template-columns:1fr 280px;gap:20px;}
+.main{max-width:920px;margin:0 auto;padding:24px 20px;display:grid;grid-template-columns:1fr 260px;gap:20px;position:relative;z-index:1;}
 
-/* POSTS */
 .posts-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
-.posts-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);}
-.new-post-btn{background:linear-gradient(135deg,var(--amber),var(--amber2));border:none;border-radius:10px;padding:9px 18px;color:white;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:transform 0.2s;}
-.new-post-btn:hover{transform:translateY(-1px);}
+.posts-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);}
+.new-post-btn{background:transparent;border:1px solid var(--gold);padding:8px 18px;color:var(--gold);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:all 0.2s;}
+.new-post-btn:hover{background:var(--gold);color:var(--bg);}
 
-.post-card{background:white;border:1.5px solid var(--border);border-radius:14px;padding:18px;margin-bottom:12px;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
-.post-card:hover{border-color:var(--sky);box-shadow:0 4px 16px rgba(74,158,221,0.1);}
-.post-category{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--sky);margin-bottom:6px;}
-.post-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);margin-bottom:6px;line-height:1.3;}
-.post-preview{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:10px;}
-.post-meta{display:flex;align-items:center;gap:12px;font-size:11px;color:var(--dark);}
-.post-author{display:flex;align-items:center;gap:5px;}
-.author-av{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--sky),var(--sky2));display:flex;align-items:center;justify-content:center;font-size:9px;color:white;font-weight:500;}
-.post-stats{display:flex;align-items:center;gap:10px;margin-left:auto;}
-.stat{display:flex;align-items:center;gap:3px;}
-.chef-replied{display:inline-flex;align-items:center;gap:4px;background:rgba(200,135,58,0.1);border:1px solid rgba(200,135,58,0.3);border-radius:4px;padding:2px 7px;font-size:10px;color:var(--amber);}
+.post-card{background:var(--bg2);border:1px solid var(--border);padding:20px;margin-bottom:10px;cursor:pointer;transition:border-color 0.2s;}
+.post-card:hover{border-color:var(--gold);}
+.post-category{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;opacity:0.8;}
+.post-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);margin-bottom:6px;line-height:1.3;}
+.post-preview{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.post-meta{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--dark);}
+.author-av{width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--bg);font-weight:500;}
+.post-stats{display:flex;align-items:center;gap:8px;margin-left:auto;}
+.chef-replied{display:inline-flex;align-items:center;gap:4px;background:var(--gold-light);border:1px solid rgba(201,168,76,0.3);padding:2px 7px;font-size:9px;color:var(--gold);letter-spacing:0.04em;}
 
-/* SIDEBAR */
 .sidebar{}
-.sidebar-card{background:white;border:1.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
-.sidebar-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--navy);margin-bottom:14px;}
+.sidebar-card{background:var(--bg2);border:1px solid var(--border);padding:20px;margin-bottom:14px;}
+.sidebar-title{font-family:'Playfair Display',serif;font-size:15px;color:var(--cream);margin-bottom:14px;}
 .sidebar-rule{font-size:12px;color:var(--muted);line-height:1.6;padding:8px 0;border-bottom:1px solid var(--border);}
 .sidebar-rule:last-child{border-bottom:none;}
 .sidebar-rule strong{color:var(--text);}
 
-/* POST DETAIL VIEW */
 .post-detail{display:none;}
-.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--sky);font-size:13px;cursor:pointer;margin-bottom:20px;background:none;border:none;font-family:'DM Sans',sans-serif;}
-.detail-card{background:white;border:1.5px solid var(--border);border-radius:16px;padding:28px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
-.detail-category{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--sky);margin-bottom:8px;}
-.detail-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);margin-bottom:12px;line-height:1.2;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:12px;cursor:pointer;margin-bottom:20px;background:none;border:none;font-family:'DM Sans',sans-serif;letter-spacing:0.04em;}
+.detail-card{background:var(--bg2);border:1px solid var(--border);padding:28px;margin-bottom:14px;}
+.detail-category{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;opacity:0.8;}
+.detail-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);margin-bottom:12px;line-height:1.2;}
 .detail-content{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:16px;}
-.detail-meta{font-size:12px;color:var(--dark);display:flex;align-items:center;gap:10px;}
-.upvote-btn{display:flex;align-items:center;gap:5px;background:var(--sky-light);border:1.5px solid var(--border);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;color:var(--sky);font-family:'DM Sans',sans-serif;transition:all 0.2s;margin-left:auto;}
-.upvote-btn:hover{border-color:var(--sky);background:var(--sky-light);}
-.upvote-btn.voted{background:var(--sky);color:white;border-color:var(--sky);}
+.detail-meta{font-size:11px;color:var(--dark);display:flex;align-items:center;gap:10px;}
+.upvote-btn{display:flex;align-items:center;gap:5px;background:transparent;border:1px solid var(--border);padding:5px 12px;cursor:pointer;font-size:11px;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all 0.2s;margin-left:auto;letter-spacing:0.04em;}
+.upvote-btn:hover{border-color:var(--gold);color:var(--gold);}
+.upvote-btn.voted{background:var(--gold);color:var(--bg);border-color:var(--gold);}
 
-/* REPLIES */
-.replies-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:14px;}
-.reply-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.03);}
-.reply-card.chef-reply{border-color:var(--amber);background:rgba(200,135,58,0.03);}
+.replies-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);margin-bottom:12px;}
+.reply-card{background:var(--bg2);border:1px solid var(--border);padding:16px;margin-bottom:8px;}
+.reply-card.chef-reply{border-color:rgba(201,168,76,0.3);background:var(--gold-light);}
 .reply-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.reply-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
-.reply-av.user-av{background:linear-gradient(135deg,var(--sky),var(--sky2));font-size:11px;color:white;font-weight:500;}
-.reply-av.chef-av{background:linear-gradient(135deg,var(--amber),var(--amber2));}
-.reply-name{font-size:13px;font-weight:500;color:var(--navy);}
-.reply-time{font-size:11px;color:var(--dark);margin-left:auto;}
+.reply-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.reply-av.user-av{background:var(--bg3);border:1px solid var(--border);font-size:10px;color:var(--muted);}
+.reply-av.chef-av{background:linear-gradient(135deg,var(--gold),var(--gold2));}
+.reply-name{font-size:13px;color:var(--cream);}
+.reply-time{font-size:10px;color:var(--dark);margin-left:auto;}
 .reply-content{font-size:13px;color:var(--text);line-height:1.7;}
-.chef-badge{font-size:9px;color:var(--amber);background:rgba(200,135,58,0.12);border-radius:4px;padding:1px 6px;font-weight:500;}
+.chef-badge{font-size:9px;color:var(--gold);background:var(--gold-light);border:1px solid rgba(201,168,76,0.2);padding:1px 6px;letter-spacing:0.05em;}
 
-/* REPLY FORM */
-.reply-form{background:white;border:1.5px solid var(--border);border-radius:14px;padding:20px;margin-top:16px;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
-.reply-form textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:300;resize:none;min-height:80px;transition:border-color 0.2s;}
-.reply-form textarea:focus{outline:none;border-color:var(--sky);}
-.reply-submit{background:linear-gradient(135deg,var(--sky),var(--sky2));border:none;border-radius:10px;padding:10px 20px;color:white;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;margin-top:10px;float:right;}
+.reply-form{background:var(--bg2);border:1px solid var(--border);padding:20px;margin-top:14px;}
+.reply-form textarea{width:100%;background:var(--bg);border:1px solid var(--border);padding:11px 13px;color:var(--cream);font-size:13px;font-family:'DM Sans',sans-serif;font-weight:300;resize:none;min-height:80px;transition:border-color 0.2s;}
+.reply-form textarea:focus{outline:none;border-color:var(--gold);}
+.reply-form textarea::placeholder{color:var(--dark);}
+.reply-submit{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;padding:9px 20px;color:var(--bg);font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;margin-top:8px;float:right;letter-spacing:0.06em;text-transform:uppercase;}
 .reply-submit:disabled{opacity:0.4;cursor:default;}
 .login-prompt{font-size:13px;color:var(--muted);text-align:center;padding:16px;}
-.login-prompt a{color:var(--sky);text-decoration:none;}
+.login-prompt a{color:var(--gold);text-decoration:none;}
 
-/* NEW POST MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
-.modal{background:white;border-radius:20px;padding:32px;width:100%;max-width:540px;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
-.modal-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);margin-bottom:20px;}
-.form-group{margin-bottom:16px;}
-.form-label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block;}
-.form-input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:300;}
-.form-input:focus{outline:none;border-color:var(--sky);}
-.form-select{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:300;appearance:none;}
-.form-textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:300;resize:none;min-height:120px;}
-.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--sky);}
-.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
-.modal-cancel{background:transparent;border:1.5px solid var(--border);border-radius:10px;padding:10px 20px;color:var(--muted);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;}
-.modal-submit{background:linear-gradient(135deg,var(--amber),var(--amber2));border:none;border-radius:10px;padding:10px 20px;color:white;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;}
+.modal{background:var(--bg2);border:1px solid var(--border);padding:36px;width:100%;max-width:520px;}
+.modal-rule{width:24px;height:1px;background:var(--gold);margin-bottom:16px;opacity:0.6;}
+.modal-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);margin-bottom:20px;}
+.form-group{margin-bottom:14px;}
+.form-label{font-size:10px;color:var(--muted);margin-bottom:5px;display:block;letter-spacing:0.08em;text-transform:uppercase;}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--bg);border:1px solid var(--border);padding:10px 13px;color:var(--cream);font-size:13px;font-family:'DM Sans',sans-serif;font-weight:300;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--gold);}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--dark);}
+.form-select{appearance:none;}
+.form-textarea{resize:none;min-height:110px;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;}
+.modal-cancel{background:transparent;border:1px solid var(--border);padding:9px 18px;color:var(--muted);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.05em;}
+.modal-submit{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;padding:9px 18px;color:var(--bg);font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;}
 .modal-submit:disabled{opacity:0.4;cursor:default;}
 
-/* LOADING */
-.loading-wrap{text-align:center;padding:40px;color:var(--muted);font-size:13px;}
+.loading-wrap{text-align:center;padding:40px;color:var(--muted);font-size:12px;letter-spacing:0.04em;}
 .empty-wrap{text-align:center;padding:40px;}
-.empty-wrap p{font-size:14px;color:var(--muted);}
+.empty-wrap p{font-size:13px;color:var(--muted);}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .fade-up{animation:fadeUp 0.4s ease both;}
 
-@media(max-width:700px){
-  .main{grid-template-columns:1fr;}
-  .sidebar{display:none;}
-  .hero{padding:32px 16px 24px;}
-}
+@media(max-width:700px){.main{grid-template-columns:1fr;}.sidebar{display:none;}.hero{padding:36px 16px 24px;}.categories{padding:12px 12px;}}
 </style>
 </head>
 <body>
 
 <nav>
   <a href="index.html" class="logo">
-    <span class="logo-mark">✦</span>
-    <span class="logo-text">The Pickled Chef</span>
+    <span class="logo-name">Fillet & Bone</span>
+    <span class="logo-tag">A Culinary Masterclass</span>
   </a>
   <div class="nav-right">
-    <a href="chat.html" class="nav-btn">Chat with Charlie</a>
+    <a href="chat.html" class="nav-btn">The Kitchen</a>
     <span id="nav-auth"></span>
   </div>
 </nav>
 
-<!-- Hero -->
 <div class="hero">
+  <div class="hero-rule"></div>
   <p class="hero-eyebrow">Community</p>
-  <h1 class="hero-title">The Pickled Chef Noticeboard</h1>
-  <p class="hero-sub">Ask questions, share recipes, swap tips. Our AI chefs drop in to help too.</p>
+  <h1 class="hero-title">The Fillet & Bone <em>Noticeboard</em></h1>
+  <p class="hero-sub">Ask questions, share what you've cooked, swap tips with fellow students. Our faculty drops in to help.</p>
 </div>
 
-<!-- Categories -->
 <div class="categories" id="categories">
   <button class="cat-btn active" onclick="filterCategory('all',this)">📌 All Posts</button>
   <button class="cat-btn" onclick="filterCategory('Recipe Help',this)">🍝 Recipe Help</button>
@@ -166,56 +156,49 @@ nav{height:58px;display:flex;align-items:center;justify-content:space-between;pa
   <button class="cat-btn" onclick="filterCategory('Kitchen Kit',this)">🛒 Kitchen Kit</button>
 </div>
 
-<!-- Main content -->
 <div class="main">
-  <!-- Posts list -->
   <div>
     <div id="posts-list-view">
       <div class="posts-header">
         <h2 class="posts-title" id="posts-title">All Posts</h2>
         <button class="new-post-btn" onclick="openNewPost()">✦ New Post</button>
       </div>
-      <div id="posts-container">
-        <div class="loading-wrap">Loading posts…</div>
-      </div>
+      <div id="posts-container"><div class="loading-wrap">Loading posts…</div></div>
     </div>
-
-    <!-- Post detail view -->
     <div id="post-detail-view" class="post-detail">
       <button class="back-btn" onclick="showList()">← Back to Noticeboard</button>
       <div id="post-detail-content"></div>
     </div>
   </div>
 
-  <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-card">
-      <div class="sidebar-title">📋 Noticeboard Rules</div>
-      <div class="sidebar-rule"><strong>Be kind.</strong> Everyone starts somewhere in the kitchen.</div>
-      <div class="sidebar-rule"><strong>Stay on topic.</strong> Keep it food and cooking related.</div>
-      <div class="sidebar-rule"><strong>Share freely.</strong> The best recipes are meant to be shared.</div>
+      <div class="sidebar-title">📋 House Rules</div>
+      <div class="sidebar-rule"><strong>Be kind.</strong> Everyone starts somewhere.</div>
+      <div class="sidebar-rule"><strong>Stay on topic.</strong> Food and cooking only.</div>
+      <div class="sidebar-rule"><strong>Share freely.</strong> The best recipes are shared ones.</div>
       <div class="sidebar-rule"><strong>No spam.</strong> No promotional posts or links.</div>
-      <div class="sidebar-rule"><strong>Ask the chefs.</strong> Tag a chef and they might respond!</div>
+      <div class="sidebar-rule"><strong>Tag a chef.</strong> They might just respond.</div>
     </div>
     <div class="sidebar-card">
-      <div class="sidebar-title">👨‍🍳 Our Chefs</div>
+      <div class="sidebar-title">👨‍🍳 Our Faculty</div>
       <div class="sidebar-rule">🇬🇧 <strong>Charlie</strong> — Everyday cooking</div>
-      <div class="sidebar-rule">🇮🇹 <strong>Chef Marco</strong> — Italian cuisine</div>
-      <div class="sidebar-rule">🇫🇷 <strong>Chef Jules</strong> — French & pastry</div>
-      <div class="sidebar-rule">🇲🇽 <strong>Chef Rosa</strong> — Mexican cuisine</div>
-      <div class="sidebar-rule">🇺🇸 <strong>Chef Bobby</strong> — American & BBQ</div>
+      <div class="sidebar-rule">🇮🇹 <strong>Chef Lorenzo</strong> — Italian cuisine</div>
+      <div class="sidebar-rule">🇫🇷 <strong>Chef Henri</strong> — French & pastry</div>
+      <div class="sidebar-rule">🇲🇽 <strong>Chef Carmen</strong> — Mexican cuisine</div>
+      <div class="sidebar-rule">🇺🇸 <strong>Chef Franklin</strong> — American & BBQ</div>
     </div>
     <div class="sidebar-card" id="sidebar-auth">
       <div class="sidebar-title">Join the conversation</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Create a free account to post, reply and get responses from our AI chefs.</p>
-      <a href="auth.html" style="display:block;text-align:center;background:linear-gradient(135deg,var(--sky),var(--sky2));border:none;border-radius:10px;padding:10px;color:white;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;text-decoration:none;">Create free account</a>
+      <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Create a free account to post, reply and hear from our faculty.</p>
+      <a href="auth.html" style="display:block;text-align:center;background:linear-gradient(135deg,var(--gold),var(--gold2));padding:10px;color:var(--bg);font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">Enrol free</a>
     </div>
   </div>
 </div>
 
-<!-- New Post Modal -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
+    <div class="modal-rule"></div>
     <h2 class="modal-title">New post</h2>
     <div class="form-group">
       <label class="form-label">Category</label>
@@ -244,306 +227,175 @@ nav{height:58px;display:flex;align-items:center;justify-content:space-between;pa
 </div>
 
 <script>
-var SUPABASE_URL = 'https://ctlwnlxifaibyezrvlau.supabase.co';
-var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
-var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-var currentUser = null;
-var currentCategory = 'all';
-var currentPostId = null;
+var SUPABASE_URL='https://ctlwnlxifaibyezrvlau.supabase.co';
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHdubHhpZmFpYnllenJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzA4MjgsImV4cCI6MjA5MjQ0NjgyOH0.xEQ0bW0y09LkH_zTho06-hcWBjfHLQ0ADTirGgBoDDs';
+var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+var currentUser=null;
+var currentCategory='all';
+var currentPostId=null;
 
-var CHEF_PERSONAS = {
-  'Recipe Help': { name: 'Charlie', flag: '🇬🇧', persona: 'You are Charlie, a warm and helpful British cooking companion. Answer this cooking question helpfully and concisely.' },
-  'Show & Tell': { name: 'Charlie', flag: '🇬🇧', persona: 'You are Charlie, a warm British cooking companion. React warmly and encouragingly to this cooking achievement.' },
-  'Tips & Tricks': { name: 'Charlie', flag: '🇬🇧', persona: 'You are Charlie, a warm British cooking companion. Add your own helpful tip or insight to this cooking tip.' },
-  'Diet & Nutrition': { name: 'Charlie', flag: '🇬🇧', persona: 'You are Charlie, a warm British cooking companion. Give helpful, balanced advice on this diet or nutrition question.' },
-  'Chef Chat': { name: 'Chef Marco', flag: '🇮🇹', persona: 'You are Chef Marco, a passionate Italian chef. Respond enthusiastically and with your Italian personality to this cooking discussion. Use phrases like Mamma mia and Perfetto.' },
-  'Kitchen Kit': { name: 'Chef Jules', flag: '🇫🇷', persona: 'You are Chef Jules, a refined French chef. Give precise and knowledgeable advice about kitchen equipment.' }
+var CHEF_PERSONAS={
+  'Recipe Help':{name:'Charlie',flag:'🇬🇧',persona:'You are Charlie, a warm and helpful British cooking instructor at Fillet & Bone culinary school. Answer this cooking question helpfully and concisely. Keep it under 120 words.'},
+  'Show & Tell':{name:'Charlie',flag:'🇬🇧',persona:'You are Charlie, a warm British cooking instructor at Fillet & Bone. React warmly and encouragingly to this cooking achievement. Keep it under 100 words.'},
+  'Tips & Tricks':{name:'Charlie',flag:'🇬🇧',persona:'You are Charlie, a warm British cooking instructor at Fillet & Bone. Add your own helpful insight to this cooking tip. Keep it under 100 words.'},
+  'Diet & Nutrition':{name:'Charlie',flag:'🇬🇧',persona:'You are Charlie, a warm British cooking instructor at Fillet & Bone. Give helpful balanced advice on this diet question. Keep it under 120 words.'},
+  'Chef Chat':{name:'Chef Lorenzo',flag:'🇮🇹',persona:'You are Chef Lorenzo, a passionate and refined Italian chef at Fillet & Bone culinary school. Respond with warmth and Italian passion to this cooking discussion. Use phrases like Perfetto and Magnifico occasionally. Keep it under 120 words.'},
+  'Kitchen Kit':{name:'Chef Henri',flag:'🇫🇷',persona:'You are Chef Henri, a refined French chef at Fillet & Bone culinary school. Give precise and knowledgeable advice about kitchen equipment. Keep it under 120 words.'}
 };
 
-// ── Init ──────────────────────────────────────────────────────────────────────
-window.onload = function() {
-  supabase.auth.getSession().then(function(result) {
-    if (result.data.session) {
-      currentUser = result.data.session.user;
-      updateNavAuth();
-      document.getElementById('sidebar-auth').style.display = 'none';
-    }
+window.onload=function(){
+  supabase.auth.getSession().then(function(r){
+    if(r.data.session){currentUser=r.data.session.user;updateNavAuth();document.getElementById('sidebar-auth').style.display='none';}
+    else{updateNavAuth();}
   });
   loadPosts();
 };
 
-function updateNavAuth() {
-  if (currentUser) {
-    var name = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
-    document.getElementById('nav-auth').innerHTML =
-      '<a href="chat.html" class="nav-cta">Back to kitchen</a>';
-  } else {
-    document.getElementById('nav-auth').innerHTML =
-      '<a href="auth.html" class="nav-btn">Sign in</a>';
-  }
+function updateNavAuth(){
+  if(currentUser){document.getElementById('nav-auth').innerHTML='<a href="chat.html" class="nav-cta">The Kitchen →</a>';}
+  else{document.getElementById('nav-auth').innerHTML='<a href="auth.html" class="nav-btn">Sign in</a>';}
 }
 
-// ── Load posts ────────────────────────────────────────────────────────────────
-function loadPosts() {
-  var container = document.getElementById('posts-container');
-  container.innerHTML = '<div class="loading-wrap">Loading posts…</div>';
-
-  var query = supabase.from('forum_posts').select('*').order('created_at', { ascending: false });
-  if (currentCategory !== 'all') query = query.eq('category', currentCategory);
-
-  query.then(function(result) {
-    if (result.error || !result.data || result.data.length === 0) {
-      container.innerHTML = '<div class="empty-wrap"><p>No posts yet — be the first to post!</p></div>';
-      return;
-    }
-    container.innerHTML = result.data.map(function(post) {
-      var timeAgo = getTimeAgo(post.created_at);
-      var initial = post.user_name ? post.user_name[0].toUpperCase() : '?';
-      return '<div class="post-card fade-up" onclick="showPost(\'' + post.id + '\')">' +
-        '<div class="post-category">' + getCategoryEmoji(post.category) + ' ' + post.category + '</div>' +
-        '<div class="post-title">' + escHtml(post.title) + '</div>' +
-        '<div class="post-preview">' + escHtml(post.content.slice(0, 120)) + (post.content.length > 120 ? '…' : '') + '</div>' +
-        '<div class="post-meta">' +
-          '<div class="post-author"><div class="author-av">' + initial + '</div>' + escHtml(post.user_name || 'Anonymous') + '</div>' +
-          '<span>' + timeAgo + '</span>' +
-          '<div class="post-stats">' +
-            '<span class="stat">▲ ' + (post.upvotes || 0) + '</span>' +
-          '</div>' +
-        '</div>' +
+function loadPosts(){
+  var container=document.getElementById('posts-container');
+  container.innerHTML='<div class="loading-wrap">Loading posts…</div>';
+  var query=supabase.from('forum_posts').select('*').order('created_at',{ascending:false});
+  if(currentCategory!=='all')query=query.eq('category',currentCategory);
+  query.then(function(result){
+    if(result.error||!result.data||result.data.length===0){container.innerHTML='<div class="empty-wrap"><p>No posts yet — be the first to post.</p></div>';return;}
+    container.innerHTML=result.data.map(function(post){
+      var initial=post.user_name?post.user_name[0].toUpperCase():'?';
+      return '<div class="post-card fade-up" onclick="showPost(\''+post.id+'\')">'+
+        '<div class="post-category">'+getCategoryEmoji(post.category)+' '+post.category+'</div>'+
+        '<div class="post-title">'+escHtml(post.title)+'</div>'+
+        '<div class="post-preview">'+escHtml(post.content.slice(0,120))+(post.content.length>120?'…':'')+'</div>'+
+        '<div class="post-meta">'+
+          '<div class="author-av">'+initial+'</div>'+
+          '<span>'+escHtml(post.user_name||'Anonymous')+'</span>'+
+          '<span>'+getTimeAgo(post.created_at)+'</span>'+
+          '<div class="post-stats"><span>▲ '+(post.upvotes||0)+'</span></div>'+
+        '</div>'+
       '</div>';
     }).join('');
   });
 }
 
-function filterCategory(cat, btn) {
-  currentCategory = cat;
-  document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
+function filterCategory(cat,btn){
+  currentCategory=cat;
+  document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
-  document.getElementById('posts-title').textContent = cat === 'all' ? 'All Posts' : cat;
+  document.getElementById('posts-title').textContent=cat==='all'?'All Posts':cat;
   loadPosts();
 }
 
-// ── Show post detail ──────────────────────────────────────────────────────────
-function showPost(postId) {
-  currentPostId = postId;
-  document.getElementById('posts-list-view').style.display = 'none';
-  document.getElementById('post-detail-view').style.display = 'block';
-  document.getElementById('post-detail-content').innerHTML = '<div class="loading-wrap">Loading…</div>';
-  window.scrollTo(0, 0);
-
-  supabase.from('forum_posts').select('*').eq('id', postId).single().then(function(result) {
-    if (result.error || !result.data) return;
-    var post = result.data;
-    var initial = post.user_name ? post.user_name[0].toUpperCase() : '?';
-    var html = '<div class="detail-card fade-up">' +
-      '<div class="detail-category">' + getCategoryEmoji(post.category) + ' ' + post.category + '</div>' +
-      '<div class="detail-title">' + escHtml(post.title) + '</div>' +
-      '<div class="detail-content">' + escHtml(post.content).replace(/\n/g, '<br>') + '</div>' +
-      '<div class="detail-meta">' +
-        '<div class="author-av">' + initial + '</div>' +
-        '<span>' + escHtml(post.user_name || 'Anonymous') + '</span>' +
-        '<span>·</span><span>' + getTimeAgo(post.created_at) + '</span>' +
-        '<button class="upvote-btn" onclick="upvotePost(\'' + post.id + '\',event)">▲ ' + (post.upvotes || 0) + '</button>' +
-      '</div>' +
-    '</div>';
-
-    // Replies section
-    html += '<div style="margin-top:24px">';
-    html += '<div class="replies-title">Replies</div>';
-    html += '<div id="replies-container"><div class="loading-wrap">Loading replies…</div></div>';
-
-    // Reply form
-    if (currentUser) {
-      html += '<div class="reply-form">' +
-        '<p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Add your reply</p>' +
-        '<textarea id="reply-input" placeholder="Share your thoughts, tips or advice…"></textarea>' +
-        '<button class="reply-submit" onclick="submitReply()">Post reply</button>' +
-        '<div style="clear:both"></div>' +
-      '</div>';
-    } else {
-      html += '<div class="login-prompt">Want to join the conversation? <a href="auth.html">Sign in or create a free account</a></div>';
+function showPost(postId){
+  currentPostId=postId;
+  document.getElementById('posts-list-view').style.display='none';
+  document.getElementById('post-detail-view').style.display='block';
+  document.getElementById('post-detail-content').innerHTML='<div class="loading-wrap">Loading…</div>';
+  window.scrollTo(0,0);
+  supabase.from('forum_posts').select('*').eq('id',postId).single().then(function(result){
+    if(result.error||!result.data)return;
+    var post=result.data;
+    var initial=post.user_name?post.user_name[0].toUpperCase():'?';
+    var html='<div class="detail-card fade-up">'+
+      '<div class="detail-category">'+getCategoryEmoji(post.category)+' '+post.category+'</div>'+
+      '<div class="detail-title">'+escHtml(post.title)+'</div>'+
+      '<div class="detail-content">'+escHtml(post.content).replace(/\n/g,'<br>')+'</div>'+
+      '<div class="detail-meta">'+
+        '<div class="author-av" style="width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--bg);">'+initial+'</div>'+
+        '<span>'+escHtml(post.user_name||'Anonymous')+'</span><span>·</span><span>'+getTimeAgo(post.created_at)+'</span>'+
+        '<button class="upvote-btn" onclick="upvotePost(\''+post.id+'\',event)">▲ '+(post.upvotes||0)+'</button>'+
+      '</div></div>';
+    html+='<div style="margin-top:20px"><div class="replies-title">Replies</div><div id="replies-container"><div class="loading-wrap">Loading…</div></div>';
+    if(currentUser){
+      html+='<div class="reply-form">'+
+        '<textarea id="reply-input" placeholder="Share your thoughts or advice…"></textarea>'+
+        '<button class="reply-submit" onclick="submitReply()">Post reply</button>'+
+        '<div style="clear:both"></div></div>';
+    }else{
+      html+='<div class="login-prompt">Want to join the conversation? <a href="auth.html">Sign in or create a free account</a></div>';
     }
-    html += '</div>';
-
-    document.getElementById('post-detail-content').innerHTML = html;
+    html+='</div>';
+    document.getElementById('post-detail-content').innerHTML=html;
     loadReplies(postId);
   });
 }
 
-function loadReplies(postId) {
-  supabase.from('forum_replies').select('*').eq('post_id', postId).order('created_at', { ascending: true }).then(function(result) {
-    var container = document.getElementById('replies-container');
-    if (!container) return;
-    if (!result.data || result.data.length === 0) {
-      container.innerHTML = '<div class="empty-wrap"><p style="font-size:13px;color:var(--muted)">No replies yet. Be the first!</p></div>';
-      return;
-    }
-    container.innerHTML = result.data.map(function(reply) {
-      var isChef = reply.is_chef_reply;
-      var av = isChef ? '<div class="reply-av chef-av">' + (reply.chef_name ? getChefFlag(reply.chef_name) : '👨‍🍳') + '</div>' :
-        '<div class="reply-av user-av">' + (reply.user_name ? reply.user_name[0].toUpperCase() : '?') + '</div>';
-      var name = isChef ? reply.chef_name : (reply.user_name || 'Anonymous');
-      var badge = isChef ? '<span class="chef-badge">Chef</span>' : '';
-      return '<div class="reply-card' + (isChef ? ' chef-reply' : '') + ' fade-up">' +
-        '<div class="reply-header">' + av +
-          '<span class="reply-name">' + escHtml(name) + '</span>' + badge +
-          '<span class="reply-time">' + getTimeAgo(reply.created_at) + '</span>' +
-        '</div>' +
-        '<div class="reply-content">' + escHtml(reply.content).replace(/\n/g, '<br>') + '</div>' +
-      '</div>';
+function loadReplies(postId){
+  supabase.from('forum_replies').select('*').eq('post_id',postId).order('created_at',{ascending:true}).then(function(result){
+    var container=document.getElementById('replies-container');
+    if(!container)return;
+    if(!result.data||result.data.length===0){container.innerHTML='<div class="empty-wrap"><p style="font-size:12px;color:var(--dark)">No replies yet.</p></div>';return;}
+    container.innerHTML=result.data.map(function(reply){
+      var isChef=reply.is_chef_reply;
+      var av=isChef?'<div class="reply-av chef-av">'+(reply.chef_name?getChefFlag(reply.chef_name):'👨‍🍳')+'</div>':'<div class="reply-av user-av">'+(reply.user_name?reply.user_name[0].toUpperCase():'?')+'</div>';
+      var name=isChef?reply.chef_name:(reply.user_name||'Anonymous');
+      var badge=isChef?'<span class="chef-badge">Faculty</span>':'';
+      return '<div class="reply-card'+(isChef?' chef-reply':'')+' fade-up">'+
+        '<div class="reply-header">'+av+'<span class="reply-name">'+escHtml(name)+'</span>'+badge+'<span class="reply-time">'+getTimeAgo(reply.created_at)+'</span></div>'+
+        '<div class="reply-content">'+escHtml(reply.content).replace(/\n/g,'<br>')+'</div></div>';
     }).join('');
   });
 }
 
-function showList() {
-  document.getElementById('posts-list-view').style.display = 'block';
-  document.getElementById('post-detail-view').style.display = 'none';
-  currentPostId = null;
-  window.scrollTo(0, 0);
-}
+function showList(){document.getElementById('posts-list-view').style.display='block';document.getElementById('post-detail-view').style.display='none';currentPostId=null;window.scrollTo(0,0);}
 
-// ── Submit post ───────────────────────────────────────────────────────────────
-function openNewPost() {
-  if (!currentUser) { window.location.href = 'auth.html'; return; }
-  document.getElementById('modal-overlay').classList.add('open');
-}
+function openNewPost(){if(!currentUser){window.location.href='auth.html';return;}document.getElementById('modal-overlay').classList.add('open');}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');document.getElementById('post-title').value='';document.getElementById('post-content').value='';}
 
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-  document.getElementById('post-title').value = '';
-  document.getElementById('post-content').value = '';
-}
-
-function submitPost() {
-  if (!currentUser) { window.location.href = 'auth.html'; return; }
-  var title = document.getElementById('post-title').value.trim();
-  var content = document.getElementById('post-content').value.trim();
-  var category = document.getElementById('post-category').value;
-  if (!title || !content) { alert('Please fill in both the title and your post.'); return; }
-
-  var btn = document.getElementById('submit-post-btn');
-  btn.disabled = true; btn.textContent = 'Posting…';
-
-  var userName = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
-
-  supabase.from('forum_posts').insert({
-    user_id: currentUser.id,
-    user_name: userName,
-    category: category,
-    title: title,
-    content: content
-  }).select().then(function(result) {
-    if (result.error) {
-      alert('Error: ' + result.error.message + ' (Code: ' + result.error.code + ')');
-      btn.disabled = false; btn.textContent = 'Post it';
-      return;
-    }
-    closeModal();
-    btn.disabled = false; btn.textContent = 'Post it';
-    var postId = result.data[0].id;
-    loadPosts();
-    // Auto chef reply
-    autoChefReply(postId, category, title, content);
-    showPost(postId);
+function submitPost(){
+  if(!currentUser){window.location.href='auth.html';return;}
+  var title=document.getElementById('post-title').value.trim();
+  var content=document.getElementById('post-content').value.trim();
+  var category=document.getElementById('post-category').value;
+  if(!title||!content){alert('Please fill in both the title and your post.');return;}
+  var btn=document.getElementById('submit-post-btn');btn.disabled=true;btn.textContent='Posting…';
+  var userName=currentUser.user_metadata?.name||currentUser.email.split('@')[0];
+  supabase.from('forum_posts').insert({user_id:currentUser.id,user_name:userName,category:category,title:title,content:content}).select().then(function(result){
+    if(result.error){alert('Error: '+result.error.message);btn.disabled=false;btn.textContent='Post it';return;}
+    closeModal();btn.disabled=false;btn.textContent='Post it';
+    var postId=result.data[0].id;
+    loadPosts();autoChefReply(postId,category,title,content);showPost(postId);
   });
 }
 
-// ── Submit reply ──────────────────────────────────────────────────────────────
-function submitReply() {
-  if (!currentUser || !currentPostId) return;
-  var input = document.getElementById('reply-input');
-  var content = input.value.trim();
-  if (!content) return;
-
-  var userName = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
-
-  supabase.from('forum_replies').insert({
-    post_id: currentPostId,
-    user_id: currentUser.id,
-    user_name: userName,
-    content: content
-  }).then(function(result) {
-    if (!result.error) {
-      input.value = '';
-      loadReplies(currentPostId);
-    }
+function submitReply(){
+  if(!currentUser||!currentPostId)return;
+  var input=document.getElementById('reply-input');
+  var content=input.value.trim();if(!content)return;
+  var userName=currentUser.user_metadata?.name||currentUser.email.split('@')[0];
+  supabase.from('forum_replies').insert({post_id:currentPostId,user_id:currentUser.id,user_name:userName,content:content}).then(function(result){
+    if(!result.error){input.value='';loadReplies(currentPostId);}
   });
 }
 
-// ── Auto chef reply ───────────────────────────────────────────────────────────
-function autoChefReply(postId, category, title, content) {
-  var chef = CHEF_PERSONAS[category] || CHEF_PERSONAS['Recipe Help'];
-  var prompt = chef.persona + '\n\nSomeone posted this on a cooking community board:\n\nTitle: ' + title + '\n\n' + content + '\n\nWrite a helpful, warm reply in character. Keep it under 150 words.';
-
-  fetch('/api/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 300,
-      messages: [{ role: 'user', content: prompt }]
-    })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    var reply = data.content && data.content[0] ? data.content[0].text : null;
-    if (!reply) return;
-    supabase.from('forum_replies').insert({
-      post_id: postId,
-      user_id: null,
-      user_name: chef.name,
-      content: reply,
-      is_chef_reply: true,
-      chef_name: chef.flag + ' ' + chef.name
-    });
-  })
-  .catch(function() {});
+function autoChefReply(postId,category,title,content){
+  var chef=CHEF_PERSONAS[category]||CHEF_PERSONAS['Recipe Help'];
+  var prompt=chef.persona+'\n\nA student posted this on the Fillet & Bone Noticeboard:\n\nTitle: '+title+'\n\n'+content+'\n\nWrite a helpful warm reply in character.';
+  fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompt}]})})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var reply=data.content&&data.content[0]?data.content[0].text:null;
+    if(!reply)return;
+    supabase.from('forum_replies').insert({post_id:postId,user_id:null,user_name:chef.name,content:reply,is_chef_reply:true,chef_name:chef.flag+' '+chef.name});
+  }).catch(function(){});
 }
 
-// ── Upvote ────────────────────────────────────────────────────────────────────
-function upvotePost(postId, e) {
-  e.stopPropagation();
-  if (!currentUser) { window.location.href = 'auth.html'; return; }
-  supabase.from('forum_posts').select('upvotes').eq('id', postId).single().then(function(result) {
-    if (result.data) {
-      supabase.from('forum_posts').update({ upvotes: (result.data.upvotes || 0) + 1 }).eq('id', postId).then(function() {
-        var btn = e.target.closest('.upvote-btn');
-        if (btn) { btn.classList.add('voted'); btn.textContent = '▲ ' + ((result.data.upvotes || 0) + 1); }
-      });
-    }
+function upvotePost(postId,e){
+  e.stopPropagation();if(!currentUser){window.location.href='auth.html';return;}
+  supabase.from('forum_posts').select('upvotes').eq('id',postId).single().then(function(result){
+    if(result.data){supabase.from('forum_posts').update({upvotes:(result.data.upvotes||0)+1}).eq('id',postId).then(function(){
+      var btn=e.target.closest('.upvote-btn');if(btn){btn.classList.add('voted');btn.textContent='▲ '+((result.data.upvotes||0)+1);}
+    });}
   });
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
-function getCategoryEmoji(cat) {
-  var map = { 'Recipe Help':'🍝', 'Show & Tell':'🏆', 'Tips & Tricks':'💡', 'Diet & Nutrition':'🥦', 'Chef Chat':'👨‍🍳', 'Kitchen Kit':'🛒' };
-  return map[cat] || '📌';
-}
-
-function getChefFlag(name) {
-  if (name.includes('Marco')) return '🇮🇹';
-  if (name.includes('Jules')) return '🇫🇷';
-  if (name.includes('Rosa')) return '🇲🇽';
-  if (name.includes('Bobby')) return '🇺🇸';
-  return '🇬🇧';
-}
-
-function getTimeAgo(dateStr) {
-  var diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
-  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
-  return Math.floor(diff/86400) + 'd ago';
-}
-
-function escHtml(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// Close modal on overlay click
-document.getElementById('modal-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+function getCategoryEmoji(cat){var map={'Recipe Help':'🍝','Show & Tell':'🏆','Tips & Tricks':'💡','Diet & Nutrition':'🥦','Chef Chat':'👨‍🍳','Kitchen Kit':'🛒'};return map[cat]||'📌';}
+function getChefFlag(name){if(name.includes('Lorenzo'))return '🇮🇹';if(name.includes('Henri'))return '🇫🇷';if(name.includes('Carmen'))return '🇲🇽';if(name.includes('Franklin'))return '🇺🇸';return '🇬🇧';}
+function getTimeAgo(dateStr){var diff=Math.floor((Date.now()-new Date(dateStr))/1000);if(diff<60)return 'just now';if(diff<3600)return Math.floor(diff/60)+'m ago';if(diff<86400)return Math.floor(diff/3600)+'h ago';return Math.floor(diff/86400)+'d ago';}
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
 </script>
 </body>
 </html>
